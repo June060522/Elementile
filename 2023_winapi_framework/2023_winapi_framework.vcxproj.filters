@@ -148,6 +148,9 @@
     <ClInclude Include="LoadingScene.h">
       <Filter>Engine\05. Scene\MainScene</Filter>
     </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Engine\04. Object\MainObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -225,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>Engine\05. Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Engine\04. Object\MainObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
