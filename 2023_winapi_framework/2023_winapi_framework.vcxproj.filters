@@ -112,15 +112,6 @@
     <ClInclude Include="Start_Scene.h">
       <Filter>Engine\05. Scene\MainScene</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Engine\04. Object\MainObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Engine\04. Object\MainObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Engine\04. Object\MainObject</Filter>
-    </ClInclude>
     <ClInclude Include="Res.h">
       <Filter>Engine\06. Resource</Filter>
     </ClInclude>
@@ -139,9 +130,6 @@
     <ClInclude Include="SelectGDI.h">
       <Filter>Engine\08. Module</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionMgr.h">
-      <Filter>Engine\03. Manager\CollisionMgr</Filter>
-    </ClInclude>
     <ClInclude Include="EventMgr.h">
       <Filter>Engine\03. Manager\EventMgr</Filter>
     </ClInclude>
@@ -153,6 +141,12 @@
     </ClInclude>
     <ClInclude Include="2023_winapi_framework.h">
       <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Engine\05. Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>Engine\05. Scene\MainScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,15 +196,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Engine\02. Core</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Engine\04. Object\MainObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Engine\04. Object\MainObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Engine\04. Object\MainObject</Filter>
-    </ClCompile>
     <ClCompile Include="Res.cpp">
       <Filter>Engine\06. Resource</Filter>
     </ClCompile>
@@ -229,9 +214,6 @@
     <ClCompile Include="SelectGDI.cpp">
       <Filter>Engine\08. Module</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionMgr.cpp">
-      <Filter>Engine\03. Manager\CollisionMgr</Filter>
-    </ClCompile>
     <ClCompile Include="EventMgr.cpp">
       <Filter>Engine\03. Manager\EventMgr</Filter>
     </ClCompile>
@@ -240,6 +222,12 @@
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Engine\07. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Engine\05. Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>Engine\05. Scene\MainScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
