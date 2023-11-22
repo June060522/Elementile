@@ -2,9 +2,11 @@
 #include "IntroScene.h"
 #include "KeyMgr.h"
 #include "SceneMgr.h"
+#include "DataManager.h"
 
 void IntroScene::Init()
 {
+	DataManager::GetInst()->Init();
 }
 
 void IntroScene::Update()

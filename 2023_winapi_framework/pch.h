@@ -8,6 +8,7 @@
 #include <memory>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <fstream>
 #include "define.h"
 #include "Vec2.h"
 #include "enums.h"
@@ -15,6 +16,9 @@
 using std::vector;
 using std::map;
 using std::wstring;
+using std::ifstream;
+using std::ofstream;
+using std::endl;
 
 // transparent 등 blt 쓸 때 필요
 #pragma comment(lib, "Msimg32.lib")
