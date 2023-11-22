@@ -1,13 +1,2 @@
-﻿  Animation.cpp
-  BaseWindow.cpp
-  Core.cpp
-  EventMgr.cpp
-  KeyMgr.cpp
-  Object.cpp
-  PathMgr.cpp
-  Scene.cpp
-  SelectGDI.cpp
-  Start_Scene.cpp
-  Texture.cpp
-  TimeMgr.cpp
+﻿  BaseWindow.cpp
   2023_winapi_framework.vcxproj -> D:\Github(D)\NoBlend\Output\bin_debug\2023_winapi_framework.exe
