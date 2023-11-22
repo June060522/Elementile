@@ -127,9 +127,6 @@
     <ClInclude Include="ResMgr.h">
       <Filter>Engine\03. Manager\ResMgr</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Engine\07. Component</Filter>
-    </ClInclude>
     <ClInclude Include="SelectGDI.h">
       <Filter>Engine\08. Module</Filter>
     </ClInclude>
@@ -210,9 +207,6 @@
     </ClCompile>
     <ClCompile Include="ResMgr.cpp">
       <Filter>Engine\03. Manager\ResMgr</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Engine\07. Component</Filter>
     </ClCompile>
     <ClCompile Include="SelectGDI.cpp">
       <Filter>Engine\08. Module</Filter>
