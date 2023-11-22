@@ -48,3 +48,16 @@ enum class EVENT_TYPE
 	SCENE_CHANGE,
 	END
 };
+
+enum class TILE_TYPE
+{
+	WATER, FIRE, GRASS
+	, GRAY, TELEPORT, ForcedMovement, WIND
+	, END
+};
+
+struct XY
+{
+	int xidx;
+	int yidx;
+};

@@ -172,6 +172,8 @@
     <ClInclude Include="Animator.h" />
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="DataManager.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="enums.h" />
     <ClInclude Include="EventMgr.h" />
@@ -192,6 +194,7 @@
     <ClInclude Include="Start_Scene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="TimeMgr.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
@@ -200,6 +203,8 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EventMgr.cpp" />
     <ClCompile Include="Game_Scene.cpp" />
     <ClCompile Include="IntroScene.cpp" />
@@ -215,6 +220,7 @@
     <ClCompile Include="SelectGDI.cpp" />
     <ClCompile Include="Start_Scene.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>

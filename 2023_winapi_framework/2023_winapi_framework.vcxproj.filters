@@ -53,16 +53,13 @@
     <Filter Include="Engine\07. Component">
       <UniqueIdentifier>{a72219c4-1f53-4d42-868c-88db0b756faf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\03. Manager\CollisionMgr">
-      <UniqueIdentifier>{f563c11d-b9a3-47c6-b8ee-28920e51bc3f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\03. Manager\EventMgr">
       <UniqueIdentifier>{c3a341bd-ab64-4942-8210-206b9a88ce9b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\08. Module">
       <UniqueIdentifier>{b8698270-780f-4bb6-bf63-bf69c99fa2ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\09. Data">
+    <Filter Include="Engine\03. Manager\DataManager">
       <UniqueIdentifier>{320018d8-f4b7-4f4e-8a8c-8ba09fe3f438}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -148,6 +145,15 @@
     <ClInclude Include="LoadingScene.h">
       <Filter>Engine\05. Scene\MainScene</Filter>
     </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Engine\04. Object\MainObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DataManager.h">
+      <Filter>Engine\03. Manager\DataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Engine\08. Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -225,6 +231,15 @@
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>Engine\05. Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Engine\04. Object\MainObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>Engine\03. Manager\DataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Engine\08. Module</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
