@@ -180,6 +180,7 @@
     <ClInclude Include="Game_Scene.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="KeyMgr.h" />
+    <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PathMgr.h" />
     <ClInclude Include="pch.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Game_Scene.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
+    <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PathMgr.cpp" />
