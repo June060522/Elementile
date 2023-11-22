@@ -62,6 +62,9 @@
     <Filter Include="Engine\08. Module">
       <UniqueIdentifier>{b8698270-780f-4bb6-bf63-bf69c99fa2ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\09. Data">
+      <UniqueIdentifier>{320018d8-f4b7-4f4e-8a8c-8ba09fe3f438}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
