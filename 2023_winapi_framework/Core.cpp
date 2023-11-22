@@ -5,7 +5,6 @@
 #include "SceneMgr.h"
 #include "PathMgr.h"
 #include "ResMgr.h"
-#include "CollisionMgr.h"
 #include "EventMgr.h"
 bool Core::Init(HWND _hWnd, POINT _ptResolution)
 {
@@ -63,7 +62,6 @@ void Core::Update()
 	TimeMgr::GetInst()->Update();
 	KeyMgr::GetInst()->Update();
 	SceneMgr::GetInst()->Update();
-	CollisionMgr::GetInst()->Update();
 //	Vec2 vPos = m_obj.GetPos();
 //
 ////	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
