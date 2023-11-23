@@ -14,6 +14,8 @@ void LoadingScene::Update()
 void LoadingScene::Render(HDC _dc)
 {
 	Scene::Render(_dc);
+
+   
 }
 
 void LoadingScene::Release()
