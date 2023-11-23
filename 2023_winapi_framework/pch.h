@@ -18,6 +18,7 @@ using std::map;
 using std::wstring;
 using std::ifstream;
 using std::ofstream;
+using std::string;
 using std::endl;
 
 // transparent 등 blt 쓸 때 필요
