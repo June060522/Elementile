@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "Core.h"
 #include "Game_Scene.h"
-#include "Object.h"
-#include "Tile.h"
+#include "StageManager.h"
+#include "DataManager.h"
 
 void Game_Scene::Init()
 {
-	
+	StageManager::GetInst()->Init(DataManager::GetInst()->GetLastStage(), this);
 }
 
 void Game_Scene::Update()
