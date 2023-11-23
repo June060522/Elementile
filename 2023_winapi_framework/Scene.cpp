@@ -3,6 +3,7 @@
 #include "Object.h"
 Scene::Scene()
 {
+
 }
 
 Scene::~Scene()

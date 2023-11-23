@@ -23,5 +23,5 @@ public:							\
 #define KEY_DOWN(key) KEY_CHECK(key, KEY_STATE::DOWN)
 #define KEY_PRESS(key) KEY_CHECK(key, KEY_STATE::PRESS)
 
-#define BOARD_X 15
-#define BOARD_Y 15
+#define BOARD_X 8
+#define BOARD_Y 8
