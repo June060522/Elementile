@@ -3,6 +3,9 @@
 #include "KeyMgr.h"
 #include "SceneMgr.h"
 #include "DataManager.h"
+#include <windows.h>
+#include "BaseWindow.h"
+#include "Core.h"
 
 void IntroScene::Init()
 {
@@ -12,6 +15,7 @@ void IntroScene::Init()
 
 void IntroScene::Update()
 {
+    
 	if(KEY_DOWN(KEY_TYPE::Z))
 		SceneMgr::GetInst()->LoadScene(L"IntroScene");
 	if (KEY_DOWN(KEY_TYPE::X))
@@ -23,21 +27,22 @@ void IntroScene::Update()
 
 void IntroScene::Render(HDC _dc)
 {
-	Scene::Render(_dc);
+    Scene::Render(_dc);
 
-	//폰트 적용 및 제목 생성
-	HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
-	SelectObject(_dc, hFont);
+    //폰트 적용 및 제목 생성
+    HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+        CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
+    SelectObject(_dc, hFont);
 
-	TextOut(_dc, pos.x,pos.y,L"NoBland",wcslen(L"NoBland"));
-	SetTextColor(_dc, RGB(255, 0, 0));
+    TextOut(_dc, pos.x, pos.y, L"NoBland", wcslen(L"NoBland"));
+    SetTextColor(_dc, RGB(255, 0, 0));
 
-	SetBkMode(_dc, TRANSPARENT);
+    SetBkMode(_dc, TRANSPARENT);
 
-	DeleteObject(hFont);
+    DeleteObject(hFont);
 
-	//문 클릭시 나가기
+    //임시 : 문
+
 }
 
 void IntroScene::Release()
