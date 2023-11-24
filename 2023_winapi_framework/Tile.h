@@ -4,7 +4,7 @@ class Texture;
 class Tile : public Object
 {
 public:
-	Tile(XY _posidx, TILE_TYPE _eType);
+	Tile(XY _posidx, TILE_TYPE _eType, int _cnt);
 	~Tile();
 public:
 	virtual void Update() override;
@@ -13,7 +13,8 @@ public:
 	const XY& GetposIdx() const { return m_posidx; }
 	const TILE_TYPE& GetType() const { return m_eType; }
 private:
-	Texture* m_pTex;
-	XY m_posidx;
-	TILE_TYPE m_eType;
+	Texture*	m_pTex;
+	XY			m_posidx;
+	TILE_TYPE	m_eType;
+	int			m_cnt;
 };

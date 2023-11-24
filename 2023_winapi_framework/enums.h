@@ -26,6 +26,7 @@ enum class OBJECT_GROUP
 	TILE,
 	BACKGROUNDOBJECT,
 	PARTICLE,
+	UI,
 	END = 30
 };
 

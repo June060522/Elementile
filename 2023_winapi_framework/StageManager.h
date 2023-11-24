@@ -11,7 +11,7 @@ public:
 private:
 	const void LoadMap(const int& curStage);
 	void RenderBoard();
-	Object* MakeTile(const int& _xIdx, const int& _yIdx, const TILE_TYPE& _type);
+	Object* MakeTile(const int& _xIdx, const int& _yIdx, const TILE_TYPE& _type,const int& _cnt);
 private:
 	char m_board[BOARD_Y][BOARD_X];
 	Game_Scene* m_curGameScene;
