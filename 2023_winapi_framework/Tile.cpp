@@ -53,5 +53,4 @@ void Tile::Render(HDC _dc)
 		, (int)(vPos.y - vScale.y / 2),
 		Width * (vScale.x / 100), Height * (vScale.y / 100), m_pTex->GetDC(),
 		0, 0, Width, Height, RGB(255, 0, 255));
-
 }

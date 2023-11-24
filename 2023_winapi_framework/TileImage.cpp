@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "TileImage.h"
 #include "ResMgr.h"
+#include "Texture.h"
 
 TileImage::TileImage(const TILE_TYPE& _eType)
 	:m_eType(_eType)
@@ -33,4 +34,21 @@ TileImage::TileImage(const TILE_TYPE& _eType)
 
 TileImage::~TileImage()
 {
+}
+
+void TileImage::Update()
+{
+}
+
+void TileImage::Render(HDC _dc)
+{
+	Vec2 vPos = GetPos();
+	Vec2 vScale = GetScale();
+	int Width = m_pTex->GetWidth();
+	int Height = m_pTex->GetHeight();
+
+	TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
+		, (int)(vPos.y - vScale.y / 2),
+		Width * (vScale.x / 100), Height * (vScale.y / 100), m_pTex->GetDC(),
+		0, 0, Width, Height, RGB(255, 0, 255));
 }

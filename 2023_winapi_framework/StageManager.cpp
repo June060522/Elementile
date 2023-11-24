@@ -43,7 +43,7 @@ const void StageManager::LoadMap(const int& curStage)
 	RenderBoard();
 }
 
-void StageManager::RenderBoard()
+const void StageManager::RenderBoard()
 {
 	for (int i = 0; i < BOARD_Y; i++)
 	{
@@ -82,5 +82,11 @@ Object* StageManager::MakeTile(const int& _yIdx, const int& _xIdx, const TILE_TY
 	pos.y += (float)Core::GetInst()->GetResolution().y / 7;
 	pObj->SetScale(Vec2(100, 100));
 	pObj->SetPos(pos);
+	CreateImage(pObj,_cnt);
 	return pObj;
+}
+
+const void StageManager::CreateImage(const Object* _pObj, const int& _cnt)
+{
+
 }
