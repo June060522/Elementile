@@ -65,6 +65,9 @@
     <Filter Include="Engine\03. Manager\StageManager">
       <UniqueIdentifier>{583da120-8bd5-4181-a2ce-647fbe6a266c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04. Object\UI">
+      <UniqueIdentifier>{6501391c-adc4-446e-853a-ff827558c01d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -163,6 +166,9 @@
     <ClInclude Include="TileImage.h">
       <Filter>Engine\04. Object\MainObject</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Engine\04. Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -255,6 +261,9 @@
     </ClCompile>
     <ClCompile Include="TileImage.cpp">
       <Filter>Engine\04. Object\MainObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Engine\04. Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

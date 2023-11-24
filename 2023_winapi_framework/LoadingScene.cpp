@@ -2,8 +2,10 @@
 #include "LoadingScene.h"
 #include "SceneMgr.h"
 
+
 void LoadingScene::Init()
 {
+	
 }
 
 void LoadingScene::Update()
