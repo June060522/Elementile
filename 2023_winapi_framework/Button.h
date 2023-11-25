@@ -12,8 +12,9 @@ public:
     virtual void Update() override;
     virtual void Render(HDC _dc) override;
 public:
-    void OnClick(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
-    virtual void Func();
+     void OnClick();
+     void Func();
 private:
+    HWND _hWnd;
     Texture* m_pTex;
 };

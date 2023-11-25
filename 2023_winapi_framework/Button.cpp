@@ -12,15 +12,7 @@ Button::~Button()
 
 void Button::Update()
 {
-	POINT cursorPos;
-	GetCursorPos(&cursorPos);
-	ScreenToClient(GetActiveWindow(), &cursorPos);
-
-    if (cursorPos.x >= 100 && cursorPos.x <= 200 &&
-        cursorPos.y >= 100 && cursorPos.y <= 200)
-    {
-        //OnClick();
-    }
+    OnClick();
 }
 
 void Button::Render(HDC _dc)
@@ -28,12 +20,23 @@ void Button::Render(HDC _dc)
 	RECT_RENDER(100, 100, 100, 100, _dc);
 }
 
-void Button::OnClick(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
+void Button::OnClick()
 {
-    Func();
-    DestroyWindow(_hWnd); 
+    HWND hWnd = GetActiveWindow();
+
+    POINT cursorPos;
+    GetCursorPos(&cursorPos);
+    ScreenToClient(hWnd, &cursorPos);
+
+    if (cursorPos.x >= 10 && cursorPos.x <= 150 &&
+        cursorPos.y >= 10 && cursorPos.y <= 150)
+    {
+        Func();
+        DestroyWindow(hWnd);
+    }
 }
 
 void Button::Func()
 {
+
 }
