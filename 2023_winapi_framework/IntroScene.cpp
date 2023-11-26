@@ -4,13 +4,15 @@
 #include "SceneMgr.h"
 #include "DataManager.h"
 #include <windows.h>
-#include "BaseWindow.h"
-#include "Core.h"
+#include "Button.h"
+#include "KeyMgr.h"
 
 void IntroScene::Init()
 {
 	DataManager::GetInst()->Init();
+	AddObject(new Button(), OBJECT_GROUP::UI);
 	int result = AddFontResource(L"Res\\Font\\Font.ttf");
+	
 }
 
 void IntroScene::Update()
