@@ -28,6 +28,7 @@ enum class OBJECT_GROUP
 	BACKGROUNDOBJECT,
 	PARTICLE,
 	UI,
+	DEBUG,
 	END = 30
 };
 

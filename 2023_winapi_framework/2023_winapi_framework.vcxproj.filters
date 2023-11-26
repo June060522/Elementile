@@ -154,14 +154,14 @@
     <ClInclude Include="DataManager.h">
       <Filter>Engine\03. Manager\DataManager</Filter>
     </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>Engine\08. Module</Filter>
-    </ClInclude>
     <ClInclude Include="StageManager.h">
       <Filter>Engine\03. Manager\StageManager</Filter>
     </ClInclude>
     <ClInclude Include="TileImage.h">
       <Filter>Engine\04. Object\MainObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Engine\08. Module</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -247,14 +247,14 @@
     <ClCompile Include="DataManager.cpp">
       <Filter>Engine\03. Manager\DataManager</Filter>
     </ClCompile>
-    <ClCompile Include="Debug.cpp">
-      <Filter>Engine\08. Module</Filter>
-    </ClCompile>
     <ClCompile Include="StageManager.cpp">
       <Filter>Engine\03. Manager\StageManager</Filter>
     </ClCompile>
     <ClCompile Include="TileImage.cpp">
       <Filter>Engine\04. Object\MainObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Engine\08. Module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
