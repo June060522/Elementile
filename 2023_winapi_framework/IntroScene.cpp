@@ -43,8 +43,6 @@ void IntroScene::Render(HDC _dc)
 
     DeleteObject(hFont);
 
-    //¿”Ω√ : πÆ
-
 }
 
 void IntroScene::Release()
