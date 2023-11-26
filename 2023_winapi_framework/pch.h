@@ -21,6 +21,7 @@ using std::ofstream;
 using std::string;
 using std::endl;
 using std::to_string;
+using std::to_wstring;
 
 // transparent 등 blt 쓸 때 필요
 #pragma comment(lib, "Msimg32.lib")

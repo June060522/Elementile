@@ -14,9 +14,7 @@ void Game_Scene::Init()
 
 void Game_Scene::Update()
 {
-	Debug();
-	Debug(L"123");
-	Debug(L"123", 500, 500);
+	Debug(m_pMousePos.x);
 	if (TileClick())
 	{
 
