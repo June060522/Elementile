@@ -5,6 +5,7 @@
 #include "DataManager.h"
 #include "KeyMgr.h"
 #include "Tile.h"
+#include "Debug.h"
 
 void Game_Scene::Init()
 {
@@ -13,6 +14,9 @@ void Game_Scene::Init()
 
 void Game_Scene::Update()
 {
+	Debug();
+	Debug(L"123");
+	Debug(L"123", 500, 500);
 	if (TileClick())
 	{
 

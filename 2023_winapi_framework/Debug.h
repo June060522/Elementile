@@ -3,5 +3,7 @@ class Scene;
 class Debug
 {
 public:
-	Debug(const HDC& _dc, const Scene*& _curScene,const wstring& _text);
+	Debug();
+	Debug(const wstring& _text);
+	Debug(const wstring& _text, const int& _posX, const int& _posY);
 };
