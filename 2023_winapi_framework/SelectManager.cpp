@@ -16,16 +16,15 @@ void SelectManager::Init()
 
 const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 {
-	if (m_selectTile != nullptr)
-		Debug();
 	if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
 	{
 		Vec2 tileCenterPos;
 		Vec2 p1, p2, p3;
 		float angle1, angle2;
 		m_pMousePos = KeyMgr::GetInst()->GetMousePos();
-		for (auto a : _tilegroup)
+		for (auto tile : _tilegroup)
 		{
+			Tile* a = (Tile*)tile;
 			tileCenterPos = a->GetPos();
 			tileCenterPos.x += m_fCorrectionX;
 			tileCenterPos.y += m_fCorrectionY;
@@ -77,8 +76,8 @@ const bool& SelectManager::TriangleInPoint(Vec2& _p1,
 
 	float cross3 = Cross(v1, v2);
 
-	if ((cross1 > 0 && cross2 > 0 && cross3 > 0) 
-		|| (cross1 < 0 && cross2 < 0 && cross3 < 0)) 
+	if ((cross1 > 0 && cross2 > 0 && cross3 > 0)
+		|| (cross1 < 0 && cross2 < 0 && cross3 < 0))
 	{
 		return true;
 	}

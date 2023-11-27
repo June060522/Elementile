@@ -72,7 +72,7 @@ const void StageManager::RenderBoard()
 			}
 			else if (m_board[i][j] == 'w')
 			{
-				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WATER, 5), OBJECT_GROUP::TILE);
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WATER, 1), OBJECT_GROUP::TILE);
 			}
 			else if (m_board[i][j] == 'W')
 			{
@@ -100,7 +100,7 @@ const void StageManager::RenderBoard()
 			}
 			else if (m_board[i][j] == 'T')
 			{
-				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASS, 5), OBJECT_GROUP::TILE);
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASS, 4), OBJECT_GROUP::TILE);
 			}
 		}
 	}
