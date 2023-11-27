@@ -17,15 +17,17 @@ const float darknessActivationTime = 5.0f;
 
 void IntroScene::Init()
 {   
-    m_string = new UIText(Vec2(200.f, 200.f), L"³­Àï2");
+    m_string = new UIText(Vec2(-80.f, -150.f), L"³­Àï2");
     DataManager::GetInst()->Init();
-    AddObject(new Button(), OBJECT_GROUP::UI);
+    AddObject(m_string, OBJECT_GROUP::UI);
+    //AddObject(new Button(), OBJECT_GROUP::UI);
     //int result = AddFontResource(L"Res\\Font\\Font.ttf");
     int title = AddFontResource(L"Res\\Font\\ÀÎÃµ±³À°¼ÒÅë.ttf");
 
-    //SceneMgr::GetInst()->GetCurScene()->
-    //    AddObject(new Dotween(m_string, Vec2(0, 0), 2.f, 
-    //    ), OBJECT_GROUP::);
+    SceneMgr::GetInst()->GetCurScene()->
+        AddObject(new Dotween(m_string, Vec2(500, 250), 1.f, DOTWEEN_TYPE::MOVE
+        ), OBJECT_GROUP::DOTWEEN);
+
 }
 
 void IntroScene::Update()
@@ -36,13 +38,6 @@ void IntroScene::Update()
     if (elapsedTime >= 300.0f && darknessLevel < 300)
     {
         darknessLevel += 1;
-
-        if (darknessLevel >= 300)
-        {
-            float transitionDuration = 1.0f; 
-            float transitionProgress = min((elapsedTime - darknessActivationTime) / transitionDuration, 1.0f);
-            int targetDarkness = 0; // ¸ñÇ¥·Î ÇÏ´Â darknessLevel
-        }
     }
     
     if (KEY_DOWN(KEY_TYPE::T))
@@ -64,8 +59,6 @@ void IntroScene::Update()
 
 void IntroScene::Render(HDC _dc)
 {
-    Scene::Render(_dc);
-
     RECT rcClient;
     GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
@@ -86,10 +79,10 @@ void IntroScene::Render(HDC _dc)
     }
     else
     {
-        SetTextColor(_dc, RGB(255, 255, 255));
+        SetTextColor(_dc, RGB(0, 0, 0));
         SetBkMode(_dc, TRANSPARENT);
-        
     }
+    Scene::Render(_dc);
 
     DeleteObject(hFont);
 }

@@ -4,6 +4,7 @@
 #include "DataManager.h"
 #include "ResMgr.h"
 #include "NameScene.h"
+#include "SceneMgr.h"
 
 int currentCharIndex = 0;
 int maxCharIndex;
@@ -21,8 +22,6 @@ void NameScene::Init()
 void NameScene::Update()
 {
     Scene::Update();
-    //if(KEY_DOWN(KEY_TYPE::ENTER))
-    //	// 씬 변경
 
     if (currentCharIndex < maxCharIndex)
     {
@@ -38,26 +37,30 @@ void NameScene::Update()
             lastCharTime = currentTime;
         }
     }
+    else
+    {
+        // Displayed all characters, transition to the StartScene
+          SceneMgr::GetInst()->LoadScene(L"StartScene");
+        
+    }
 }
 
 void NameScene::Render(HDC _dc)
 {
     Scene::Render(_dc);
 
-    //폰트 적용 및 제목 생성
+    // 폰트 적용 및 제목 생성
     HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
         CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
     SelectObject(_dc, hFont);
 
+    SetTextColor(_dc, RGB(255, 0, 0));
+    SetBkMode(_dc, TRANSPARENT);
+
     // 출력 중인 글자만큼만 출력
     TextOut(_dc, pos.x, pos.y, L"June & Min", currentCharIndex);
 
-    SetTextColor(_dc, RGB(255, 0, 0));
-
-    SetBkMode(_dc, TRANSPARENT);
-
     DeleteObject(hFont);
-
 }
 
 void NameScene::Release()
