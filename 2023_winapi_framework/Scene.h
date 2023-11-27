@@ -11,7 +11,7 @@ public:
 	virtual void Render(HDC _dc);
 	virtual void Release();
 public:
-	const vector<Object*>& GetGroupObject(OBJECT_GROUP _etype) const
+	vector<Object*>& GetGroupObject(OBJECT_GROUP _etype)
 	{
 		return m_vecObj[(UINT)_etype];
 	}
