@@ -176,6 +176,9 @@
     <ClInclude Include="Dotween.h">
       <Filter>Engine\08. Module</Filter>
     </ClInclude>
+    <ClInclude Include="NameScene.h">
+      <Filter>Engine\05. Scene\MainScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -275,6 +278,9 @@
     </ClCompile>
     <ClCompile Include="Dotween.cpp">
       <Filter>Engine\08. Module</Filter>
+    </ClCompile>
+    <ClCompile Include="NameScene.cpp">
+      <Filter>Engine\05. Scene\MainScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

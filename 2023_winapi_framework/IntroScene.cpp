@@ -2,11 +2,14 @@
 #include "IntroScene.h"
 #include "KeyMgr.h"
 #include "SceneMgr.h"
+#include "Scene.h"
+#include "Dotween.h"
 #include "DataManager.h"
 #include <windows.h>
 #include "Button.h"
 #include "Core.h"
 #include "TimeMgr.h"
+#include "UIText.h"
 
 int darknessLevel = 0;
 float elapsedTime = -5.0f; 
@@ -14,10 +17,15 @@ const float darknessActivationTime = 5.0f;
 
 void IntroScene::Init()
 {   
+    m_string = new UIText(Vec2(200.f, 200.f), L"난쟁2");
     DataManager::GetInst()->Init();
     AddObject(new Button(), OBJECT_GROUP::UI);
     //int result = AddFontResource(L"Res\\Font\\Font.ttf");
     int title = AddFontResource(L"Res\\Font\\인천교육소통.ttf");
+
+    //SceneMgr::GetInst()->GetCurScene()->
+    //    AddObject(new Dotween(m_string, Vec2(0, 0), 2.f, 
+    //    ), OBJECT_GROUP::);
 }
 
 void IntroScene::Update()
@@ -31,8 +39,7 @@ void IntroScene::Update()
 
         if (darknessLevel >= 300)
         {
-            // darknessLevel이 250에 도달하면 천천히 하얀색으로 전환
-            float transitionDuration = 1.0f; // 전환 기간을 조절하세요
+            float transitionDuration = 1.0f; 
             float transitionProgress = min((elapsedTime - darknessActivationTime) / transitionDuration, 1.0f);
             int targetDarkness = 0; // 목표로 하는 darknessLevel
         }
@@ -81,7 +88,7 @@ void IntroScene::Render(HDC _dc)
     {
         SetTextColor(_dc, RGB(255, 255, 255));
         SetBkMode(_dc, TRANSPARENT);
-        TextOut(_dc, pos.x, pos.y, L"난쟁2", wcslen(L"난쟁2"));
+        
     }
 
     DeleteObject(hFont);

@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+class UIText;
 class IntroScene :
     public Scene
 {
@@ -15,5 +16,6 @@ private:
     //float elapsedTime;
     //const float darknessActivationTime = 5;
      DWORD lastCharTime;
+     UIText* m_string;
 };
 
