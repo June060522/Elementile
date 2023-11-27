@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "SelectManager.h"
+#include "SceneMgr.h"
+#include "Scene.h"
 #include "Object.h"
 #include "KeyMgr.h"
 #include "Tile.h"
 #include "Debug.h"
 #include "Core.h"
+#include "Dotween.h"
 
 void SelectManager::Init()
 {

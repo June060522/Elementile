@@ -29,6 +29,7 @@ enum class OBJECT_GROUP
 	PARTICLE,
 	UI,
 	DEBUG,
+	DOTWEEN,
 	END = 30
 };
 
@@ -57,6 +58,13 @@ enum class TILE_TYPE
 	WATER, FIRE, GRASS
 	, LOCK, TELEPORT, ForcedMovement, WIND
 	, END
+};
+
+enum class DOTWEEN_TYPE
+{
+	MOVE,
+	SCALE,
+	END
 };
 
 struct XY
