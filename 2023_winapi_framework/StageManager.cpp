@@ -72,7 +72,7 @@ const void StageManager::RenderBoard()
 			}
 			else if (m_board[i][j] == 'w')
 			{
-				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WATER, 5), OBJECT_GROUP::TILE);
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WATER, 1), OBJECT_GROUP::TILE);
 			}
 			else if (m_board[i][j] == 'W')
 			{
@@ -100,7 +100,7 @@ const void StageManager::RenderBoard()
 			}
 			else if (m_board[i][j] == 'T')
 			{
-				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASS, 5), OBJECT_GROUP::TILE);
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASS, 4), OBJECT_GROUP::TILE);
 			}
 		}
 	}
@@ -110,14 +110,14 @@ Object* StageManager::MakeTile(const int& _yIdx, const int& _xIdx, const TILE_TY
 {
 	Vec2 pos;
 	Object* pObj = new Tile(XY{ _xIdx,_yIdx }, _type, _cnt);
-	pos = Vec2(_xIdx * 135, _yIdx * 100);
+	pos = Vec2(_xIdx * 128, _yIdx * 105);
 	if (_yIdx % 2 == 1)
 	{
-		pos.x -= 67;
+		pos.x -= 65;
 	}
-	pos.x += (float)Core::GetInst()->GetResolution().x / 5;
-	pos.y += (float)Core::GetInst()->GetResolution().y / 7;
-	pObj->SetScale(Vec2(100, 100));
+	pos.x += (float)Core::GetInst()->GetResolution().x / 4.7f;
+	pos.y += (float)Core::GetInst()->GetResolution().y / 12;
+	pObj->SetScale(Vec2(32, 32));
 	pObj->SetPos(pos);
 	CreateImage(pObj, _cnt, _type);
 	return pObj;
@@ -131,26 +131,26 @@ const void StageManager::CreateImage(const Object* _pObj, const int& _cnt, const
 	{
 	case 1:
 	{
-		pos = Vec2(_pObj->GetPos().x + 15, _pObj->GetPos().y);
-		scale = Vec2(15, 15);
+		pos = Vec2(_pObj->GetPos().x + 50, _pObj->GetPos().y + 45);
+		scale = Vec2(13, 13);
 		AddImage(pos, scale, _type);
 	}
 	break;
 	case 2:
 	{
-		scale = Vec2(13, 13);
-		pos = Vec2(_pObj->GetPos().x + 50, _pObj->GetPos().y + 7);
+		scale = Vec2(10, 10);
+		pos = Vec2(_pObj->GetPos().x + 80, _pObj->GetPos().y + 50);
 		AddImage(pos, scale, _type);
 
-		pos = Vec2(_pObj->GetPos().x - 10, _pObj->GetPos().y + 7);
+		pos = Vec2(_pObj->GetPos().x + 30, _pObj->GetPos().y + 50);
 		AddImage(pos, scale, _type);
 	}
 	break;
 	case 3:
 	{
-		scale = Vec2(11, 11);
-		Vec2 midPos = Vec2(_pObj->GetPos().x + 25, _pObj->GetPos().y + 10);
-		float radius = 30.0f;
+		scale = Vec2(8, 8);
+		Vec2 midPos = Vec2(_pObj->GetPos().x + 60, _pObj->GetPos().y + 57);
+		float radius = 27.0f;
 		for (int i = 0; i < 3; i++)
 		{
 			float angle = i * (2 * M_PI / 3.0f) + M_PI / 6.0f;
@@ -164,10 +164,9 @@ const void StageManager::CreateImage(const Object* _pObj, const int& _cnt, const
 	break;
 	case 4:
 	{
-		int middis = 23;
-		float radius = 30.0f;
-		Vec2 midPos = Vec2(_pObj->GetPos().x + 26, _pObj->GetPos().y + 13);
-		scale = Vec2(9, 9);
+		float middis = 20.f;
+		Vec2 midPos = Vec2(_pObj->GetPos().x + 65, _pObj->GetPos().y + 55);
+		scale = Vec2(7, 7);
 
 		pos.x = midPos.x + middis;
 		pos.y = midPos.y + middis;
@@ -188,10 +187,10 @@ const void StageManager::CreateImage(const Object* _pObj, const int& _cnt, const
 	break;
 	case 5:
 	{
-		scale = Vec2(8, 8);
-		Vec2 midPos = Vec2(_pObj->GetPos().x + 28, _pObj->GetPos().y + 15);
+		scale = Vec2(7, 7);
+		Vec2 midPos = Vec2(_pObj->GetPos().x + 60, _pObj->GetPos().y + 57);
 
-		float radius = 33.0f;
+		float radius = 28.0f;
 
 		for (int i = 0; i < 5; i++)
 		{

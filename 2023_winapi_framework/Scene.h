@@ -1,12 +1,10 @@
 #pragma once
-//#include "Object.h"
 class Object;
 class Scene
 {
 public:
 	Scene();
 	virtual ~Scene();
-	// Init(), Update(), Render(), Release();
 	virtual void Init() abstract;
 	virtual void Update();
 	virtual void FinalUpdate();
@@ -23,7 +21,6 @@ public:
 		m_vecObj[(UINT)_eType].push_back(_pObj);
 	}
 private:
-//	Object*  m_obj;
 	vector<Object*> m_vecObj[(UINT)OBJECT_GROUP::END];
 };
 

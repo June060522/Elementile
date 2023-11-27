@@ -7,6 +7,7 @@ BaseWindow::BaseWindow(POINT _ptResolution)
 	, m_hInst(0)
     , m_ptResolution(_ptResolution)
 {
+    
 }
 
 BaseWindow::~BaseWindow()

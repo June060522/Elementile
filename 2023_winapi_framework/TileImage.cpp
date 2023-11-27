@@ -17,7 +17,7 @@ TileImage::TileImage(const TILE_TYPE& _eType)
 	case TILE_TYPE::GRASS:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Grass", L"Texture\\grass.bmp");
 		break;
-	case TILE_TYPE::GRAY:
+	case TILE_TYPE::LOCK:
 		break;
 	case TILE_TYPE::TELEPORT:
 		break;
