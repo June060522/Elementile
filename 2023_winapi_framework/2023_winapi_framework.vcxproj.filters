@@ -65,6 +65,9 @@
     <Filter Include="Engine\03. Manager\StageManager">
       <UniqueIdentifier>{583da120-8bd5-4181-a2ce-647fbe6a266c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\SelectManager">
+      <UniqueIdentifier>{49919e39-ae72-43a9-9b79-f201c02b81d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -163,6 +166,10 @@
     <ClInclude Include="Debug.h">
       <Filter>Engine\08. Module</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="SelectManager.h">
+      <Filter>Engine\03. Manager\SelectManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -255,6 +262,10 @@
     </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>Engine\08. Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="SelectManager.cpp">
+      <Filter>Engine\03. Manager\SelectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

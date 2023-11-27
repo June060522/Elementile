@@ -4,6 +4,7 @@ class PathMgr
 	SINGLE(PathMgr);
 public:
 	void Init();
+public:
 	const wchar_t* GetResPath() const 
 	{ return m_strResPath; }
 private:

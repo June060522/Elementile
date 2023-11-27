@@ -8,12 +8,4 @@ class Game_Scene :
 	virtual void Update() override;
 	virtual void Render(HDC _dc) override;
 	virtual void Release() override;
-
-private:
-	const bool TileClick();
-
-private:
-	POINT	m_pMousePos;
-	Tile*	m_tSelectTile;
-	XY		m_posIdx;
 };
