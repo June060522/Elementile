@@ -180,6 +180,7 @@
     <ClInclude Include="EventMgr.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game_Scene.h" />
+    <ClInclude Include="NameScene.h" />
     <ClInclude Include="SelectManager.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="KeyMgr.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="EventMgr.cpp" />
     <ClCompile Include="Game_Scene.cpp" />
+    <ClCompile Include="NameScene.cpp" />
     <ClCompile Include="SelectManager.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
