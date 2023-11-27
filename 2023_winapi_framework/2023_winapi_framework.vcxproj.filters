@@ -68,6 +68,9 @@
     <Filter Include="Engine\03. Manager\SelectManager">
       <UniqueIdentifier>{49919e39-ae72-43a9-9b79-f201c02b81d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\TileMoveManager">
+      <UniqueIdentifier>{8b1df585-5f3e-46e8-8ead-c112c76b6303}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -170,8 +173,8 @@
     <ClInclude Include="SelectManager.h">
       <Filter>Engine\03. Manager\SelectManager</Filter>
     </ClInclude>
-    <ClInclude Include="NameScene.h">
-      <Filter>Engine\05. Scene\MainScene</Filter>
+    <ClInclude Include="Dotween.h">
+      <Filter>Engine\08. Module</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -270,8 +273,8 @@
     <ClCompile Include="SelectManager.cpp">
       <Filter>Engine\03. Manager\SelectManager</Filter>
     </ClCompile>
-    <ClCompile Include="NameScene.cpp">
-      <Filter>Engine\05. Scene\MainScene</Filter>
+    <ClCompile Include="Dotween.cpp">
+      <Filter>Engine\08. Module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
