@@ -3,6 +3,7 @@
 #include "IntroScene.h"
 #include "Start_Scene.h"
 #include "Game_Scene.h"
+#include "NameScene.h"
 void SceneMgr::Init()
 {
 	m_pCurScene = nullptr;
@@ -10,6 +11,8 @@ void SceneMgr::Init()
 	RegisterScene(L"IntroScene",std::make_shared<IntroScene>());
 	RegisterScene(L"StartScene",std::make_shared<Start_Scene>());
 	RegisterScene(L"GameScene", std::make_shared<Game_Scene>());
+	RegisterScene(L"NameScene", std::make_shared<NameScene>());
+	
 
 	// Ã¹ ¾À ÁöÁ¤
 	LoadScene(L"IntroScene");
