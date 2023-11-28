@@ -70,26 +70,33 @@ void Tile::Render(HDC _dc)
 {
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
+	//짜피 타일인건 다 같아서 하나만
 	int Width = m_pTex->GetWidth();
 	int Height = m_pTex->GetHeight();
 
+	float centerX = vPos.x + 73;
+	float centerY = vPos.y + 80;
+
+	float left = centerX - (Width * (vScale.x / 200));
+	float top = centerY - (Height * (vScale.y / 200));
+
 	if (m_eState == TILE_STATE::DEFAULT || m_eState == TILE_STATE::CANMOVE)
 	{
-		TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
-			, (int)(vPos.y - vScale.y / 2),
-			Width * (vScale.x / 100), Height * (vScale.y / 100), m_pTex->GetDC(),
-			0, 0, Width, Height, RGB(255, 0, 255));
+		TransparentBlt(_dc, left,top,
+			Width * (vScale.x / 100),Height * (vScale.y / 100),
+			m_pTex->GetDC(),0,0,
+			Width,Height,RGB(255, 0, 255));
 	}
 	else
 	{
-		TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
-			, (int)(vPos.y - vScale.y / 2),
-			Width * (vScale.x / 100), Height * (vScale.y / 100), m_pTexDark->GetDC(),
-			0, 0, Width, Height, RGB(255, 0, 255));
-		TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
-			, (int)(vPos.y - vScale.y / 2),
-			Width * (vScale.x / 100), Height * (vScale.y / 100), m_pBGDark->GetDC(),
-			0, 0, Width, Height, RGB(255, 0, 255));
+		TransparentBlt(_dc, left, top,
+			Width * (vScale.x / 100), Height * (vScale.y / 100),
+			m_pTexDark->GetDC(), 0, 0,
+			Width, Height, RGB(255, 0, 255));
+		TransparentBlt(_dc, left, top,
+			Width * (vScale.x / 100), Height * (vScale.y / 100),
+			m_pBGDark->GetDC(), 0, 0,
+			Width, Height, RGB(255, 0, 255));
 	}
 
 	for (size_t i = 0; i < m_tilevec.size(); ++i)
@@ -112,7 +119,7 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 	{
 	case 1:
 	{
-		pos = Vec2(GetPos().x + 50, GetPos().y + 45);
+		pos = Vec2(GetPos().x + 75, GetPos().y + 75);
 		scale = Vec2(13, 13);
 		AddVec(scale, pos, _type);
 	}
@@ -120,17 +127,17 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 	case 2:
 	{
 		scale = Vec2(10, 10);
-		pos = Vec2(GetPos().x + 80, GetPos().y + 50);
+		pos = Vec2(GetPos().x + 100, GetPos().y + 80);
 		AddVec(scale, pos, _type);
 
-		pos = Vec2(GetPos().x + 30, GetPos().y + 50);
+		pos = Vec2(GetPos().x + 50, GetPos().y + 80);
 		AddVec(scale, pos, _type);
 	}
 	break;
 	case 3:
 	{
 		scale = Vec2(8, 8);
-		Vec2 midPos = Vec2(GetPos().x + 60, GetPos().y + 57);
+		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 80);
 		float radius = 27.0f;
 		for (int i = 0; i < 3; i++)
 		{
@@ -146,7 +153,7 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 	case 4:
 	{
 		float middis = 20.f;
-		Vec2 midPos = Vec2(GetPos().x + 65, GetPos().y + 55);
+		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
 		scale = Vec2(7, 7);
 
 		pos.x = midPos.x + middis;
@@ -169,7 +176,7 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 	case 5:
 	{
 		scale = Vec2(7, 7);
-		Vec2 midPos = Vec2(GetPos().x + 60, GetPos().y + 57);
+		Vec2 midPos = Vec2(GetPos().x +75, GetPos().y + 78);
 
 		float radius = 28.0f;
 

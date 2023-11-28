@@ -116,7 +116,7 @@ Object* StageManager::MakeTile(const int& _yIdx, const int& _xIdx, const TILE_TY
 	{
 		pos.x -= 65;
 	}
-	pos.x += (float)Core::GetInst()->GetResolution().x / 4.7f;
+	pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
 	pos.y += (float)Core::GetInst()->GetResolution().y / 12;
 	pObj->SetScale(Vec2(32, 32));
 	pObj->SetPos(pos);

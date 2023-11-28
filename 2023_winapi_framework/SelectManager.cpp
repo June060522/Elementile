@@ -64,7 +64,8 @@ const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 				p2.y = tileCenterPos.y + m_fRadius * sin(angle2);
 
 				p3 = tileCenterPos;
-
+				/*POINT points[] = { {p1.x,p1.y}, {p2.x,p2.y}, {p3.x,p3.y} };
+				Polygon(Core::GetInst()->GetMainDC(), points, 3);*/
 				if (TriangleInPoint(p1, p2, p3, m_pMousePos))
 				{
 					if (m_selectTile == a)
@@ -140,9 +141,9 @@ const void SelectManager::Merge()
 	}
 	newTile->ResetVec();
 	newTile->AddImage(newTile->GetCnt(), newTile->GetType());
-	newTile->SetScale(Vec2(10.f, 10.f));
+	newTile->SetScale(Vec2(18.f, 18.f));
 	SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
-	SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.15f,
+	SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.1f,
 		DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 	m_to = nullptr;
 	m_selectTile = nullptr;
