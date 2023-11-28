@@ -31,7 +31,17 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		break;
 	case TILE_TYPE::TELEPORT:
 		break;
-	case TILE_TYPE::ForcedMovement:
+	case TILE_TYPE::MOVEL:
+		break;
+	case TILE_TYPE::MOVELU:
+		break;
+	case TILE_TYPE::MOVELD:
+		break;
+	case TILE_TYPE::MOVER:
+		break;
+	case TILE_TYPE::MOVERU:
+		break;
+	case TILE_TYPE::MOVERD:
 		break;
 	case TILE_TYPE::WIND:
 		break;
@@ -267,7 +277,17 @@ const bool Tile::CanGo(Tile* _temptile)
 		break;
 	case TILE_TYPE::TELEPORT:
 		break;
-	case TILE_TYPE::ForcedMovement:
+	case TILE_TYPE::MOVEL:
+		break;
+	case TILE_TYPE::MOVELU:
+		break;
+	case TILE_TYPE::MOVELD:
+		break;
+	case TILE_TYPE::MOVER:
+		break;
+	case TILE_TYPE::MOVERU:
+		break;
+	case TILE_TYPE::MOVERD:
 		break;
 	case TILE_TYPE::WIND:
 		break;

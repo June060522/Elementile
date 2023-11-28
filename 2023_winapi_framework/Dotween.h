@@ -11,6 +11,9 @@ public:
 private:
 	void DoMove();
 	void DoScale();
+	void DoRotate();
+	void DoFade();
+	void SetOriginVal(DOTWEEN_TYPE _etype);
 private:
 	Object*		 m_target;
 	Vec2		 m_voriginval;
