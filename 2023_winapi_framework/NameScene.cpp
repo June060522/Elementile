@@ -1,47 +1,51 @@
 #include "pch.h"
 #include "Core.h"
 #include "KeyMgr.h"
+#include "UIText.h"
 #include "DataManager.h"
 #include "ResMgr.h"
 #include "NameScene.h"
 #include "SceneMgr.h"
+#include "Scene.h";
+#include "Dotween.h";
 
-int currentCharIndex = 0;
-int maxCharIndex;
-int charDelay = 100;
-DWORD lastCharTime = 0;
+int NamedarknessLevel = 255;
+float NameelapsedTime = -5.0f;
+const float NamedarknessActivationTime = 5.0f;
 
 void NameScene::Init()
 {
+    m_string1 = new UIText(Vec2(-700.f, 300.f), L"June");
+    AddObject(m_string1, OBJECT_GROUP::UI);
+    m_string2 = new UIText(Vec2(800.f, -300.f), L" & ");
+    AddObject(m_string2, OBJECT_GROUP::UI);
+    m_string3 = new UIText(Vec2(1600.f, 300.f), L"Min");
+    AddObject(m_string3, OBJECT_GROUP::UI);
     DataManager::GetInst()->Init();
     int result = AddFontResource(L"Res\\Font\\Font.ttf");
 
-    maxCharIndex = wcslen(L"June & Min1");
+    SceneMgr::GetInst()->GetCurScene()->
+        AddObject(new Dotween(m_string1, Vec2((float)GET_WINSIZE.x / 2 - 370, (float)GET_WINSIZE.y / 2 - 123), 1.8f, DOTWEEN_TYPE::MOVE
+        ), OBJECT_GROUP::DOTWEEN);
+    SceneMgr::GetInst()->GetCurScene()->
+        AddObject(new Dotween(m_string2, Vec2((float)GET_WINSIZE.x / 2 - 50, (float)GET_WINSIZE.y / 2 - 123), 1.2f, 1.5f, DOTWEEN_TYPE::MOVE
+        ), OBJECT_GROUP::DOTWEEN);
+    SceneMgr::GetInst()->GetCurScene()->
+        AddObject(new Dotween(m_string3, Vec2((float)GET_WINSIZE.x / 2 + 125, (float)GET_WINSIZE.y / 2 - 123), 1.5f, 2.1f, DOTWEEN_TYPE::MOVE
+        ), OBJECT_GROUP::DOTWEEN);
 }
 
 void NameScene::Update()
 {
+    float deltaTime = 0.24f; // 실제 deltaTime을 얻기 위해 이를 대체하세요
+    NameelapsedTime += deltaTime;
+
+    if (NameelapsedTime <= 300.0f && NamedarknessLevel < 300)
+    {
+        NamedarknessLevel -= 1;
+    }
+
     Scene::Update();
-
-    if (currentCharIndex < maxCharIndex)
-    {
-        // 현재 시간을 가져와서 charDelay 이상이 지났는지 확인
-        DWORD currentTime = GetTickCount();
-
-        if (currentTime - lastCharTime >= charDelay)
-        {
-            // charDelay 이상이 지났으면 다음 글자로 이동
-            ++currentCharIndex;
-
-            // 현재 시간 업데이트
-            lastCharTime = currentTime;
-        }
-    }
-    else
-    {
-        // Displayed all characters, transition to the StartScene
-          SceneMgr::GetInst()->LoadScene(L"StartScene");
-    }
 }
 
 void NameScene::Render(HDC _dc)
@@ -56,16 +60,15 @@ void NameScene::Render(HDC _dc)
         CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
     SelectObject(_dc, hFont);
 
-    COLORREF bgColor = RGB(0, 0, 0);
+    NamedarknessLevel = max(NamedarknessLevel, 0);
+    COLORREF bgColor = RGB(255 - NamedarknessLevel, 255 - NamedarknessLevel, 255 - NamedarknessLevel);
     HBRUSH hBrush = CreateSolidBrush(bgColor);
     FillRect(_dc, &rcClient, hBrush);
     DeleteObject(hBrush);
 
-    SetTextColor(_dc, RGB(255, 0, 0));
+    SetTextColor(_dc, RGB(0, 0, 0));
     SetBkMode(_dc, TRANSPARENT);
-
-    // 출력 중인 글자만큼만 출력
-    TextOut(_dc, pos.x, pos.y, L"June & Min1", currentCharIndex);
+    Scene::Render(_dc);
 
     DeleteObject(hFont);
 }

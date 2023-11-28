@@ -25,16 +25,19 @@ void IntroScene::Init()
     int title = AddFontResource(L"Res\\Font\\인천교육소통.ttf");
 
     SceneMgr::GetInst()->GetCurScene()->
-        AddObject(new Dotween(m_string, Vec2(250, 160), 2.f, DOTWEEN_TYPE::MOVE
+        AddObject(new Dotween(m_string, Vec2(250, 560), 1.8f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
     SceneMgr::GetInst()->GetCurScene()->
-        AddObject(new Dotween(m_string, Vec2(400, 250), 2.f,3.f, DOTWEEN_TYPE::MOVE
+        AddObject(new Dotween(m_string, Vec2(500, 250), 2.f, 1.5f, DOTWEEN_TYPE::MOVE
+        ), OBJECT_GROUP::DOTWEEN);
+    SceneMgr::GetInst()->GetCurScene()->
+        AddObject(new Dotween(m_string, Vec2(570, 350), 1.6f, 2.7f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
 }
 
 void IntroScene::Update()
 {
-    float deltaTime = 0.5f; // 실제 deltaTime을 얻기 위해 이를 대체하세요
+    float deltaTime = 0.24f; // 실제 deltaTime을 얻기 위해 이를 대체하세요
     elapsedTime += deltaTime;
 
     if (elapsedTime >= 300.0f && darknessLevel < 300)
@@ -64,13 +67,14 @@ void IntroScene::Render(HDC _dc)
     RECT rcClient;
     GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
-    //darknessLevel = min(max(darknessLevel, 0), 300);
+    darknessLevel = min(max(darknessLevel, 0), 300);
 
-    COLORREF bgColor = RGB(255 - darknessLevel, 255 - darknessLevel, 255 - darknessLevel);
+    COLORREF bgColor = RGB( darknessLevel,  darknessLevel,  darknessLevel);
     HBRUSH hBrush = CreateSolidBrush(bgColor);
     FillRect(_dc, &rcClient, hBrush);
     DeleteObject(hBrush);
 
+    darknessLevel = max(darknessLevel, 255);
     HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
         CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
     SelectObject(_dc, hFont);
