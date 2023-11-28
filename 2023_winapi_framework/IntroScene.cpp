@@ -25,9 +25,11 @@ void IntroScene::Init()
     int title = AddFontResource(L"Res\\Font\\인천교육소통.ttf");
 
     SceneMgr::GetInst()->GetCurScene()->
-        AddObject(new Dotween(m_string, Vec2(570, 350), 1.f, DOTWEEN_TYPE::MOVE
+        AddObject(new Dotween(m_string, Vec2(250, 160), 2.f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
-
+    SceneMgr::GetInst()->GetCurScene()->
+        AddObject(new Dotween(m_string, Vec2(400, 250), 2.f,3.f, DOTWEEN_TYPE::MOVE
+        ), OBJECT_GROUP::DOTWEEN);
 }
 
 void IntroScene::Update()
@@ -62,7 +64,7 @@ void IntroScene::Render(HDC _dc)
     RECT rcClient;
     GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
-    darknessLevel = min(max(darknessLevel, 0), 300);
+    //darknessLevel = min(max(darknessLevel, 0), 300);
 
     COLORREF bgColor = RGB(255 - darknessLevel, 255 - darknessLevel, 255 - darknessLevel);
     HBRUSH hBrush = CreateSolidBrush(bgColor);
@@ -79,7 +81,8 @@ void IntroScene::Render(HDC _dc)
     }
     else
     {
-        //SetTextColor(_dc, RGB(0, 0, 0));
+        DeleteObject(hFont);
+        SetTextColor(_dc, RGB(0, 0, 0));
         SetBkMode(_dc, TRANSPARENT);
     }
     Scene::Render(_dc);

@@ -13,8 +13,9 @@ public:
     virtual void Render(HDC _dc) override;
 public:
      void OnClick();
-     void Func();
+     void Func(HDC _dc);
 private:
     HWND _hWnd;
+    POINT mousePos;
     Texture* m_pTex;
 };

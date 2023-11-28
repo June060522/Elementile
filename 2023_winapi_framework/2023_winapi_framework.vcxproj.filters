@@ -180,6 +180,7 @@
       <Filter>Engine\05. Scene\MainScene</Filter>
     </ClInclude>
     <ClInclude Include="UIText.h" />
+    <ClInclude Include="DevMin.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -284,6 +285,7 @@
       <Filter>Engine\05. Scene\MainScene</Filter>
     </ClCompile>
     <ClCompile Include="UIText.cpp" />
+    <ClCompile Include="DevMin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
