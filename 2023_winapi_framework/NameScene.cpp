@@ -41,7 +41,6 @@ void NameScene::Update()
     {
         // Displayed all characters, transition to the StartScene
           SceneMgr::GetInst()->LoadScene(L"StartScene");
-        
     }
 }
 
