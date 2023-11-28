@@ -129,8 +129,8 @@ const bool& SelectManager::TriangleInPoint(Vec2& _p1,
 const void SelectManager::Merge()
 {
 	Vec2 tempScale = m_to->GetScale();
+	Tile* beforeTile = m_selectTile;
 	Tile* newTile = m_to;
-	newTile->SetCnt(1);
 	auto& tilevec = SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE);
 	for (int i = 0; i < tilevec.size();)
 	{
@@ -139,13 +139,141 @@ const void SelectManager::Merge()
 		else
 			++i;
 	}
-	newTile->ResetVec();
-	newTile->AddImage(newTile->GetCnt(), newTile->GetType());
-	SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
-	SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17,17), 0.05f,
-		DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
-	SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
-		DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
-	m_to = nullptr;
-	m_selectTile = nullptr;
+	switch (m_to->GetType())
+	{
+	case TILE_TYPE::WATER:
+	case TILE_TYPE::FIRE:
+	case TILE_TYPE::GRASS:
+		newTile->SetCnt(1);
+		newTile->ResetVec();
+		newTile->AddImage(newTile->GetCnt(), newTile->GetType());
+		SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
+		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
+			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
+			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+
+		m_to = nullptr;
+		m_selectTile = nullptr;
+		break;
+	case TILE_TYPE::LOCK:
+		break;
+	case TILE_TYPE::TELEPORT:
+		break;
+	case TILE_TYPE::MOVELU:
+		newTile->ResetVec();
+		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
+		beforeTile->SetPos(newTile->GetPos());
+		m_selectTile = beforeTile;
+		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
+		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
+		{
+			Tile* tempTile = (Tile*)i;
+			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx
+				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx - 1)
+			{
+				m_to = tempTile;
+				Merge();
+				return;
+			}
+		}
+		break;
+	case TILE_TYPE::MOVEL:
+		newTile->ResetVec();
+		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
+		beforeTile->SetPos(newTile->GetPos());
+		m_selectTile = beforeTile;
+		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
+		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
+		{
+			Tile* tempTile = (Tile*)i;
+			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx - 1
+				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx)
+			{
+				m_to = tempTile;
+				Merge();
+				return;
+			}
+		}
+		break;
+	case TILE_TYPE::MOVELD:
+		newTile->ResetVec();
+		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
+		beforeTile->SetPos(newTile->GetPos());
+		m_selectTile = beforeTile;
+		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
+		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
+		{
+			Tile* tempTile = (Tile*)i;
+			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx - 1
+				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx + 1)
+			{
+				m_to = tempTile;
+				Merge();
+				return;
+			}
+		}
+		break;
+	case TILE_TYPE::MOVERU:
+		newTile->ResetVec();
+		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
+		beforeTile->SetPos(newTile->GetPos());
+		m_selectTile = beforeTile;
+		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
+		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
+		{
+			Tile* tempTile = (Tile*)i;
+			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx + 1
+				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx - 1)
+			{
+				m_to = tempTile;
+				Merge();
+				return;
+			}
+		}
+		break;
+	case TILE_TYPE::MOVER:
+		newTile->ResetVec();
+		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
+		beforeTile->SetPos(newTile->GetPos());
+		m_selectTile = beforeTile;
+		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
+		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
+		{
+			Tile* tempTile = (Tile*)i;
+			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx + 1
+				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx)
+			{
+				m_to = tempTile;
+				Merge();
+				return;
+			}
+		}
+		break;
+	case TILE_TYPE::MOVERD:
+		newTile->ResetVec();
+		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
+		beforeTile->SetPos(newTile->GetPos());
+		m_selectTile = beforeTile;
+		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
+		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
+		{
+			Tile*  tempTile = (Tile*)i;
+			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx
+				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx + 1)
+			{
+				m_to = tempTile;
+				Merge();
+				return;
+			}
+		}
+
+		break;
+	case TILE_TYPE::WIND:
+		break;
+	case TILE_TYPE::END:
+		break;
+	default:
+		break;
+	}
 }

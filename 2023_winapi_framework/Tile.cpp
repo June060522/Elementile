@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "TileImage.h"
 #include "SelectManager.h"
+#include"Core.h"
 
 Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	: Object()
@@ -32,16 +33,13 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	case TILE_TYPE::TELEPORT:
 		break;
 	case TILE_TYPE::MOVEL:
-		break;
 	case TILE_TYPE::MOVELU:
-		break;
 	case TILE_TYPE::MOVELD:
-		break;
 	case TILE_TYPE::MOVER:
-		break;
 	case TILE_TYPE::MOVERU:
-		break;
 	case TILE_TYPE::MOVERD:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Arrow Tile", L"Texture\\arrowhexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Arrow Tile Dark", L"Texture\\arrowhexagondark.bmp");
 		break;
 	case TILE_TYPE::WIND:
 		break;
@@ -99,10 +97,13 @@ void Tile::Render(HDC _dc)
 	}
 	else
 	{
-		TransparentBlt(_dc, left, top,
-			Width * (vScale.x / 100), Height * (vScale.y / 100),
-			m_pTexDark->GetDC(), 0, 0,
-			Width, Height, RGB(255, 0, 255));
+		if (m_pTexDark != nullptr)
+		{
+			TransparentBlt(_dc, left, top,
+				Width * (vScale.x / 100), Height * (vScale.y / 100),
+				m_pTexDark->GetDC(), 0, 0,
+				Width, Height, RGB(255, 0, 255));
+		}
 		TransparentBlt(_dc, left, top,
 			Width * (vScale.x / 100), Height * (vScale.y / 100),
 			m_pBGDark->GetDC(), 0, 0,
@@ -262,7 +263,7 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-#pragma region 이동가능한 속성인지 검사
+#pragma region 이동가능한 속성,타일인지 검사
 	switch (_temptile->GetType())
 	{
 	case TILE_TYPE::WATER:
@@ -270,26 +271,20 @@ const bool Tile::CanGo(Tile* _temptile)
 	case TILE_TYPE::GRASS:
 	{
 		if (_temptile->GetType() != m_eType || _temptile->GetCnt() != m_cnt)
+		{
+			if(m_eType == TILE_TYPE::WATER ||
+				m_eType == TILE_TYPE::FIRE ||
+				m_eType == TILE_TYPE::GRASS )
 			return false;
+		}
+
 	}
 	break;
-	case TILE_TYPE::LOCK:
-		break;
-	case TILE_TYPE::TELEPORT:
-		break;
-	case TILE_TYPE::MOVEL:
-		break;
-	case TILE_TYPE::MOVELU:
-		break;
-	case TILE_TYPE::MOVELD:
-		break;
-	case TILE_TYPE::MOVER:
-		break;
-	case TILE_TYPE::MOVERU:
-		break;
-	case TILE_TYPE::MOVERD:
-		break;
-	case TILE_TYPE::WIND:
+	default:
+		if (m_eType == TILE_TYPE::WATER ||
+			m_eType == TILE_TYPE::FIRE ||
+			m_eType == TILE_TYPE::GRASS)
+			return false;
 		break;
 	}
 #pragma endregion
