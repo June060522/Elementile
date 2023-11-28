@@ -63,4 +63,7 @@ void Dotween::DoMove()
 
 void Dotween::DoScale()
 {
+	m_target->SetScale(
+		Vec2(m_voriginval.x + (m_vendval.x - m_voriginval.x) * (m_fcurtime / m_ftime)
+			, m_voriginval.y + (m_vendval.y - m_voriginval.y) * (m_fcurtime / m_ftime)));
 }

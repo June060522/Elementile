@@ -95,8 +95,11 @@ void Tile::Render(HDC _dc)
 	for (size_t i = 0; i < m_tilevec.size(); ++i)
 	{
 		m_tilevec[i]->SetPos(Vec2(
-			GetPos().x + m_tilevec[i]->GetCorrectionX()
-			, GetPos().y + m_tilevec[i]->GetCorrectionY()));
+			GetPos().x + m_tilevec[i]->GetCorrectionPosX()
+			, GetPos().y + m_tilevec[i]->GetCorrectionPosY()));
+		m_tilevec[i]->SetScale(Vec2(
+			GetScale().x - m_tilevec[i]->GetCorrectionScaleX()
+			, GetScale().y - m_tilevec[i]->GetCorrectionScaleY()));
 		m_tilevec[i]->Render(_dc);
 	}
 }
@@ -192,8 +195,10 @@ void Tile::AddVec(const Vec2& _vScale, const Vec2& _vPos, const TILE_TYPE& _type
 	TileImage* _tileImage = new TileImage(_type);
 	_tileImage->SetPos(_vPos);
 	_tileImage->SetScale(_vScale);
-	_tileImage->SetCorrectionX(_vPos.x - GetPos().x);
-	_tileImage->SetCorrectionY(_vPos.y - GetPos().y);
+	_tileImage->SetCorrectionPosX(_vPos.x - GetPos().x);
+	_tileImage->SetCorrectionPosY(_vPos.y - GetPos().y);
+	_tileImage->SetCorrectionScaleX(GetScale().x - _vScale.x);
+	_tileImage->SetCorrectionScaleY(GetScale().y - _vScale.y);
 	m_tilevec.push_back(_tileImage);
 }
 

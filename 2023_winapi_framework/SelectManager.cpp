@@ -127,6 +127,7 @@ const bool& SelectManager::TriangleInPoint(Vec2& _p1,
 
 const void SelectManager::Merge()
 {
+	Vec2 tempScale = m_to->GetScale();
 	Tile* newTile = m_to;
 	newTile->SetCnt(1);
 	auto& tilevec = SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE);
@@ -139,7 +140,10 @@ const void SelectManager::Merge()
 	}
 	newTile->ResetVec();
 	newTile->AddImage(newTile->GetCnt(), newTile->GetType());
+	newTile->SetScale(Vec2(10.f, 10.f));
 	SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
+	SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.15f,
+		DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 	m_to = nullptr;
 	m_selectTile = nullptr;
 }
