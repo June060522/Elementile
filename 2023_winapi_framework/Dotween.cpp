@@ -12,21 +12,7 @@ Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, DOTWE
 	, m_etype(_etype)
 	, m_fwaittime(0)
 {
-	switch (m_etype)
-	{
-	case DOTWEEN_TYPE::MOVE:
-		m_voriginval = m_target->GetPos();
-		break;
-	case DOTWEEN_TYPE::SCALE:
-		m_voriginval = m_target->GetScale();
-		break;
-	case DOTWEEN_TYPE::ROTATE:
-		m_voriginval = m_target->GetScale();
-		break;
-	case DOTWEEN_TYPE::FADE:
-		m_voriginval = m_target->GetScale();
-		break;
-	}
+	SetOriginVal(m_etype);
 }
 
 Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, const float& _fwait, DOTWEEN_TYPE _etype)
@@ -36,6 +22,10 @@ Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, const
 	, m_fcurtime(0.f)
 	, m_etype(_etype)
 	, m_fwaittime(_fwait)
+{
+	SetOriginVal(m_etype);
+}
+void Dotween::SetOriginVal(DOTWEEN_TYPE _etype)
 {
 	switch (m_etype)
 	{
@@ -53,6 +43,7 @@ Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, const
 		break;
 	}
 }
+
 
 void Dotween::Update()
 {
@@ -90,6 +81,8 @@ void Dotween::Update()
 			}
 		}
 	}
+	else
+		SetOriginVal(m_etype);
 }
 
 void Dotween::Render(HDC _dc)
