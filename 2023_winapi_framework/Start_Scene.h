@@ -10,5 +10,6 @@ public:
     virtual void Release() override;
 private:
     Vec2 pos = Vec2(500, 350);
+    vector<Object*> m_vObj;
 };
 
