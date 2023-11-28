@@ -18,10 +18,27 @@ TileImage::TileImage(const TILE_TYPE& _eType)
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Grass", L"Texture\\grass.bmp");
 		break;
 	case TILE_TYPE::LOCK:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Lock", L"Texture\\lock.bmp");
 		break;
 	case TILE_TYPE::TELEPORT:
 		break;
-	case TILE_TYPE::ForcedMovement:
+	case TILE_TYPE::MOVEL:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Movel", L"Texture\\arrowleft.bmp");
+		break;
+	case TILE_TYPE::MOVELU:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Movelu", L"Texture\\arrowleftup.bmp");
+		break;
+	case TILE_TYPE::MOVELD:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Moveld", L"Texture\\arrowleftdown.bmp");
+		break;
+	case TILE_TYPE::MOVER:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Mover", L"Texture\\arrowright.bmp");
+		break;
+	case TILE_TYPE::MOVERU:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Moveru", L"Texture\\arrowrightup.bmp");
+		break;
+	case TILE_TYPE::MOVERD:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Moverd", L"Texture\\arrowrightdown.bmp");
 		break;
 	case TILE_TYPE::WIND:
 		break;

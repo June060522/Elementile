@@ -55,7 +55,10 @@ enum class EVENT_TYPE
 enum class TILE_TYPE
 {
 	WATER, FIRE, GRASS
-	, LOCK, TELEPORT, ForcedMovement, WIND
+	, LOCK, TELEPORT, MOVELU
+	, MOVEL, MOVELD, MOVERU
+	, MOVER, MOVERD
+	, WIND
 	, END
 };
 
