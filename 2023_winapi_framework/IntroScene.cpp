@@ -25,7 +25,7 @@ void IntroScene::Init()
     int title = AddFontResource(L"Res\\Font\\인천교육소통.ttf");
 
     SceneMgr::GetInst()->GetCurScene()->
-        AddObject(new Dotween(m_string, Vec2(500, 250), 1.f, DOTWEEN_TYPE::MOVE
+        AddObject(new Dotween(m_string, Vec2(570, 350), 1.f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
 
 }
@@ -73,13 +73,13 @@ void IntroScene::Render(HDC _dc)
         CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
     SelectObject(_dc, hFont);
 
-    if (darknessLevel >= 300)
+    if (darknessLevel >= 280)
     {
         SceneMgr::GetInst()->LoadScene(L"NameScene");
     }
     else
     {
-        SetTextColor(_dc, RGB(0, 0, 0));
+        //SetTextColor(_dc, RGB(0, 0, 0));
         SetBkMode(_dc, TRANSPARENT);
     }
     Scene::Render(_dc);
