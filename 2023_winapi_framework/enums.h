@@ -71,6 +71,8 @@ enum class DOTWEEN_TYPE
 {
 	MOVE,
 	SCALE,
+	ROTATE,
+	FADE,
 	END
 };
 
