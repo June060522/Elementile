@@ -23,7 +23,7 @@ public:
 	const bool GetGo() const { return m_islight; }
 	const bool CanGo(Tile* _temptile);
 private:
-	vector<Object*>	m_tilevec;
+	vector<TileImage*>	m_tilevec;
 	Texture*		m_pTex;
 	Texture*		m_pTexDark;
 	XY				m_posidx;

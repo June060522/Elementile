@@ -59,6 +59,14 @@ enum class TILE_TYPE
 	, END
 };
 
+enum class TILE_STATE
+{
+	DEFAULT,
+	NOTSELECT,
+	MOVE,
+	END
+};
+
 enum class DOTWEEN_TYPE
 {
 	MOVE,

@@ -89,6 +89,9 @@ void Tile::Render(HDC _dc)
 
 	for (size_t i = 0; i < m_tilevec.size(); ++i)
 	{
+		m_tilevec[i]->SetPos(Vec2(
+			GetPos().x + m_tilevec[i]->GetCorrectionX()
+			, GetPos().y + m_tilevec[i]->GetCorrectionY()));
 		m_tilevec[i]->Render(_dc);
 	}
 }
@@ -184,6 +187,8 @@ void Tile::AddVec(const Vec2& _vScale, const Vec2& _vPos, const TILE_TYPE& _type
 	TileImage* _tileImage = new TileImage(_type);
 	_tileImage->SetPos(_vPos);
 	_tileImage->SetScale(_vScale);
+	_tileImage->SetCorrectionX(_vPos.x - GetPos().x);
+	_tileImage->SetCorrectionY(_vPos.y - GetPos().y);
 	m_tilevec.push_back(_tileImage);
 }
 
@@ -252,6 +257,10 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
+#pragma region 갯수가 5개미만인지 검사
+	if (GetCnt() >= 5)
+		return false;
+#pragma endregion
 	return true;
 }
 

@@ -8,18 +8,39 @@
 #include "Debug.h"
 #include "Core.h"
 #include "Dotween.h"
+#include "TimeMgr.h"
 
 void SelectManager::Init()
 {
 	m_selectTile = nullptr;
 	m_fRadius = 70.f;
+	m_fmovetime = 0.2f;
+	m_ftime = m_fmovetime;
+	m_canMove = true;
 	m_fCorrectionX = 75.f;
 	m_fCorrectionY = 75.f;
 }
 
+void SelectManager::Update()
+{
+	m_ftime += TimeMgr::GetInst()->GetDT();
+	if (m_ftime >= m_fmovetime)
+	{
+		if (!m_canMove)
+		{
+			m_canMove = true;
+			Merge();
+		}
+	}
+	else
+	{
+		m_canMove = false;
+	}
+}
+
 const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 {
-	if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
+	if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN && m_canMove)
 	{
 		Vec2 tileCenterPos;
 		Vec2 p1, p2, p3;
@@ -59,8 +80,11 @@ const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 					{
 						if (a->GetGo())
 						{
-							Merge(m_selectTile, a);
-							m_selectTile = nullptr;
+							m_to = a;
+							m_ftime = 0;
+							SceneMgr::GetInst()->GetCurScene()->
+								AddObject(new Dotween(m_selectTile, m_to->GetPos()
+									, m_fmovetime, DOTWEEN_TYPE::MOVE), OBJECT_GROUP::DOTWEEN);
 						}
 						else
 						{
@@ -101,14 +125,14 @@ const bool& SelectManager::TriangleInPoint(Vec2& _p1,
 	return false;
 }
 
-const void SelectManager::Merge(Tile* _from, Tile* _to)
+const void SelectManager::Merge()
 {
-	Tile* newTile = _to;
+	Tile* newTile = m_to;
 	newTile->SetCnt(1);
 	auto& tilevec = SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE);
 	for (int i = 0; i < tilevec.size();)
 	{
-		if (tilevec[i] == _from || tilevec[i] == _to)
+		if (tilevec[i] == m_selectTile || tilevec[i] == m_to)
 			tilevec.erase(tilevec.begin() + i);
 		else
 			++i;
@@ -116,4 +140,6 @@ const void SelectManager::Merge(Tile* _from, Tile* _to)
 	newTile->ResetVec();
 	newTile->AddImage(newTile->GetCnt(), newTile->GetType());
 	SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
+	m_to = nullptr;
+	m_selectTile = nullptr;
 }

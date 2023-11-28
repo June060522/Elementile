@@ -14,6 +14,7 @@ void Game_Scene::Init()
 
 void Game_Scene::Update()
 {
+	SelectManager::GetInst()->Update();
 	SelectManager::GetInst()->TileClick(GetGroupObject(OBJECT_GROUP::TILE));
 	Scene::Update();
 }
