@@ -50,9 +50,22 @@ const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 					{
 						m_selectTile = nullptr;
 					}
-					else
+					else if (m_selectTile == nullptr)
 					{
 						m_selectTile = a;
+
+					}
+					else
+					{
+						if (a->GetGo())
+						{
+							Merge(m_selectTile, a);
+							m_selectTile = nullptr;
+						}
+						else
+						{
+							m_selectTile = a;
+						}
 					}
 					return;
 				}
@@ -86,4 +99,21 @@ const bool& SelectManager::TriangleInPoint(Vec2& _p1,
 	}
 
 	return false;
+}
+
+const void SelectManager::Merge(Tile* _from, Tile* _to)
+{
+	Tile* newTile = _to;
+	newTile->SetCnt(1);
+	auto& tilevec = SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE);
+	for (int i = 0; i < tilevec.size();)
+	{
+		if (tilevec[i] == _from || tilevec[i] == _to)
+			tilevec.erase(tilevec.begin() + i);
+		else
+			++i;
+	}
+	newTile->ResetVec();
+	newTile->AddImage(newTile->GetCnt(), newTile->GetType());
+	SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
 }

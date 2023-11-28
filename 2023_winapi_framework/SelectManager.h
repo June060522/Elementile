@@ -15,6 +15,7 @@ private:
 	{
 		return _v1.x * _v2.y - _v1.y * _v2.x;
 	}
+	const void Merge(Tile* _from, Tile* _to);
 public:
 	Tile* GetSelectTile() { return m_selectTile; }
 private:

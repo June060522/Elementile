@@ -110,6 +110,7 @@ Object* StageManager::MakeTile(const int& _yIdx, const int& _xIdx, const TILE_TY
 {
 	Vec2 pos;
 	Object* pObj = new Tile(XY{ _xIdx,_yIdx }, _type, _cnt);
+	Tile* tempTile = (Tile*)pObj;
 	pos = Vec2(_xIdx * 128, _yIdx * 105);
 	if (_yIdx % 2 == 1)
 	{
@@ -119,100 +120,6 @@ Object* StageManager::MakeTile(const int& _yIdx, const int& _xIdx, const TILE_TY
 	pos.y += (float)Core::GetInst()->GetResolution().y / 12;
 	pObj->SetScale(Vec2(32, 32));
 	pObj->SetPos(pos);
-	CreateImage(pObj, _cnt, _type);
+	tempTile->AddImage(_cnt, _type);
 	return pObj;
-}
-
-const void StageManager::CreateImage(const Object* _pObj, const int& _cnt, const TILE_TYPE& _type)
-{
-	Vec2 pos;
-	Vec2 scale;
-	switch (_cnt) // 그릴 이미지 갯수 일단 5개까지만
-	{
-	case 1:
-	{
-		pos = Vec2(_pObj->GetPos().x + 50, _pObj->GetPos().y + 45);
-		scale = Vec2(13, 13);
-		AddImage(pos, scale, _type);
-	}
-	break;
-	case 2:
-	{
-		scale = Vec2(10, 10);
-		pos = Vec2(_pObj->GetPos().x + 80, _pObj->GetPos().y + 50);
-		AddImage(pos, scale, _type);
-
-		pos = Vec2(_pObj->GetPos().x + 30, _pObj->GetPos().y + 50);
-		AddImage(pos, scale, _type);
-	}
-	break;
-	case 3:
-	{
-		scale = Vec2(8, 8);
-		Vec2 midPos = Vec2(_pObj->GetPos().x + 60, _pObj->GetPos().y + 57);
-		float radius = 27.0f;
-		for (int i = 0; i < 3; i++)
-		{
-			float angle = i * (2 * M_PI / 3.0f) + M_PI / 6.0f;
-
-			pos.x = midPos.x + radius * cos(angle);
-			pos.y = midPos.y + radius * sin(angle);
-
-			AddImage(pos, scale, _type);
-		}
-	}
-	break;
-	case 4:
-	{
-		float middis = 20.f;
-		Vec2 midPos = Vec2(_pObj->GetPos().x + 65, _pObj->GetPos().y + 55);
-		scale = Vec2(7, 7);
-
-		pos.x = midPos.x + middis;
-		pos.y = midPos.y + middis;
-		AddImage(pos, scale, _type);
-
-		pos.x = midPos.x + middis;
-		pos.y = midPos.y - middis;
-		AddImage(pos, scale, _type);
-
-		pos.x = midPos.x - middis;
-		pos.y = midPos.y + middis;
-		AddImage(pos, scale, _type);
-
-		pos.x = midPos.x - middis;
-		pos.y = midPos.y - middis;
-		AddImage(pos, scale, _type);
-	}
-	break;
-	case 5:
-	{
-		scale = Vec2(7, 7);
-		Vec2 midPos = Vec2(_pObj->GetPos().x + 60, _pObj->GetPos().y + 57);
-
-		float radius = 28.0f;
-
-		for (int i = 0; i < 5; i++)
-		{
-			float angle = (i * (2 * M_PI / 5.0f)) + M_PI / 2.f;
-
-			pos.x = midPos.x + radius * cos(angle);
-			pos.y = midPos.y + radius * sin(-angle);
-
-			AddImage(pos, scale, _type);
-		}
-	}
-	break;
-	default:
-		assert(_cnt);
-		break;
-	}
-}
-
-const void StageManager::AddImage(const Vec2& _pos, const Vec2& _scale, const TILE_TYPE& _type)
-{
-	Object* pObj = new TileImage(_type);
-	pObj->SetPos(_pos);
-	pObj->SetScale(_scale);
-	m_curGameScene->AddObject(pObj, OBJECT_GROUP::TILEIMAGE);
 }
