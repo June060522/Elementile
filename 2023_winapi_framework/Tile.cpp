@@ -11,7 +11,7 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	, m_pTex(nullptr)
 	, m_eType(_eType)
 	, m_cnt(_cnt)
-	, m_islight(true)
+	, m_eState(TILE_STATE::DEFAULT)
 {
 	switch (m_eType)
 	{
@@ -38,6 +38,7 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	case TILE_TYPE::END:
 		break;
 	}
+	m_pBGDark = ResMgr::GetInst()->TexLoad(L"BGDark", L"Texture\\bgtiledark.bmp");
 }
 
 Tile::~Tile()
@@ -52,16 +53,16 @@ void Tile::Update()
 	{
 		if (CanGo(tempTile))
 		{
-			m_islight = true;
+			m_eState = TILE_STATE::CANMOVE;
 		}
 		else
 		{
-			m_islight = false;
+			m_eState = TILE_STATE::NOTSELECT;
 		}
 	}
 	else
 	{
-		m_islight = true;
+		m_eState = TILE_STATE::DEFAULT;
 	}
 }
 
@@ -72,7 +73,7 @@ void Tile::Render(HDC _dc)
 	int Width = m_pTex->GetWidth();
 	int Height = m_pTex->GetHeight();
 
-	if (m_islight)
+	if (m_eState == TILE_STATE::DEFAULT || m_eState == TILE_STATE::CANMOVE)
 	{
 		TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
 			, (int)(vPos.y - vScale.y / 2),
@@ -84,6 +85,10 @@ void Tile::Render(HDC _dc)
 		TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
 			, (int)(vPos.y - vScale.y / 2),
 			Width * (vScale.x / 100), Height * (vScale.y / 100), m_pTexDark->GetDC(),
+			0, 0, Width, Height, RGB(255, 0, 255));
+		TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
+			, (int)(vPos.y - vScale.y / 2),
+			Width * (vScale.x / 100), Height * (vScale.y / 100), m_pBGDark->GetDC(),
 			0, 0, Width, Height, RGB(255, 0, 255));
 	}
 
@@ -204,7 +209,7 @@ const bool Tile::CanGo(Tile* _temptile)
 		//(y + 1, x - 1)  (y + 1, x)
 		if (difX == -1 || difX == 0)
 		{
-			if(!(difY == 1 || difY == 0 || difY == -1))
+			if (!(difY == 1 || difY == 0 || difY == -1))
 				return false;
 		}
 		else if (difX == 1)
@@ -245,7 +250,7 @@ const bool Tile::CanGo(Tile* _temptile)
 		if (_temptile->GetType() != m_eType || _temptile->GetCnt() != m_cnt)
 			return false;
 	}
-		break;
+	break;
 	case TILE_TYPE::LOCK:
 		break;
 	case TILE_TYPE::TELEPORT:

@@ -63,7 +63,7 @@ enum class TILE_STATE
 {
 	DEFAULT,
 	NOTSELECT,
-	MOVE,
+	CANMOVE,
 	END
 };
 

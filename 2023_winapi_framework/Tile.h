@@ -19,15 +19,16 @@ public:
 	const TILE_TYPE& GetType() const { return m_eType; }
 	const int& GetCnt() const { return m_cnt; }
 	const void SetCnt(int val) {m_cnt += val; }
-	const void SetLight(const bool value) { m_islight = value; }
-	const bool GetGo() const { return m_islight; }
+	const void SetState(const TILE_STATE value) { m_eState = value; }
+	const TILE_STATE GetState() const { return m_eState; }
 	const bool CanGo(Tile* _temptile);
 private:
 	vector<TileImage*>	m_tilevec;
 	Texture*		m_pTex;
 	Texture*		m_pTexDark;
+	Texture*		m_pBGDark;
 	XY				m_posidx;
 	TILE_TYPE		m_eType;
 	int				m_cnt;
-	bool			m_islight;
+	TILE_STATE		m_eState;
 };

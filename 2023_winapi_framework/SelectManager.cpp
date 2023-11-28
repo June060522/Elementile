@@ -78,7 +78,7 @@ const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 					}
 					else
 					{
-						if (a->GetGo())
+						if (a->GetState() == TILE_STATE::CANMOVE)
 						{
 							m_to = a;
 							m_ftime = 0;
