@@ -141,9 +141,10 @@ const void SelectManager::Merge()
 	}
 	newTile->ResetVec();
 	newTile->AddImage(newTile->GetCnt(), newTile->GetType());
-	newTile->SetScale(Vec2(18.f, 18.f));
 	SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
-	SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.1f,
+	SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17,17), 0.05f,
+		DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+	SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
 		DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 	m_to = nullptr;
 	m_selectTile = nullptr;

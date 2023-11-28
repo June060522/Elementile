@@ -11,6 +11,8 @@ public:
 private:
 	void DoMove();
 	void DoScale();
+	void DoRotate();
+	void DoFade();
 private:
 	Object*		 m_target;
 	Vec2		 m_voriginval;
