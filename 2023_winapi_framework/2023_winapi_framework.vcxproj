@@ -202,6 +202,7 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileImage.h" />
     <ClInclude Include="TimeMgr.h" />
+    <ClInclude Include="UIText.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +235,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileImage.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
+    <ClCompile Include="UIText.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
