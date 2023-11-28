@@ -8,18 +8,39 @@
 #include "Debug.h"
 #include "Core.h"
 #include "Dotween.h"
+#include "TimeMgr.h"
 
 void SelectManager::Init()
 {
 	m_selectTile = nullptr;
 	m_fRadius = 70.f;
+	m_fmovetime = 0.2f;
+	m_ftime = m_fmovetime;
+	m_canMove = true;
 	m_fCorrectionX = 75.f;
 	m_fCorrectionY = 75.f;
 }
 
+void SelectManager::Update()
+{
+	m_ftime += TimeMgr::GetInst()->GetDT();
+	if (m_ftime >= m_fmovetime)
+	{
+		if (!m_canMove)
+		{
+			m_canMove = true;
+			Merge();
+		}
+	}
+	else
+	{
+		m_canMove = false;
+	}
+}
+
 const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 {
-	if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
+	if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN && m_canMove)
 	{
 		Vec2 tileCenterPos;
 		Vec2 p1, p2, p3;
@@ -43,16 +64,33 @@ const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 				p2.y = tileCenterPos.y + m_fRadius * sin(angle2);
 
 				p3 = tileCenterPos;
-
+				/*POINT points[] = { {p1.x,p1.y}, {p2.x,p2.y}, {p3.x,p3.y} };
+				Polygon(Core::GetInst()->GetMainDC(), points, 3);*/
 				if (TriangleInPoint(p1, p2, p3, m_pMousePos))
 				{
 					if (m_selectTile == a)
 					{
 						m_selectTile = nullptr;
 					}
-					else
+					else if (m_selectTile == nullptr)
 					{
 						m_selectTile = a;
+
+					}
+					else
+					{
+						if (a->GetState() == TILE_STATE::CANMOVE)
+						{
+							m_to = a;
+							m_ftime = 0;
+							SceneMgr::GetInst()->GetCurScene()->
+								AddObject(new Dotween(m_selectTile, m_to->GetPos()
+									, m_fmovetime, DOTWEEN_TYPE::MOVE), OBJECT_GROUP::DOTWEEN);
+						}
+						else
+						{
+							m_selectTile = a;
+						}
 					}
 					return;
 				}
@@ -86,4 +124,27 @@ const bool& SelectManager::TriangleInPoint(Vec2& _p1,
 	}
 
 	return false;
+}
+
+const void SelectManager::Merge()
+{
+	Vec2 tempScale = m_to->GetScale();
+	Tile* newTile = m_to;
+	newTile->SetCnt(1);
+	auto& tilevec = SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE);
+	for (int i = 0; i < tilevec.size();)
+	{
+		if (tilevec[i] == m_selectTile || tilevec[i] == m_to)
+			tilevec.erase(tilevec.begin() + i);
+		else
+			++i;
+	}
+	newTile->ResetVec();
+	newTile->AddImage(newTile->GetCnt(), newTile->GetType());
+	newTile->SetScale(Vec2(18.f, 18.f));
+	SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
+	SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.1f,
+		DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+	m_to = nullptr;
+	m_selectTile = nullptr;
 }

@@ -46,9 +46,14 @@ void TileImage::Render(HDC _dc)
 	Vec2 vScale = GetScale();
 	int Width = m_pTex->GetWidth();
 	int Height = m_pTex->GetHeight();
+	float centerX = vPos.x;
+	float centerY = vPos.y;
 
-	TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
-		, (int)(vPos.y - vScale.y / 2),
-		Width * (vScale.x / 100), Height * (vScale.y / 100), m_pTex->GetDC(),
-		0, 0, Width, Height, RGB(255, 0, 255));
+	float left = centerX - (Width * (vScale.x / 200));
+	float top = centerY - (Height * (vScale.y / 200));
+
+	TransparentBlt(_dc, left, top,
+		Width * (vScale.x / 100), Height * (vScale.y / 100),
+		m_pTex->GetDC(), 0, 0,
+		Width, Height, RGB(255, 0, 255));
 }

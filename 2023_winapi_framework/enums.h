@@ -24,7 +24,6 @@ enum class OBJECT_GROUP
 {
 	DEFAULT,
 	TILE,
-	TILEIMAGE,
 	BACKGROUNDOBJECT,
 	PARTICLE,
 	UI,
@@ -58,6 +57,14 @@ enum class TILE_TYPE
 	WATER, FIRE, GRASS
 	, LOCK, TELEPORT, ForcedMovement, WIND
 	, END
+};
+
+enum class TILE_STATE
+{
+	DEFAULT,
+	NOTSELECT,
+	CANMOVE,
+	END
 };
 
 enum class DOTWEEN_TYPE

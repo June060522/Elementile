@@ -2,6 +2,7 @@
 #include "Tile.h"
 #include "ResMgr.h"
 #include "Texture.h"
+#include "TileImage.h"
 #include "SelectManager.h"
 
 Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
@@ -10,7 +11,7 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	, m_pTex(nullptr)
 	, m_eType(_eType)
 	, m_cnt(_cnt)
-	, m_islight(true)
+	, m_eState(TILE_STATE::DEFAULT)
 {
 	switch (m_eType)
 	{
@@ -37,6 +38,7 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	case TILE_TYPE::END:
 		break;
 	}
+	m_pBGDark = ResMgr::GetInst()->TexLoad(L"BGDark", L"Texture\\bgtiledark.bmp");
 }
 
 Tile::~Tile()
@@ -51,16 +53,16 @@ void Tile::Update()
 	{
 		if (CanGo(tempTile))
 		{
-			m_islight = true;
+			m_eState = TILE_STATE::CANMOVE;
 		}
 		else
 		{
-			m_islight = false;
+			m_eState = TILE_STATE::NOTSELECT;
 		}
 	}
 	else
 	{
-		m_islight = true;
+		m_eState = TILE_STATE::DEFAULT;
 	}
 }
 
@@ -68,23 +70,143 @@ void Tile::Render(HDC _dc)
 {
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
+	//짜피 타일인건 다 같아서 하나만
 	int Width = m_pTex->GetWidth();
 	int Height = m_pTex->GetHeight();
 
-	if (m_islight)
+	float centerX = vPos.x + 73;
+	float centerY = vPos.y + 80;
+
+	float left = centerX - (Width * (vScale.x / 200));
+	float top = centerY - (Height * (vScale.y / 200));
+
+	if (m_eState == TILE_STATE::DEFAULT || m_eState == TILE_STATE::CANMOVE)
 	{
-		TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
-			, (int)(vPos.y - vScale.y / 2),
-			Width * (vScale.x / 100), Height * (vScale.y / 100), m_pTex->GetDC(),
-			0, 0, Width, Height, RGB(255, 0, 255));
+		TransparentBlt(_dc, left,top,
+			Width * (vScale.x / 100),Height * (vScale.y / 100),
+			m_pTex->GetDC(),0,0,
+			Width,Height,RGB(255, 0, 255));
 	}
 	else
 	{
-		TransparentBlt(_dc, (int)(vPos.x - vScale.x / 2)
-			, (int)(vPos.y - vScale.y / 2),
-			Width * (vScale.x / 100), Height * (vScale.y / 100), m_pTexDark->GetDC(),
-			0, 0, Width, Height, RGB(255, 0, 255));
+		TransparentBlt(_dc, left, top,
+			Width * (vScale.x / 100), Height * (vScale.y / 100),
+			m_pTexDark->GetDC(), 0, 0,
+			Width, Height, RGB(255, 0, 255));
+		TransparentBlt(_dc, left, top,
+			Width * (vScale.x / 100), Height * (vScale.y / 100),
+			m_pBGDark->GetDC(), 0, 0,
+			Width, Height, RGB(255, 0, 255));
 	}
+
+	for (size_t i = 0; i < m_tilevec.size(); ++i)
+	{
+		m_tilevec[i]->SetPos(Vec2(
+			GetPos().x + m_tilevec[i]->GetCorrectionPosX()
+			, GetPos().y + m_tilevec[i]->GetCorrectionPosY()));
+		m_tilevec[i]->SetScale(Vec2(
+			GetScale().x - m_tilevec[i]->GetCorrectionScaleX()
+			, GetScale().y - m_tilevec[i]->GetCorrectionScaleY()));
+		m_tilevec[i]->Render(_dc);
+	}
+}
+
+void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
+{
+	Vec2 pos;
+	Vec2 scale;
+	switch (_cnt) // 그릴 이미지 갯수 일단 5개까지만
+	{
+	case 1:
+	{
+		pos = Vec2(GetPos().x + 75, GetPos().y + 75);
+		scale = Vec2(13, 13);
+		AddVec(scale, pos, _type);
+	}
+	break;
+	case 2:
+	{
+		scale = Vec2(10, 10);
+		pos = Vec2(GetPos().x + 100, GetPos().y + 80);
+		AddVec(scale, pos, _type);
+
+		pos = Vec2(GetPos().x + 50, GetPos().y + 80);
+		AddVec(scale, pos, _type);
+	}
+	break;
+	case 3:
+	{
+		scale = Vec2(8, 8);
+		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 80);
+		float radius = 27.0f;
+		for (int i = 0; i < 3; i++)
+		{
+			float angle = i * (2 * M_PI / 3.0f) + M_PI / 6.0f;
+
+			pos.x = midPos.x + radius * cos(angle);
+			pos.y = midPos.y + radius * sin(angle);
+			AddVec(scale, pos, _type);
+
+		}
+	}
+	break;
+	case 4:
+	{
+		float middis = 20.f;
+		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
+		scale = Vec2(7, 7);
+
+		pos.x = midPos.x + middis;
+		pos.y = midPos.y + middis;
+		AddVec(scale, pos, _type);
+
+		pos.x = midPos.x + middis;
+		pos.y = midPos.y - middis;
+		AddVec(scale, pos, _type);
+
+		pos.x = midPos.x - middis;
+		pos.y = midPos.y + middis;
+		AddVec(scale, pos, _type);
+
+		pos.x = midPos.x - middis;
+		pos.y = midPos.y - middis;
+		AddVec(scale, pos, _type);
+	}
+	break;
+	case 5:
+	{
+		scale = Vec2(7, 7);
+		Vec2 midPos = Vec2(GetPos().x +75, GetPos().y + 78);
+
+		float radius = 28.0f;
+
+		for (int i = 0; i < 5; i++)
+		{
+			float angle = (i * (2 * M_PI / 5.0f)) + M_PI / 2.f;
+
+			pos.x = midPos.x + radius * cos(angle);
+			pos.y = midPos.y + radius * sin(-angle);
+
+			AddVec(scale, pos, _type);
+		}
+	}
+	break;
+	default:
+		assert(_cnt);
+		break;
+	}
+}
+
+void Tile::AddVec(const Vec2& _vScale, const Vec2& _vPos, const TILE_TYPE& _type)
+{
+	TileImage* _tileImage = new TileImage(_type);
+	_tileImage->SetPos(_vPos);
+	_tileImage->SetScale(_vScale);
+	_tileImage->SetCorrectionPosX(_vPos.x - GetPos().x);
+	_tileImage->SetCorrectionPosY(_vPos.y - GetPos().y);
+	_tileImage->SetCorrectionScaleX(GetScale().x - _vScale.x);
+	_tileImage->SetCorrectionScaleY(GetScale().y - _vScale.y);
+	m_tilevec.push_back(_tileImage);
 }
 
 const bool Tile::CanGo(Tile* _temptile)
@@ -99,7 +221,7 @@ const bool Tile::CanGo(Tile* _temptile)
 		//(y + 1, x - 1)  (y + 1, x)
 		if (difX == -1 || difX == 0)
 		{
-			if(!(difY == 1 || difY == 0 || difY == -1))
+			if (!(difY == 1 || difY == 0 || difY == -1))
 				return false;
 		}
 		else if (difX == 1)
@@ -140,7 +262,7 @@ const bool Tile::CanGo(Tile* _temptile)
 		if (_temptile->GetType() != m_eType || _temptile->GetCnt() != m_cnt)
 			return false;
 	}
-		break;
+	break;
 	case TILE_TYPE::LOCK:
 		break;
 	case TILE_TYPE::TELEPORT:
@@ -152,6 +274,10 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
+#pragma region 갯수가 5개미만인지 검사
+	if (GetCnt() >= 5)
+		return false;
+#pragma endregion
 	return true;
 }
 
