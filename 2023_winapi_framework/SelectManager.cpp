@@ -169,7 +169,8 @@ const void SelectManager::Merge()
 		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
 		{
 			Tile* tempTile = (Tile*)i;
-			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx
+			if (tempTile->GetposIdx().xidx == (tempTile->GetposIdx().yidx % 2 == 0?
+				newTile->GetposIdx().xidx - 1: newTile->GetposIdx().xidx)
 				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx - 1)
 			{
 				m_to = tempTile;
@@ -205,7 +206,8 @@ const void SelectManager::Merge()
 		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
 		{
 			Tile* tempTile = (Tile*)i;
-			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx - 1
+			if (tempTile->GetposIdx().xidx == (newTile->GetposIdx().yidx % 2 == 0?
+				newTile->GetposIdx().xidx: newTile->GetposIdx().xidx - 1)
 				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx + 1)
 			{
 				m_to = tempTile;
@@ -223,7 +225,8 @@ const void SelectManager::Merge()
 		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
 		{
 			Tile* tempTile = (Tile*)i;
-			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx + 1
+			if (tempTile->GetposIdx().xidx == (tempTile->GetposIdx().yidx % 2 ==0 ?
+				newTile->GetposIdx().xidx : newTile->GetposIdx().xidx + 1)
 				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx - 1)
 			{
 				m_to = tempTile;
@@ -259,7 +262,8 @@ const void SelectManager::Merge()
 		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
 		{
 			Tile*  tempTile = (Tile*)i;
-			if (tempTile->GetposIdx().xidx == newTile->GetposIdx().xidx
+			if (tempTile->GetposIdx().xidx == (newTile->GetposIdx().yidx % 2 == 0 ?
+				newTile->GetposIdx().xidx + 1: newTile->GetposIdx().xidx)
 				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx + 1)
 			{
 				m_to = tempTile;

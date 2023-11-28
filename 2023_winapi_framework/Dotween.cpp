@@ -68,6 +68,24 @@ void Dotween::Update()
 		}
 		if (m_fcurtime >= m_ftime)
 		{
+			switch (m_etype)
+			{
+			case DOTWEEN_TYPE::MOVE:
+				m_target->SetPos(m_vendval);
+				break;
+			case DOTWEEN_TYPE::SCALE:
+				m_target->SetScale(m_vendval);
+				break;
+			case DOTWEEN_TYPE::ROTATE:
+				break;
+			case DOTWEEN_TYPE::FADE:
+				break;
+			case DOTWEEN_TYPE::END:
+				break;
+			default:
+				break;
+			}
+
 			for (size_t i = 0; i < SceneMgr::GetInst()->GetCurScene()
 				->GetGroupObject(OBJECT_GROUP::DOTWEEN).size();)
 			{

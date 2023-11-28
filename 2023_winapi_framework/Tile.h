@@ -16,6 +16,7 @@ public:
 	void ResetVec() { m_tilevec.resize(0); }
 public:
 	const XY& GetposIdx() const { return m_posidx; }
+	const void SetposIdx(XY xy) { m_posidx = xy; }
 	const TILE_TYPE& GetType() const { return m_eType; }
 	const int& GetCnt() const { return m_cnt; }
 	const void SetCnt(int val) {m_cnt += val; }

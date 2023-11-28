@@ -90,10 +90,10 @@ void Tile::Render(HDC _dc)
 
 	if (m_eState == TILE_STATE::DEFAULT || m_eState == TILE_STATE::CANMOVE)
 	{
-		TransparentBlt(_dc, left,top,
-			Width * (vScale.x / 100),Height * (vScale.y / 100),
-			m_pTex->GetDC(),0,0,
-			Width,Height,RGB(255, 0, 255));
+		TransparentBlt(_dc, left, top,
+			Width * (vScale.x / 100), Height * (vScale.y / 100),
+			m_pTex->GetDC(), 0, 0,
+			Width, Height, RGB(255, 0, 255));
 	}
 	else
 	{
@@ -187,7 +187,7 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 	case 5:
 	{
 		scale = Vec2(7, 7);
-		Vec2 midPos = Vec2(GetPos().x +75, GetPos().y + 78);
+		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
 
 		float radius = 28.0f;
 
@@ -272,12 +272,66 @@ const bool Tile::CanGo(Tile* _temptile)
 	{
 		if (_temptile->GetType() != m_eType || _temptile->GetCnt() != m_cnt)
 		{
-			if(m_eType == TILE_TYPE::WATER ||
+			if (m_eType == TILE_TYPE::WATER ||
 				m_eType == TILE_TYPE::FIRE ||
-				m_eType == TILE_TYPE::GRASS )
-			return false;
+				m_eType == TILE_TYPE::GRASS)
+				return false;
 		}
 
+	}
+	break;
+	case TILE_TYPE::MOVELU:
+	{
+		Tile temptile = *this;
+		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
+			_temptile->GetposIdx().yidx - 1 });
+		if (!CanGo(&temptile))
+			return false;
+	}
+	break;
+	case TILE_TYPE::MOVEL:
+	{
+		Tile temptile = *this;
+		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
+			_temptile->GetposIdx().yidx });
+		if (!CanGo(&temptile))
+			return false;
+	}
+	break;
+	case TILE_TYPE::MOVELD:
+	{
+		Tile temptile = *this;
+		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
+			_temptile->GetposIdx().yidx + 1 });
+		if (!CanGo(&temptile))
+			return false;
+	}
+	break;
+	case TILE_TYPE::MOVERU:
+	{
+		Tile temptile = *this;
+		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
+			_temptile->GetposIdx().yidx - 1 });
+		if (!CanGo(&temptile))
+			return false;
+	}
+	break;
+	case TILE_TYPE::MOVER:
+	{
+		Tile temptile = *this;
+		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
+			_temptile->GetposIdx().yidx });
+		if (!CanGo(&temptile))
+			return false;
+	}
+	break;
+	case TILE_TYPE::MOVERD:
+	{
+		Tile temptile = *_temptile;
+		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
+			_temptile->GetposIdx().yidx + 1 });
+		if (!CanGo(&temptile))
+			return false;
 	}
 	break;
 	default:
@@ -293,6 +347,7 @@ const bool Tile::CanGo(Tile* _temptile)
 	if (GetCnt() >= 5)
 		return false;
 #pragma endregion
+
+
 	return true;
 }
-
