@@ -101,7 +101,7 @@ const void StageManager::RenderBoard()
 			else if (m_board[i][j] == 'T')
 			{
 				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASS, 4), OBJECT_GROUP::TILE);
-			}
+			}                                                                                                                                                                                  
 		}
 	}
 }
