@@ -4,6 +4,8 @@
 #include "Texture.h"
 #include "TileImage.h"
 #include "SelectManager.h"
+#include "SceneMgr.h"
+#include "Scene.h"
 #include"Core.h"
 
 Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
@@ -59,7 +61,7 @@ void Tile::Update()
 
 	if (tempTile != nullptr && tempTile != this)
 	{
-		if (CanGo(tempTile))
+		if (CanGo(this))
 		{
 			m_eState = TILE_STATE::CANMOVE;
 		}
@@ -222,10 +224,11 @@ void Tile::AddVec(const Vec2& _vScale, const Vec2& _vPos, const TILE_TYPE& _type
 
 const bool Tile::CanGo(Tile* _temptile)
 {
+	Tile* selectTile = SelectManager::GetInst()->GetSelectTile();
 #pragma region 인접한 타일인지 검사
-	int difX = _temptile->GetposIdx().xidx - m_posidx.xidx;
-	int difY = _temptile->GetposIdx().yidx - m_posidx.yidx;
-	if (_temptile->GetposIdx().yidx % 2 == 0)
+	int difX = selectTile->GetposIdx().xidx - m_posidx.xidx;
+	int difY = selectTile->GetposIdx().yidx - m_posidx.yidx;
+	if (selectTile->GetposIdx().yidx % 2 == 0)
 	{
 		//(y - 1, x - 1)  (y - 1, x)
 		//(y,     x - 1)  (y,     x)  (y, x + 1)
@@ -270,11 +273,11 @@ const bool Tile::CanGo(Tile* _temptile)
 	case TILE_TYPE::FIRE:
 	case TILE_TYPE::GRASS:
 	{
-		if (_temptile->GetType() != m_eType || _temptile->GetCnt() != m_cnt)
+		if (selectTile->GetType() != _temptile->GetType() || selectTile->GetCnt() != _temptile->GetCnt())
 		{
-			if (m_eType == TILE_TYPE::WATER ||
-				m_eType == TILE_TYPE::FIRE ||
-				m_eType == TILE_TYPE::GRASS)
+			if (selectTile->GetType() == TILE_TYPE::WATER ||
+				selectTile->GetType() == TILE_TYPE::FIRE ||
+				selectTile->GetType() == TILE_TYPE::GRASS)
 				return false;
 		}
 
@@ -282,16 +285,17 @@ const bool Tile::CanGo(Tile* _temptile)
 	break;
 	case TILE_TYPE::MOVELU:
 	{
-		Tile temptile = *this;
-		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
-			_temptile->GetposIdx().yidx - 1 });
+		Tile temptile = *selectTile;
+		temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0?
+		_temptile->GetposIdx().xidx : _temptile->GetposIdx().xidx - 1),
+			_temptile->GetposIdx().yidx - 1});
 		if (!CanGo(&temptile))
 			return false;
 	}
 	break;
 	case TILE_TYPE::MOVEL:
 	{
-		Tile temptile = *this;
+		Tile temptile = *selectTile;
 		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
 			_temptile->GetposIdx().yidx });
 		if (!CanGo(&temptile))
@@ -300,25 +304,27 @@ const bool Tile::CanGo(Tile* _temptile)
 	break;
 	case TILE_TYPE::MOVELD:
 	{
-		Tile temptile = *this;
-		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
-			_temptile->GetposIdx().yidx + 1 });
+		Tile temptile = *selectTile;
+		temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0?
+			_temptile->GetposIdx().xidx  : _temptile->GetposIdx().xidx - 1) ,
+			_temptile->GetposIdx().yidx + 1});
 		if (!CanGo(&temptile))
 			return false;
 	}
 	break;
 	case TILE_TYPE::MOVERU:
 	{
-		Tile temptile = *this;
-		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
-			_temptile->GetposIdx().yidx - 1 });
+		Tile temptile = *selectTile;
+		temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+			_temptile->GetposIdx().xidx + 1: _temptile->GetposIdx().xidx),
+			_temptile->GetposIdx().yidx - 1});
 		if (!CanGo(&temptile))
 			return false;
 	}
 	break;
 	case TILE_TYPE::MOVER:
 	{
-		Tile temptile = *this;
+		Tile temptile = *selectTile;
 		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
 			_temptile->GetposIdx().yidx });
 		if (!CanGo(&temptile))
@@ -327,9 +333,10 @@ const bool Tile::CanGo(Tile* _temptile)
 	break;
 	case TILE_TYPE::MOVERD:
 	{
-		Tile temptile = *_temptile;
-		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
-			_temptile->GetposIdx().yidx + 1 });
+		Tile temptile = *selectTile;
+		temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0?
+			_temptile->GetposIdx().xidx + 1 : _temptile->GetposIdx().xidx),
+			_temptile->GetposIdx().yidx + 1});
 		if (!CanGo(&temptile))
 			return false;
 	}
@@ -348,6 +355,105 @@ const bool Tile::CanGo(Tile* _temptile)
 		return false;
 #pragma endregion
 
+#pragma region 자기자신인지 검사
+	if (_temptile->GetposIdx().xidx == selectTile->GetposIdx().xidx
+		&& _temptile->GetposIdx().yidx == selectTile->GetposIdx().yidx)
+		return false;
+#pragma endregion
 
-	return true;
+#pragma region 있는 타일있지 검사
+	for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
+	{
+		Tile* t = (Tile*)i;
+		if (t->GetposIdx().xidx == _temptile->GetposIdx().xidx
+			&& t->GetposIdx().yidx == _temptile->GetposIdx().yidx)
+		{
+
+			switch (t->GetType())
+			{
+			case TILE_TYPE::WATER:
+			case TILE_TYPE::FIRE:
+			case TILE_TYPE::GRASS:
+				//갯수 체크, 속성체크
+				if (t->GetCnt() != _temptile->GetCnt())
+					return false;
+				if (t->GetType() != _temptile->GetType())
+					return false;
+				break;
+			case TILE_TYPE::LOCK:
+				//속성체크
+				break;
+			case TILE_TYPE::MOVELU:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+				_temptile->GetposIdx().xidx : _temptile->GetposIdx().xidx - 1),
+					_temptile->GetposIdx().yidx - 1 });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVEL:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
+					_temptile->GetposIdx().yidx });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVELD:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+					_temptile->GetposIdx().xidx : _temptile->GetposIdx().xidx - 1) ,
+					_temptile->GetposIdx().yidx + 1 });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVERU:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+					_temptile->GetposIdx().xidx + 1 : _temptile->GetposIdx().xidx),
+					_temptile->GetposIdx().yidx - 1 });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVER:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
+					_temptile->GetposIdx().yidx });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVERD:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+					_temptile->GetposIdx().xidx + 1 : _temptile->GetposIdx().xidx),
+					_temptile->GetposIdx().yidx + 1 });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::WIND:
+				break;
+			}
+
+			return true;
+		}
+	}
+#pragma endregion
+	return false;
+
+}
+
+const bool Tile::MoveableGo(Tile* _temptile)
+{
+	return false;
 }
