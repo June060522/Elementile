@@ -50,6 +50,7 @@ void Dotween::Update()
 	m_fwaittime -= TimeMgr::GetInst()->GetDT();
 	if (m_fwaittime <= 0)
 	{
+		m_isBegin = true;
 		m_fcurtime += TimeMgr::GetInst()->GetDT();
 		switch (m_etype)
 		{
@@ -86,16 +87,12 @@ void Dotween::Update()
 				break;
 			}
 
-			for (size_t i = 0; i < SceneMgr::GetInst()->GetCurScene()
-				->GetGroupObject(OBJECT_GROUP::DOTWEEN).size();)
+			for (size_t i = 0; i < GET_OBJECT(OBJECT_GROUP::DOTWEEN).size();)
 			{
-				if (SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::DOTWEEN)[i] == this)
-					SceneMgr::GetInst()->GetCurScene()
-					->GetGroupObject(OBJECT_GROUP::DOTWEEN).erase(
-						SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::DOTWEEN).begin() + i);
+				if (GET_OBJECT(OBJECT_GROUP::DOTWEEN)[i] == this)
+					GET_OBJECT(OBJECT_GROUP::DOTWEEN).erase(GET_OBJECT(OBJECT_GROUP::DOTWEEN).begin() + i);
 				else
 					++i;
-
 			}
 		}
 	}
@@ -106,6 +103,8 @@ void Dotween::Update()
 void Dotween::Render(HDC _dc)
 {
 }
+
+
 
 void Dotween::DoMove()
 {
@@ -161,4 +160,17 @@ void Dotween::DoFade()
 	//AlphaBlend(hdc, 0, 0, bmp.bmWidth, bmp.bmHeight,
 	//	CreateCompatibleDC(hdc), 0, 0, bmp.bmWidth, bmp.bmHeight,
 	//	blendFunc);
+}
+
+void Dotween::DoKill()
+{
+	for (size_t i = 0; i < GET_OBJECT(OBJECT_GROUP::DOTWEEN).size();)
+	{
+		Dotween* dotween = (Dotween*)(GET_OBJECT(OBJECT_GROUP::DOTWEEN)[i]);
+		if (dotween->GetTarget() == this->GetTarget()
+			&& dotween->GetPlay() && dotween->GetType() == this->GetType())
+		{
+			GET_OBJECT(OBJECT_GROUP::DOTWEEN).erase(GET_OBJECT(OBJECT_GROUP::DOTWEEN).begin() + i);
+		}
+	}
 }
