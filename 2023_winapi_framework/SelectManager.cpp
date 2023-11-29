@@ -159,7 +159,8 @@ const void SelectManager::Merge()
 	case TILE_TYPE::FIRELOCK:
 	case TILE_TYPE::WATERLOCK:
 	case TILE_TYPE::GRASSLOCK:
-
+		m_to = nullptr;
+		m_selectTile = nullptr;
 		break;
 	case TILE_TYPE::TELEPORT:
 		break;

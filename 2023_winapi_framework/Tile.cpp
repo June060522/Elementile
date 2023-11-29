@@ -345,11 +345,25 @@ const bool Tile::CanGo(Tile* _temptile)
 					return false;
 				break;
 			case TILE_TYPE::FIRELOCK:
+				if (!(TILE_TYPE::FIRE == _temptile->GetType() &&
+					t->GetCnt() == _temptile->GetCnt()))
+				{
+					return false;
+				}
 				break;
 			case TILE_TYPE::WATERLOCK:
+				if (!(TILE_TYPE::WATER == _temptile->GetType() &&
+					t->GetCnt() == _temptile->GetCnt()))
+				{
+					return false;
+				}
 				break;
 			case TILE_TYPE::GRASSLOCK:
-				break;
+				if (!(TILE_TYPE::GRASS == _temptile->GetType() &&
+					_temptile->GetCnt() == t->GetCnt()))
+				{
+					return false;
+				}
 				//속성체크
 				break;
 			case TILE_TYPE::MOVELU:
@@ -420,9 +434,4 @@ const bool Tile::CanGo(Tile* _temptile)
 #pragma endregion
 	return false;
 
-}
-
-const bool Tile::MoveableGo(Tile* _temptile)
-{
-	return false;
 }
