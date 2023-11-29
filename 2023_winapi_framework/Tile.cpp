@@ -132,85 +132,92 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 {
 	Vec2 pos;
 	Vec2 scale;
-	switch (_cnt) // 그릴 이미지 갯수 일단 5개까지만
-	{
-	case 1:
+	if (_type == TILE_TYPE::FIRE || _type == TILE_TYPE::GRASS || _type == TILE_TYPE::WATER)
+		switch (_cnt) // 그릴 이미지 갯수 일단 5개까지만
+		{
+		case 1:
+		{
+			pos = Vec2(GetPos().x + 75, GetPos().y + 75);
+			scale = Vec2(13, 13);
+			AddVec(scale, pos, _type);
+		}
+		break;
+		case 2:
+		{
+			scale = Vec2(10, 10);
+			pos = Vec2(GetPos().x + 100, GetPos().y + 80);
+			AddVec(scale, pos, _type);
+
+			pos = Vec2(GetPos().x + 50, GetPos().y + 80);
+			AddVec(scale, pos, _type);
+		}
+		break;
+		case 3:
+		{
+			scale = Vec2(8, 8);
+			Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 80);
+			float radius = 27.0f;
+			for (int i = 0; i < 3; i++)
+			{
+				float angle = i * (2 * M_PI / 3.0f) + M_PI / 6.0f;
+
+				pos.x = midPos.x + radius * cos(angle);
+				pos.y = midPos.y + radius * sin(angle);
+				AddVec(scale, pos, _type);
+
+			}
+		}
+		break;
+		case 4:
+		{
+			float middis = 20.f;
+			Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
+			scale = Vec2(7, 7);
+
+			pos.x = midPos.x + middis;
+			pos.y = midPos.y + middis;
+			AddVec(scale, pos, _type);
+
+			pos.x = midPos.x + middis;
+			pos.y = midPos.y - middis;
+			AddVec(scale, pos, _type);
+
+			pos.x = midPos.x - middis;
+			pos.y = midPos.y + middis;
+			AddVec(scale, pos, _type);
+
+			pos.x = midPos.x - middis;
+			pos.y = midPos.y - middis;
+			AddVec(scale, pos, _type);
+		}
+		break;
+		case 5:
+		{
+			scale = Vec2(7, 7);
+			Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
+
+			float radius = 28.0f;
+
+			for (int i = 0; i < 5; i++)
+			{
+				float angle = (i * (2 * M_PI / 5.0f)) + M_PI / 2.f;
+
+				pos.x = midPos.x + radius * cos(angle);
+				pos.y = midPos.y + radius * sin(-angle);
+
+				AddVec(scale, pos, _type);
+			}
+		}
+		break;
+		default:
+			assert(_cnt);
+			break;
+		}
+	else
 	{
 		pos = Vec2(GetPos().x + 75, GetPos().y + 75);
 		scale = Vec2(13, 13);
 		AddVec(scale, pos, _type);
-	}
-	break;
-	case 2:
-	{
-		scale = Vec2(10, 10);
-		pos = Vec2(GetPos().x + 100, GetPos().y + 80);
-		AddVec(scale, pos, _type);
-
-		pos = Vec2(GetPos().x + 50, GetPos().y + 80);
-		AddVec(scale, pos, _type);
-	}
-	break;
-	case 3:
-	{
-		scale = Vec2(8, 8);
-		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 80);
-		float radius = 27.0f;
-		for (int i = 0; i < 3; i++)
-		{
-			float angle = i * (2 * M_PI / 3.0f) + M_PI / 6.0f;
-
-			pos.x = midPos.x + radius * cos(angle);
-			pos.y = midPos.y + radius * sin(angle);
-			AddVec(scale, pos, _type);
-
-		}
-	}
-	break;
-	case 4:
-	{
-		float middis = 20.f;
-		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
-		scale = Vec2(7, 7);
-
-		pos.x = midPos.x + middis;
-		pos.y = midPos.y + middis;
-		AddVec(scale, pos, _type);
-
-		pos.x = midPos.x + middis;
-		pos.y = midPos.y - middis;
-		AddVec(scale, pos, _type);
-
-		pos.x = midPos.x - middis;
-		pos.y = midPos.y + middis;
-		AddVec(scale, pos, _type);
-
-		pos.x = midPos.x - middis;
-		pos.y = midPos.y - middis;
-		AddVec(scale, pos, _type);
-	}
-	break;
-	case 5:
-	{
-		scale = Vec2(7, 7);
-		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
-
-		float radius = 28.0f;
-
-		for (int i = 0; i < 5; i++)
-		{
-			float angle = (i * (2 * M_PI / 5.0f)) + M_PI / 2.f;
-
-			pos.x = midPos.x + radius * cos(angle);
-			pos.y = midPos.y + radius * sin(-angle);
-
-			AddVec(scale, pos, _type);
-		}
-	}
-	break;
-	default:
-		assert(_cnt);
-		break;
 	}
 }
 
@@ -283,6 +290,27 @@ const bool Tile::CanGo(Tile* _temptile)
 		}
 	}
 	break;
+	case TILE_TYPE::FIRELOCK:
+		if (!(TILE_TYPE::FIRE == selectTile->GetType() &&
+			selectTile->GetCnt() == _temptile->GetCnt()))
+		{
+			return false;
+		}
+		break;
+	case TILE_TYPE::WATERLOCK:
+		if (!(TILE_TYPE::WATER == selectTile->GetType() &&
+			selectTile->GetCnt() == _temptile->GetCnt()))
+		{
+			return false;
+		}
+		break;
+	case TILE_TYPE::GRASSLOCK:
+		if (!(TILE_TYPE::GRASS == selectTile->GetType() &&
+			selectTile->GetCnt() == _temptile->GetCnt()))
+		{ 
+			return false;
+		}
+		break;
 	}
 #pragma endregion
 
