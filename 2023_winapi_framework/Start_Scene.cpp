@@ -18,13 +18,7 @@ float t = 0;
 
 void Start_Scene::Init()
 {
-	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"N"));
-	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"O"));
-	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"B"));
-	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"L"));
-	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"E"));
-	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"N"));
-	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"D"));
+	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"NoBlend"));
 
 	DataManager::GetInst()->Init();
 	int result = AddFontResource(L"Res\\Font\\Font.ttf");
@@ -46,16 +40,16 @@ void Start_Scene::Update()
 	Scene::Update();
 
 	t += TimeMgr::GetInst()->GetDT();
-	if (t >= 2)
+	if (t >= 2.5f)
 	{
 		int x;
 		for (size_t i = 0; i < m_vObj.size(); ++i)
 		{
 			SceneMgr::GetInst()->GetCurScene()->
-				AddObject(new Dotween(m_vObj[i], Vec2(180 * (i + 1) / 2, 79), 1.4f, DOTWEEN_TYPE::MOVE
+				AddObject(new Dotween(m_vObj[i], Vec2(188 * (i + 1) / 2 + 400, 100), 1.f, DOTWEEN_TYPE::MOVE
 				), OBJECT_GROUP::DOTWEEN);
 			SceneMgr::GetInst()->GetCurScene()->
-				AddObject(new Dotween(m_vObj[i], Vec2(165 * (i + 1) / 2, 120), 1.f, 1, DOTWEEN_TYPE::MOVE
+				AddObject(new Dotween(m_vObj[i], Vec2(177 * (i + 1) / 2 + 400, 120) , 1.2f, 1, DOTWEEN_TYPE::MOVE
 				), OBJECT_GROUP::DOTWEEN);
 		}
 		t = 0;

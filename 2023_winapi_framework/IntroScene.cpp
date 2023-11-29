@@ -14,34 +14,71 @@
 int darknessLevel = 0;
 const float darknessActivationTime = 5.0f;  
 
+
 void IntroScene::Init()
 {   
-    m_string = new UIText(Vec2(-80.f, -150.f), L"난쟁2");
-    DataManager::GetInst()->Init();
+    m_string = new UIText(Vec2(-80.f, -150.f), L"난쟁2"); 
+
+    m_vObj.push_back(new UIText(Vec2(-300.f, 1080.f), L"★"));
     AddObject(m_string, OBJECT_GROUP::UI);
-    //AddObject(new Button(), OBJECT_GROUP::UI);
-    //int result = AddFontResource(L"Res\\Font\\Font.ttf");
+    DataManager::GetInst()->Init();
+    
+
     int title = AddFontResource(L"Res\\Font\\인천교육소통.ttf");
 
-    SceneMgr::GetInst()->GetCurScene()->
-        AddObject(new Dotween(m_string, Vec2(250, 560), 1.8f, DOTWEEN_TYPE::MOVE
-        ), OBJECT_GROUP::DOTWEEN);
-    SceneMgr::GetInst()->GetCurScene()->
-        AddObject(new Dotween(m_string, Vec2(500, 250), 2.f, 1.5f, DOTWEEN_TYPE::MOVE
-        ), OBJECT_GROUP::DOTWEEN);
-    SceneMgr::GetInst()->GetCurScene()->
-        AddObject(new Dotween(m_string, Vec2(570, 350), 1.6f, 2.7f, DOTWEEN_TYPE::MOVE
-        ), OBJECT_GROUP::DOTWEEN);
+    //SceneMgr::GetInst()->GetCurScene()->
+    //    AddObject(new Dotween(m_string, Vec2(250, 560), 1.8f, DOTWEEN_TYPE::MOVE
+    //    ), OBJECT_GROUP::DOTWEEN);
+    //SceneMgr::GetInst()->GetCurScene()->
+    //    AddObject(new Dotween(m_string, Vec2(500, 250), 2.f, 1.5f, DOTWEEN_TYPE::MOVE
+    //    ), OBJECT_GROUP::DOTWEEN);
+    //SceneMgr::GetInst()->GetCurScene()->
+    //    AddObject(new Dotween(m_string, Vec2(570, 350), 1.6f, 2.7f, DOTWEEN_TYPE::MOVE
+    //    ), OBJECT_GROUP::DOTWEEN);
+
+    for (size_t i = 0; i < m_vObj.size(); ++i)
+        AddObject(m_vObj[i], OBJECT_GROUP::STAR);
 }
 
 void IntroScene::Update()
 {
     deltaTime += TimeMgr::GetInst()->GetDT();
 
-    if (deltaTime >= 8.0f && darknessLevel < 300)
+    for (size_t i = 0; i < m_vObj.size(); ++i)
+    {
+        SceneMgr::GetInst()->GetCurScene()->
+            AddObject(new Dotween(m_vObj[i], Vec2(700, 350), 1.5f, DOTWEEN_TYPE::MOVE
+            ), OBJECT_GROUP::DOTWEEN);
+    }
+
+    if (deltaTime >= 7)
+    {
+        HFONT hFont = CreateFont(1000, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+            CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
+
+    }
+
+    //여기서 별의 이미지가 파티클로 사라지고 글씨가 나타나게 한다
+    if (deltaTime >= 9.5f)
+    {
+        //글자 사이트 크게 하기
+       
+
+        for (size_t i = 0; i < GET_OBJECT(OBJECT_GROUP::STAR).size();)
+        {
+             GET_OBJECT(OBJECT_GROUP::STAR).erase(GET_OBJECT(OBJECT_GROUP::STAR).begin() + i);
+        }
+        
+        SceneMgr::GetInst()->GetCurScene()->
+            AddObject(new Dotween(m_string, Vec2(250, 560), 1.8f, DOTWEEN_TYPE::MOVE
+            ), OBJECT_GROUP::DOTWEEN);
+    }
+
+    if (deltaTime >= 25.0f && darknessLevel < 300)
     {
         darknessLevel += 1;
     }
+
     
     if (KEY_DOWN(KEY_TYPE::T))
         SceneMgr::GetInst()->LoadScene(L"NameScene");
@@ -95,6 +132,15 @@ void IntroScene::Render(HDC _dc)
 void IntroScene::Release()
 {
     Scene::Release();
-    //RemoveFontResource(L"Res\\Font\\Font.ttf");
     RemoveFontResource(L"Res\\Font\\인천교육소통.ttf");
+}
+
+void IntroScene::SetTextSize(HWND _hWnd, int newSize)
+{
+    /*newSize = 50;
+    HFONT hFont = GetStockObject(DEFAULT_GUI_FONT);
+    LOGFONT lf;
+    GetObject(hFont, sizeof(LOGFONT), &lf);
+    lf.lfHeight = newSize;
+    HFONT hNewFont = CreateFontIndirect(&lf);*/
 }
