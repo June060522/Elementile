@@ -13,6 +13,7 @@ private:
     Object* m_string1;
     Object* m_string2;
     Object* m_string3;
+    float deltaTime;
 };
 
 

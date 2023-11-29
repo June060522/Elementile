@@ -12,7 +12,6 @@
 #include "UIText.h"
 
 int darknessLevel = 0;
-float elapsedTime = -5.0f; 
 const float darknessActivationTime = 5.0f;  
 
 void IntroScene::Init()
@@ -37,10 +36,9 @@ void IntroScene::Init()
 
 void IntroScene::Update()
 {
-    float deltaTime = 0.24f; // 실제 deltaTime을 얻기 위해 이를 대체하세요
-    elapsedTime += deltaTime;
+    deltaTime += TimeMgr::GetInst()->GetDT();
 
-    if (elapsedTime >= 300.0f && darknessLevel < 300)
+    if (deltaTime >= 8.0f && darknessLevel < 300)
     {
         darknessLevel += 1;
     }
@@ -67,7 +65,7 @@ void IntroScene::Render(HDC _dc)
     RECT rcClient;
     GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
-    darknessLevel = min(max(darknessLevel, 0), 300);
+    darknessLevel = max(darknessLevel, 255);
 
     COLORREF bgColor = RGB( darknessLevel,  darknessLevel,  darknessLevel);
     HBRUSH hBrush = CreateSolidBrush(bgColor);
