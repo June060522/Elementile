@@ -126,7 +126,6 @@ const void StageManager::RenderBoard()
 			{
 				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::MOVERD, 1), OBJECT_GROUP::TILE);
 			}
-
 			else if (m_board[i][j] == '1')
 			{
 				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::FIRELOCK, 1), OBJECT_GROUP::TILE);

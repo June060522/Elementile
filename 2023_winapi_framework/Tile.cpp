@@ -213,6 +213,12 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 			assert(_cnt);
 			break;
 		}
+	else if(_type == TILE_TYPE::FIRELOCK || _type == TILE_TYPE::GRASSLOCK || _type == TILE_TYPE::WATERLOCK)
+	{
+		pos = Vec2(GetPos().x + 75, GetPos().y + 75);
+		scale = Vec2(13, 13);
+		AddVec(scale, pos, _type);
+	}
 	else
 	{
 		pos = Vec2(GetPos().x + 75, GetPos().y + 75);
@@ -223,7 +229,7 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 
 void Tile::AddVec(const Vec2& _vScale, const Vec2& _vPos, const TILE_TYPE& _type)
 {
-	TileImage* _tileImage = new TileImage(_type);
+	TileImage* _tileImage = new TileImage(_type,m_cnt);
 	_tileImage->SetPos(_vPos);
 	_tileImage->SetScale(_vScale);
 	_tileImage->SetCorrectionPosX(_vPos.x - GetPos().x);
@@ -307,7 +313,7 @@ const bool Tile::CanGo(Tile* _temptile)
 	case TILE_TYPE::GRASSLOCK:
 		if (!(TILE_TYPE::GRASS == selectTile->GetType() &&
 			selectTile->GetCnt() == _temptile->GetCnt()))
-		{ 
+		{
 			return false;
 		}
 		break;
@@ -336,9 +342,18 @@ const bool Tile::CanGo(Tile* _temptile)
 			switch (t->GetType())
 			{
 			case TILE_TYPE::WATER:
+				if (t->GetCnt() != _temptile->GetCnt())
+					return false;
+				if (t->GetType() != _temptile->GetType())
+					return false;
+				break;
 			case TILE_TYPE::FIRE:
+				if (t->GetCnt() != _temptile->GetCnt())
+					return false;
+				if (t->GetType() != _temptile->GetType())
+					return false;
+				break;
 			case TILE_TYPE::GRASS:
-				//肮荐 眉农, 加己眉农
 				if (t->GetCnt() != _temptile->GetCnt())
 					return false;
 				if (t->GetType() != _temptile->GetType())
