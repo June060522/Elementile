@@ -144,14 +144,17 @@ const void SelectManager::Merge()
 	case TILE_TYPE::WATER:
 	case TILE_TYPE::FIRE:
 	case TILE_TYPE::GRASS:
-		newTile->SetCnt(1);
-		newTile->ResetVec();
-		newTile->AddImage(newTile->GetCnt(), newTile->GetType());
-		SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
-		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
+		if (m_to->GetType() == m_selectTile->GetType())
+		{
+			newTile->SetCnt(1);
+			newTile->ResetVec();
+			newTile->AddImage(newTile->GetCnt(), newTile->GetType());
+			SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
+			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
 			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
-		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
-			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
+				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+		}
 
 		m_to = nullptr;
 		m_selectTile = nullptr;

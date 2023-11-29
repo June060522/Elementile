@@ -345,26 +345,25 @@ const bool Tile::CanGo(Tile* _temptile)
 					return false;
 				break;
 			case TILE_TYPE::FIRELOCK:
-				if (!(TILE_TYPE::FIRE == _temptile->GetType() &&
-					t->GetCnt() == _temptile->GetCnt()))
+				if (!(TILE_TYPE::FIRE == selectTile->GetType() &&
+					t->GetCnt() == selectTile->GetCnt()))
 				{
 					return false;
 				}
 				break;
 			case TILE_TYPE::WATERLOCK:
-				if (!(TILE_TYPE::WATER == _temptile->GetType() &&
-					t->GetCnt() == _temptile->GetCnt()))
+				if (!(TILE_TYPE::WATER == selectTile->GetType() &&
+					t->GetCnt() == selectTile->GetCnt()))
 				{
 					return false;
 				}
 				break;
 			case TILE_TYPE::GRASSLOCK:
-				if (!(TILE_TYPE::GRASS == _temptile->GetType() &&
-					_temptile->GetCnt() == t->GetCnt()))
+				if (!(TILE_TYPE::GRASS == selectTile->GetType() &&
+					selectTile->GetCnt() == t->GetCnt()))
 				{
 					return false;
 				}
-				//속성체크
 				break;
 			case TILE_TYPE::MOVELU:
 			{
