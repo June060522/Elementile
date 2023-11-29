@@ -13,5 +13,6 @@ private:
     Vec2 pos = Vec2(550, 350);
      DWORD lastCharTime;
      Object* m_string;
+     float deltaTime;
 };
 

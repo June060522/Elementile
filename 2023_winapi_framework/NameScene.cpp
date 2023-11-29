@@ -6,6 +6,7 @@
 #include "ResMgr.h"
 #include "NameScene.h"
 #include "SceneMgr.h"
+#include "TimeMgr.h"
 #include "Scene.h";
 #include "Dotween.h";
 
@@ -23,7 +24,6 @@ void NameScene::Init()
     AddObject(m_string3, OBJECT_GROUP::UI);
     DataManager::GetInst()->Init();
     int result = AddFontResource(L"Res\\Font\\Font.ttf");
-
     SceneMgr::GetInst()->GetCurScene()->
         AddObject(new Dotween(m_string1, Vec2((float)GET_WINSIZE.x / 2 - 370, (float)GET_WINSIZE.y / 2 - 123), 1.8f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
@@ -37,7 +37,8 @@ void NameScene::Init()
 
 void NameScene::Update()
 {
-    float deltaTime = 0.24f; // 실제 deltaTime을 얻기 위해 이를 대체하세요
+     // 실제 deltaTime을 얻기 위해 이를 대체하세요
+    deltaTime += TimeMgr::GetInst()->GetDT();
     NameelapsedTime += deltaTime;
 
     if (NameelapsedTime <= 300.0f && NamedarknessLevel < 300)
@@ -65,6 +66,11 @@ void NameScene::Render(HDC _dc)
     HBRUSH hBrush = CreateSolidBrush(bgColor);
     FillRect(_dc, &rcClient, hBrush);
     DeleteObject(hBrush);
+
+    if (deltaTime > 6.2f)
+    {
+        SceneMgr::GetInst()->LoadScene(L"StartScene");
+    }
 
     SetTextColor(_dc, RGB(0, 0, 0));
     SetBkMode(_dc, TRANSPARENT);

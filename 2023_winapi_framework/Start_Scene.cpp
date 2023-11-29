@@ -18,26 +18,24 @@ float t =0;
 
 void Start_Scene::Init()
 {
-    m_vObj.push_back(new UIText(Vec2(-80.f, -150.f), L"N"));
-    m_vObj.push_back(new UIText(Vec2(-80.f, -150.f), L"o"));
-    m_vObj.push_back(new UIText(Vec2(-80.f, -150.f), L"B"));
-    m_vObj.push_back(new UIText(Vec2(-80.f, -150.f), L"l"));
-    m_vObj.push_back(new UIText(Vec2(-80.f, -150.f), L"e"));
-    m_vObj.push_back(new UIText(Vec2(-80.f, -150.f), L"n"));
-    m_vObj.push_back(new UIText(Vec2(-80.f, -150.f), L"d"));
+    m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"N"));
+    m_vObj.push_back(new UIText(Vec2(-90.f, -160.f), L"o"));
+    m_vObj.push_back(new UIText(Vec2(-95.f, -165.f), L"B"));
+    m_vObj.push_back(new UIText(Vec2(-100.f, -170.f), L"l"));
+    m_vObj.push_back(new UIText(Vec2(-105.f, -175.f), L"e"));
+    m_vObj.push_back(new UIText(Vec2(-110.f, -180.f), L"n"));
+    m_vObj.push_back(new UIText(Vec2(-115.f, -185.f), L"d"));
 
     DataManager::GetInst()->Init();
     int result = AddFontResource(L"Res\\Font\\Font.ttf");
 
     for(size_t i=0; i < m_vObj.size(); ++i)
     AddObject(m_vObj[i], OBJECT_GROUP::UI);
-
-    
 }
 
 void Start_Scene::Update()
 {
-    float deltaTime = 0.24f; // 실제 deltaTime을 얻기 위해 이를 대체하세요
+    deltaTime += TimeMgr::GetInst()->GetDT();
     StartelapsedTime += deltaTime;
 
     if (StartelapsedTime <= 300.0f && StartdarknessLevel < 300)
@@ -53,16 +51,26 @@ void Start_Scene::Update()
         for (size_t i = 0; i < m_vObj.size(); ++i)
         {
             SceneMgr::GetInst()->GetCurScene()->
-                AddObject(new Dotween(m_vObj[i], Vec2(250, 560), 1.5f, DOTWEEN_TYPE::MOVE
+                AddObject(new Dotween(m_vObj[i], Vec2(200 * (i + 1), 100), 1.f, DOTWEEN_TYPE::MOVE
                 ), OBJECT_GROUP::DOTWEEN);
             SceneMgr::GetInst()->GetCurScene()->
-                AddObject(new Dotween(m_vObj[i], Vec2(250, 660), 1.5f, 1, DOTWEEN_TYPE::MOVE
+                AddObject(new Dotween(m_vObj[i], Vec2(160 * (i + 1), 180), 1.f, 1, DOTWEEN_TYPE::MOVE
                 ), OBJECT_GROUP::DOTWEEN);
         }
         t = 0;
     }
 
-    
+    const KEY_STATE& leftMouseButtonState = KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON);
+    mousePos = KeyMgr::GetInst()->GetMousePos();
+
+    if (mousePos.x >= 0 && mousePos.x <= 1920 &&
+        mousePos.y >= 0 && mousePos.y <= 1080)
+    {
+        if (leftMouseButtonState == KEY_STATE::DOWN || leftMouseButtonState == KEY_STATE::PRESS)
+        {
+            SceneMgr::GetInst()->LoadScene(L"GameScene");
+        }
+    }
 }
 
 void Start_Scene::Render(HDC _dc)
