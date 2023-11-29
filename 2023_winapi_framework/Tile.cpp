@@ -4,6 +4,9 @@
 #include "Texture.h"
 #include "TileImage.h"
 #include "SelectManager.h"
+#include "SceneMgr.h"
+#include "Scene.h"
+#include"Core.h"
 
 Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	: Object()
@@ -32,16 +35,13 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	case TILE_TYPE::TELEPORT:
 		break;
 	case TILE_TYPE::MOVEL:
-		break;
 	case TILE_TYPE::MOVELU:
-		break;
 	case TILE_TYPE::MOVELD:
-		break;
 	case TILE_TYPE::MOVER:
-		break;
 	case TILE_TYPE::MOVERU:
-		break;
 	case TILE_TYPE::MOVERD:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Arrow Tile", L"Texture\\arrowhexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Arrow Tile Dark", L"Texture\\arrowhexagondark.bmp");
 		break;
 	case TILE_TYPE::WIND:
 		break;
@@ -61,7 +61,7 @@ void Tile::Update()
 
 	if (tempTile != nullptr && tempTile != this)
 	{
-		if (CanGo(tempTile))
+		if (CanGo(this))
 		{
 			m_eState = TILE_STATE::CANMOVE;
 		}
@@ -92,17 +92,20 @@ void Tile::Render(HDC _dc)
 
 	if (m_eState == TILE_STATE::DEFAULT || m_eState == TILE_STATE::CANMOVE)
 	{
-		TransparentBlt(_dc, left,top,
-			Width * (vScale.x / 100),Height * (vScale.y / 100),
-			m_pTex->GetDC(),0,0,
-			Width,Height,RGB(255, 0, 255));
+		TransparentBlt(_dc, left, top,
+			Width * (vScale.x / 100), Height * (vScale.y / 100),
+			m_pTex->GetDC(), 0, 0,
+			Width, Height, RGB(255, 0, 255));
 	}
 	else
 	{
-		TransparentBlt(_dc, left, top,
-			Width * (vScale.x / 100), Height * (vScale.y / 100),
-			m_pTexDark->GetDC(), 0, 0,
-			Width, Height, RGB(255, 0, 255));
+		if (m_pTexDark != nullptr)
+		{
+			TransparentBlt(_dc, left, top,
+				Width * (vScale.x / 100), Height * (vScale.y / 100),
+				m_pTexDark->GetDC(), 0, 0,
+				Width, Height, RGB(255, 0, 255));
+		}
 		TransparentBlt(_dc, left, top,
 			Width * (vScale.x / 100), Height * (vScale.y / 100),
 			m_pBGDark->GetDC(), 0, 0,
@@ -186,7 +189,7 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 	case 5:
 	{
 		scale = Vec2(7, 7);
-		Vec2 midPos = Vec2(GetPos().x +75, GetPos().y + 78);
+		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
 
 		float radius = 28.0f;
 
@@ -221,10 +224,11 @@ void Tile::AddVec(const Vec2& _vScale, const Vec2& _vPos, const TILE_TYPE& _type
 
 const bool Tile::CanGo(Tile* _temptile)
 {
+	Tile* selectTile = SelectManager::GetInst()->GetSelectTile();
 #pragma region 인접한 타일인지 검사
-	int difX = _temptile->GetposIdx().xidx - m_posidx.xidx;
-	int difY = _temptile->GetposIdx().yidx - m_posidx.yidx;
-	if (_temptile->GetposIdx().yidx % 2 == 0)
+	int difX = selectTile->GetposIdx().xidx - m_posidx.xidx;
+	int difY = selectTile->GetposIdx().yidx - m_posidx.yidx;
+	if (selectTile->GetposIdx().yidx % 2 == 0)
 	{
 		//(y - 1, x - 1)  (y - 1, x)
 		//(y,     x - 1)  (y,     x)  (y, x + 1)
@@ -262,35 +266,19 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-#pragma region 이동가능한 속성인지 검사
+#pragma region 이동가능한 속성,타일인지 검사
 	switch (_temptile->GetType())
 	{
 	case TILE_TYPE::WATER:
 	case TILE_TYPE::FIRE:
 	case TILE_TYPE::GRASS:
 	{
-		if (_temptile->GetType() != m_eType || _temptile->GetCnt() != m_cnt)
+		if (selectTile->GetType() != _temptile->GetType() || selectTile->GetCnt() != _temptile->GetCnt())
+		{
 			return false;
+		}
 	}
 	break;
-	case TILE_TYPE::LOCK:
-		break;
-	case TILE_TYPE::TELEPORT:
-		break;
-	case TILE_TYPE::MOVEL:
-		break;
-	case TILE_TYPE::MOVELU:
-		break;
-	case TILE_TYPE::MOVELD:
-		break;
-	case TILE_TYPE::MOVER:
-		break;
-	case TILE_TYPE::MOVERU:
-		break;
-	case TILE_TYPE::MOVERD:
-		break;
-	case TILE_TYPE::WIND:
-		break;
 	}
 #pragma endregion
 
@@ -298,6 +286,106 @@ const bool Tile::CanGo(Tile* _temptile)
 	if (GetCnt() >= 5)
 		return false;
 #pragma endregion
-	return true;
+
+#pragma region 자기자신인지 검사
+	if (_temptile->GetposIdx().xidx == selectTile->GetposIdx().xidx
+		&& _temptile->GetposIdx().yidx == selectTile->GetposIdx().yidx)
+		return false;
+#pragma endregion
+
+#pragma region 있는 타일있지 검사
+	for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
+	{
+		Tile* t = (Tile*)i;
+		if (t->GetposIdx().xidx == _temptile->GetposIdx().xidx
+			&& t->GetposIdx().yidx == _temptile->GetposIdx().yidx)
+		{
+
+			switch (t->GetType())
+			{
+			case TILE_TYPE::WATER:
+			case TILE_TYPE::FIRE:
+			case TILE_TYPE::GRASS:
+				//갯수 체크, 속성체크
+				if (t->GetCnt() != _temptile->GetCnt())
+					return false;
+				if (t->GetType() != _temptile->GetType())
+					return false;
+				break;
+			case TILE_TYPE::LOCK:
+				//속성체크
+				break;
+			case TILE_TYPE::MOVELU:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+				_temptile->GetposIdx().xidx : _temptile->GetposIdx().xidx - 1),
+					_temptile->GetposIdx().yidx - 1 });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVEL:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
+					_temptile->GetposIdx().yidx });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVELD:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+					_temptile->GetposIdx().xidx : _temptile->GetposIdx().xidx - 1) ,
+					_temptile->GetposIdx().yidx + 1 });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVERU:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+					_temptile->GetposIdx().xidx + 1 : _temptile->GetposIdx().xidx),
+					_temptile->GetposIdx().yidx - 1 });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVER:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
+					_temptile->GetposIdx().yidx });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::MOVERD:
+			{
+				Tile temptile = *selectTile;
+				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+					_temptile->GetposIdx().xidx + 1 : _temptile->GetposIdx().xidx),
+					_temptile->GetposIdx().yidx + 1 });
+				if (!CanGo(&temptile))
+					return false;
+			}
+			break;
+			case TILE_TYPE::WIND:
+				break;
+			}
+
+			return true;
+		}
+	}
+#pragma endregion
+	return false;
+
 }
 
+const bool Tile::MoveableGo(Tile* _temptile)
+{
+	return false;
+}

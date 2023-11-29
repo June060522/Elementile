@@ -101,7 +101,31 @@ const void StageManager::RenderBoard()
 			else if (m_board[i][j] == 'T')
 			{
 				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASS, 4), OBJECT_GROUP::TILE);
-			}                                                                                                                                                                                  
+			}
+			else if (m_board[i][j] == '[')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::MOVELU, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '<')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::MOVEL, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '{')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::MOVELD, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == ']')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::MOVERU, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '>')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::MOVER, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '}')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::MOVERD, 1), OBJECT_GROUP::TILE);
+			}
 		}
 	}
 }
