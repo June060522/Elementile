@@ -26,3 +26,4 @@ public:							\
 #define BOARD_X 7
 #define BOARD_Y 7
 #define GET_WINSIZE Core::GetInst()->GetResolution()
+#define GET_OBJECT SceneMgr::GetInst()->GetCurScene()->GetGroupObject

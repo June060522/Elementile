@@ -8,11 +8,17 @@ public:
 public:
 	virtual void Update() override;
 	virtual void Render(HDC _dc) override;
+public:
+	const Object* GetTarget() const { return m_target; }
+	const bool& GetPlay()const { return m_isBegin; }
+	const DOTWEEN_TYPE& GetType() { return m_etype; }
+
 private:
 	void DoMove();
 	void DoScale();
 	void DoRotate();
 	void DoFade();
+	void DoKill();
 	void SetOriginVal(DOTWEEN_TYPE _etype);
 private:
 	Object*		 m_target;
@@ -21,5 +27,6 @@ private:
 	float		 m_fcurtime;
 	float		 m_ftime;
 	float		 m_fwaittime;
+	bool		 m_isBegin;
 	DOTWEEN_TYPE m_etype;
 };
