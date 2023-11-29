@@ -30,7 +30,11 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Grass Tile", L"Texture\\grasshexagon.bmp");
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Grass Tile Dark", L"Texture\\grasshexagondark.bmp");
 		break;
-	case TILE_TYPE::LOCK:
+	case TILE_TYPE::FIRELOCK:
+	case TILE_TYPE::WATERLOCK:
+	case TILE_TYPE::GRASSLOCK:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Black Tile", L"Texture\\lockhexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Black Dark", L"Texture\\lockhexagon.bmp");
 		break;
 	case TILE_TYPE::TELEPORT:
 		break;
@@ -312,7 +316,12 @@ const bool Tile::CanGo(Tile* _temptile)
 				if (t->GetType() != _temptile->GetType())
 					return false;
 				break;
-			case TILE_TYPE::LOCK:
+			case TILE_TYPE::FIRELOCK:
+				break;
+			case TILE_TYPE::WATERLOCK:
+				break;
+			case TILE_TYPE::GRASSLOCK:
+				break;
 				//속성체크
 				break;
 			case TILE_TYPE::MOVELU:

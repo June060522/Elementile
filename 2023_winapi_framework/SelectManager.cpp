@@ -156,7 +156,10 @@ const void SelectManager::Merge()
 		m_to = nullptr;
 		m_selectTile = nullptr;
 		break;
-	case TILE_TYPE::LOCK:
+	case TILE_TYPE::FIRELOCK:
+	case TILE_TYPE::WATERLOCK:
+	case TILE_TYPE::GRASSLOCK:
+
 		break;
 	case TILE_TYPE::TELEPORT:
 		break;
@@ -271,7 +274,6 @@ const void SelectManager::Merge()
 				return;
 			}
 		}
-
 		break;
 	case TILE_TYPE::WIND:
 		break;

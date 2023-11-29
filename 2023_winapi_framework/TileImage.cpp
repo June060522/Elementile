@@ -17,7 +17,9 @@ TileImage::TileImage(const TILE_TYPE& _eType)
 	case TILE_TYPE::GRASS:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Grass", L"Texture\\grass.bmp");
 		break;
-	case TILE_TYPE::LOCK:
+	case TILE_TYPE::FIRELOCK:
+	case TILE_TYPE::WATERLOCK:
+	case TILE_TYPE::GRASSLOCK:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Lock", L"Texture\\lock.bmp");
 		break;
 	case TILE_TYPE::TELEPORT:
