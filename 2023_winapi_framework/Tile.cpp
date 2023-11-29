@@ -275,78 +275,10 @@ const bool Tile::CanGo(Tile* _temptile)
 	{
 		if (selectTile->GetType() != _temptile->GetType() || selectTile->GetCnt() != _temptile->GetCnt())
 		{
-			if (selectTile->GetType() == TILE_TYPE::WATER ||
-				selectTile->GetType() == TILE_TYPE::FIRE ||
-				selectTile->GetType() == TILE_TYPE::GRASS)
-				return false;
+			return false;
 		}
-
 	}
 	break;
-	case TILE_TYPE::MOVELU:
-	{
-		Tile temptile = *selectTile;
-		temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0?
-		_temptile->GetposIdx().xidx : _temptile->GetposIdx().xidx - 1),
-			_temptile->GetposIdx().yidx - 1});
-		if (!CanGo(&temptile))
-			return false;
-	}
-	break;
-	case TILE_TYPE::MOVEL:
-	{
-		Tile temptile = *selectTile;
-		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
-			_temptile->GetposIdx().yidx });
-		if (!CanGo(&temptile))
-			return false;
-	}
-	break;
-	case TILE_TYPE::MOVELD:
-	{
-		Tile temptile = *selectTile;
-		temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0?
-			_temptile->GetposIdx().xidx  : _temptile->GetposIdx().xidx - 1) ,
-			_temptile->GetposIdx().yidx + 1});
-		if (!CanGo(&temptile))
-			return false;
-	}
-	break;
-	case TILE_TYPE::MOVERU:
-	{
-		Tile temptile = *selectTile;
-		temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
-			_temptile->GetposIdx().xidx + 1: _temptile->GetposIdx().xidx),
-			_temptile->GetposIdx().yidx - 1});
-		if (!CanGo(&temptile))
-			return false;
-	}
-	break;
-	case TILE_TYPE::MOVER:
-	{
-		Tile temptile = *selectTile;
-		temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
-			_temptile->GetposIdx().yidx });
-		if (!CanGo(&temptile))
-			return false;
-	}
-	break;
-	case TILE_TYPE::MOVERD:
-	{
-		Tile temptile = *selectTile;
-		temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0?
-			_temptile->GetposIdx().xidx + 1 : _temptile->GetposIdx().xidx),
-			_temptile->GetposIdx().yidx + 1});
-		if (!CanGo(&temptile))
-			return false;
-	}
-	break;
-	default:
-		if (m_eType == TILE_TYPE::WATER ||
-			m_eType == TILE_TYPE::FIRE ||
-			m_eType == TILE_TYPE::GRASS)
-			return false;
-		break;
 	}
 #pragma endregion
 
