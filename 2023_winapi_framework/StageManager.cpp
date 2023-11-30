@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "Tile.h"
 #include "TileImage.h"
+#include "SceneMgr.h"
 #include "Core.h"
 
 void StageManager::Init(const int& curStage, Game_Scene* _curGameScene)
@@ -40,7 +41,7 @@ const void StageManager::LoadMap(const int& curStage)
 		inputFile.close();
 	}
 	else
-		assert(isOpen);
+		SceneMgr::GetInst()->LoadScene(L"StartScene");
 	RenderBoard();
 }
 

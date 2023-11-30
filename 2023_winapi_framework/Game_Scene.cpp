@@ -4,12 +4,14 @@
 #include "StageManager.h"
 #include "DataManager.h"
 #include "SelectManager.h"
+#include "SceneMgr.h"
 #include "Debug.h"
 
 void Game_Scene::Init()
 {
 	SelectManager::GetInst()->Init();
 	StageManager::GetInst()->Init(DataManager::GetInst()->GetLastStage(), this);
+	DataManager::GetInst()->SaveData();
 }
 
 void Game_Scene::Update()
@@ -17,6 +19,13 @@ void Game_Scene::Update()
 	SelectManager::GetInst()->Update();
 	SelectManager::GetInst()->TileClick(GetGroupObject(OBJECT_GROUP::TILE));
 	Scene::Update();
+	if (GetGroupObject(OBJECT_GROUP::TILE).size() == 0)
+	{
+		if(DataManager::GetInst()->GetLastStage() == DataManager::GetInst()->GetHighStage())
+			DataManager::GetInst()->SetHighStage(1);
+		DataManager::GetInst()->SetLastStage(DataManager::GetInst()->GetLastStage() + 1);
+		SceneMgr::GetInst()->LoadScene(L"GameScene");
+	}
 }
 
 void Game_Scene::Render(HDC _dc)
