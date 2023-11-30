@@ -67,6 +67,8 @@ void Dotween::Update()
 			DoFade();
 			break;
 		}
+		if (m_target == nullptr)
+			DoKill();
 		if (m_fcurtime >= m_ftime)
 		{
 			switch (m_etype)
