@@ -35,6 +35,7 @@ private:
 	Vec2 m_vScale; // 크기
 	wstring m_strName; // 이름.
 	bool m_IsAlive;
+	float m_AlphaValue;
 	Animator* m_pAnimator;
 };
 

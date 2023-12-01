@@ -15,6 +15,7 @@ private:
      DWORD lastCharTime;
      Object* m_string;
      vector<Object*> m_vObj;
+     vector<Object*> m_vObj2;
      float deltaTime;
 };
 

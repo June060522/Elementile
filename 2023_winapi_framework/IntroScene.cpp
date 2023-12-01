@@ -1,4 +1,4 @@
-#include "pch.h"
+Ôªø#include "pch.h"
 #include "IntroScene.h"
 #include "KeyMgr.h"
 #include "SceneMgr.h"
@@ -10,21 +10,23 @@
 #include "Core.h"
 #include "TimeMgr.h"
 #include "UIText.h"
+#include "IntroStarTxt.h"
 
 int darknessLevel = 0;
 const float darknessActivationTime = 5.0f;  
 
-
 void IntroScene::Init()
 {   
-    m_string = new UIText(Vec2(-80.f, -150.f), L"≥≠¿Ô2"); 
+    m_string = new UIText(Vec2(-150.f, -250.f), L"ÎÇúÏüÅ2");
 
-    m_vObj.push_back(new UIText(Vec2(-300.f, 1080.f), L"°⁄"));
+    m_vObj.push_back(new IntroStarTxt(100,Vec2(-300.f, 1080.f), L"‚òÖ",180,2.5f,1.5f));
+    //m_string->SetAlpha(0.0f);
+    
     AddObject(m_string, OBJECT_GROUP::UI);
     DataManager::GetInst()->Init();
     
 
-    int title = AddFontResource(L"Res\\Font\\¿Œ√µ±≥¿∞º“≈Î.ttf");
+    int title = AddFontResource(L"Res\\Font\\Ïù∏Ï≤úÍµêÏú°ÏÜåÌÜµ.ttf");
 
     //SceneMgr::GetInst()->GetCurScene()->
     //    AddObject(new Dotween(m_string, Vec2(250, 560), 1.8f, DOTWEEN_TYPE::MOVE
@@ -47,30 +49,20 @@ void IntroScene::Update()
     for (size_t i = 0; i < m_vObj.size(); ++i)
     {
         SceneMgr::GetInst()->GetCurScene()->
-            AddObject(new Dotween(m_vObj[i], Vec2(700, 350), 1.5f, DOTWEEN_TYPE::MOVE
+            AddObject(new Dotween(m_vObj[i], Vec2(700, 320), 1.5f, DOTWEEN_TYPE::MOVE
             ), OBJECT_GROUP::DOTWEEN);
     }
 
-    if (deltaTime >= 7)
-    {
-        HFONT hFont = CreateFont(1000, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-            CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"¿Œ√µ±≥¿∞º“≈Î");
-
-    }
-
-    //ø©±‚º≠ ∫∞¿« ¿ÃπÃ¡ˆ∞° ∆ƒ∆º≈¨∑Œ ªÁ∂Û¡ˆ∞Ì ±€ææ∞° ≥™≈∏≥™∞‘ «—¥Ÿ
+    //Ïó¨Í∏∞ÏÑú Î≥ÑÏùò Ïù¥ÎØ∏ÏßÄÍ∞Ä ÌååÌã∞ÌÅ¥Î°ú ÏÇ¨ÎùºÏßÄÍ≥† Í∏ÄÏî®Í∞Ä ÎÇòÌÉÄÎÇòÍ≤å ÌïúÎã§
     if (deltaTime >= 9.5f)
     {
-        //±€¿⁄ ªÁ¿Ã∆Æ ≈©∞‘ «œ±‚
-       
-
         for (size_t i = 0; i < GET_OBJECT(OBJECT_GROUP::STAR).size();)
         {
              GET_OBJECT(OBJECT_GROUP::STAR).erase(GET_OBJECT(OBJECT_GROUP::STAR).begin() + i);
         }
         
         SceneMgr::GetInst()->GetCurScene()->
-            AddObject(new Dotween(m_string, Vec2(250, 560), 1.8f, DOTWEEN_TYPE::MOVE
+            AddObject(new Dotween(m_string, Vec2(590, 370), 1.2f, DOTWEEN_TYPE::MOVE
             ), OBJECT_GROUP::DOTWEEN);
     }
 
@@ -111,7 +103,7 @@ void IntroScene::Render(HDC _dc)
 
     darknessLevel = max(darknessLevel, 255);
     HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-        CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"¿Œ√µ±≥¿∞º“≈Î");
+        CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Ïù∏Ï≤úÍµêÏú°ÏÜåÌÜµ");
     SelectObject(_dc, hFont);
 
     if (darknessLevel >= 280)
@@ -132,7 +124,7 @@ void IntroScene::Render(HDC _dc)
 void IntroScene::Release()
 {
     Scene::Release();
-    RemoveFontResource(L"Res\\Font\\¿Œ√µ±≥¿∞º“≈Î.ttf");
+    RemoveFontResource(L"Res\\Font\\Ïù∏Ï≤úÍµêÏú°ÏÜåÌÜµ.ttf");
 }
 
 void IntroScene::SetTextSize(HWND _hWnd, int newSize)
