@@ -129,31 +129,47 @@ void IntroScene::Render(HDC _dc)
     RECT rcClient;
     GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
-    darknessLevel = max(darknessLevel, 255);
-
-    COLORREF bgColor = RGB( darknessLevel,  darknessLevel,  darknessLevel);
+    // 처음에는 어둡게
+    COLORREF bgColor = RGB(darknessLevel, darknessLevel, darknessLevel);
     HBRUSH hBrush = CreateSolidBrush(bgColor);
     FillRect(_dc, &rcClient, hBrush);
     DeleteObject(hBrush);
 
-    darknessLevel = max(darknessLevel, 255);
-    HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-        CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
-    SelectObject(_dc, hFont);
-
-    if (darknessLevel >= 280)
+    if (darknessLevel < 255)
     {
-        SceneMgr::GetInst()->LoadScene(L"NameScene");
+        // 별이 사라지기 전까지 폰트 설정
+        HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+            CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
+        SelectObject(_dc, hFont);
+
+        if (darknessLevel >= 280)
+        {
+            SceneMgr::GetInst()->LoadScene(L"NameScene");
+        }
+        else
+        {
+            DeleteObject(hFont);
+            SetTextColor(_dc, RGB(0, 0, 0));
+            SetBkMode(_dc, TRANSPARENT);
+        }
+
+        Scene::Render(_dc);
+        DeleteObject(hFont);
     }
     else
     {
-        DeleteObject(hFont);
-        SetTextColor(_dc, RGB(0, 0, 0));
-        SetBkMode(_dc, TRANSPARENT);
-    }
-    Scene::Render(_dc);
+        // 별이 사라진 후에는 다시 흰색 바탕화면으로
+        COLORREF bgColor = RGB(255, 255, 255);
+        HBRUSH hBrush = CreateSolidBrush(bgColor);
+        FillRect(_dc, &rcClient, hBrush);
+        DeleteObject(hBrush);
 
-    DeleteObject(hFont);
+        // 별을 다시 그릴 때 별들을 하얗게 표현하려면 아래의 코드를 추가
+        for (size_t i = 0; i < m_vObj.size(); ++i)
+        {
+            m_vObj[i]->Render(_dc);
+        }
+    }
 }
 
 void IntroScene::Release()
