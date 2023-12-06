@@ -187,6 +187,8 @@
     <ClInclude Include="UIText.h">
       <Filter>Engine\09. UI</Filter>
     </ClInclude>
+    <ClInclude Include="DevMin.h" />
+    <ClInclude Include="IntroStarTxt.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -295,6 +297,8 @@
     <ClCompile Include="UIText.cpp">
       <Filter>Engine\09. UI</Filter>
     </ClCompile>
+    <ClCompile Include="DevMin.cpp" />
+    <ClCompile Include="IntroStarTxt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
