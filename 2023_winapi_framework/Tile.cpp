@@ -53,6 +53,7 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		break;
 	}
 	m_pBGDark = ResMgr::GetInst()->TexLoad(L"BGDark", L"Texture\\bgtiledark.bmp");
+	m_pselect = ResMgr::GetInst()->TexLoad(L"BGSelect", L"Texture\\selecthexagon.bmp");
 }
 
 Tile::~Tile()
@@ -94,7 +95,14 @@ void Tile::Render(HDC _dc)
 	float left = centerX - (Width * (vScale.x / 200));
 	float top = centerY - (Height * (vScale.y / 200));
 
-	if (m_eState == TILE_STATE::DEFAULT || m_eState == TILE_STATE::CANMOVE)
+	if (SelectManager::GetInst()->GetSelectTile() == this)
+	{
+		TransparentBlt(_dc, left, top + 5,
+			Width * (vScale.x / 100), Height * (vScale.y / 100),
+			m_pselect->GetDC(), 0, 0,
+			Width, Height, RGB(255, 0, 255));
+	}
+	if (m_eState == TILE_STATE::CANMOVE || m_eState == TILE_STATE::DEFAULT)
 	{
 		TransparentBlt(_dc, left, top,
 			Width * (vScale.x / 100), Height * (vScale.y / 100),
@@ -110,6 +118,7 @@ void Tile::Render(HDC _dc)
 				m_pTexDark->GetDC(), 0, 0,
 				Width, Height, RGB(255, 0, 255));
 		}
+
 		TransparentBlt(_dc, left, top,
 			Width * (vScale.x / 100), Height * (vScale.y / 100),
 			m_pBGDark->GetDC(), 0, 0,
@@ -213,7 +222,7 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 			assert(_cnt);
 			break;
 		}
-	else if(_type == TILE_TYPE::FIRELOCK || _type == TILE_TYPE::GRASSLOCK || _type == TILE_TYPE::WATERLOCK)
+	else if (_type == TILE_TYPE::FIRELOCK || _type == TILE_TYPE::GRASSLOCK || _type == TILE_TYPE::WATERLOCK)
 	{
 		pos = Vec2(GetPos().x + 75, GetPos().y + 75);
 		scale = Vec2(13, 13);
@@ -229,7 +238,7 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 
 void Tile::AddVec(const Vec2& _vScale, const Vec2& _vPos, const TILE_TYPE& _type)
 {
-	TileImage* _tileImage = new TileImage(_type,m_cnt);
+	TileImage* _tileImage = new TileImage(_type, m_cnt);
 	_tileImage->SetPos(_vPos);
 	_tileImage->SetScale(_vScale);
 	_tileImage->SetCorrectionPosX(_vPos.x - GetPos().x);
@@ -283,14 +292,14 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-#pragma region 이동가능한 속성,타일인지 검사
+#pragma region 이동가능한 타일인지 검사
 	switch (_temptile->GetType())
 	{
 	case TILE_TYPE::WATER:
 	case TILE_TYPE::FIRE:
 	case TILE_TYPE::GRASS:
 	{
-		if (selectTile->GetType() != _temptile->GetType() || selectTile->GetCnt() != _temptile->GetCnt())
+		if (selectTile->GetType() == _temptile->GetType() && selectTile->GetCnt() != _temptile->GetCnt())
 		{
 			return false;
 		}
@@ -324,6 +333,61 @@ const bool Tile::CanGo(Tile* _temptile)
 	if (GetCnt() >= 5)
 		return false;
 #pragma endregion
+
+#pragma region 불물풀 속성 검사
+	switch (_temptile->GetType())
+	{
+	case TILE_TYPE::WATER:
+		if (selectTile->GetType() == TILE_TYPE::FIRE)
+		{
+			if (selectTile->GetCnt() > _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		else if(selectTile->GetType() == TILE_TYPE::GRASS)
+		{
+			if (selectTile->GetCnt() < _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		break;
+	case TILE_TYPE::FIRE:
+		if (selectTile->GetType() == TILE_TYPE::GRASS)
+		{
+			if (selectTile->GetCnt() > _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		else if (selectTile->GetType() == TILE_TYPE::WATER)
+		{
+			if (selectTile->GetCnt() < _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		break;
+	case TILE_TYPE::GRASS:
+		if (selectTile->GetType() == TILE_TYPE::FIRE)
+		{
+			if (selectTile->GetCnt() < _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		else if (selectTile->GetType() == TILE_TYPE::WATER)
+		{
+			if (selectTile->GetCnt() > _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		break;
+	}
+#pragma endregion
+
 
 #pragma region 자기자신인지 검사
 	if (_temptile->GetposIdx().xidx == selectTile->GetposIdx().xidx

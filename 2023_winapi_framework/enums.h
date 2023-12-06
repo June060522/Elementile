@@ -67,6 +67,7 @@ enum class TILE_TYPE
 enum class TILE_STATE
 {
 	DEFAULT,
+	SELECT,
 	NOTSELECT,
 	CANMOVE,
 	END

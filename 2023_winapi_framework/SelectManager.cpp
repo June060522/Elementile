@@ -75,7 +75,6 @@ const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 					else if (m_selectTile == nullptr)
 					{
 						m_selectTile = a;
-
 					}
 					else
 					{
@@ -151,7 +150,50 @@ const void SelectManager::Merge()
 			newTile->AddImage(newTile->GetCnt(), newTile->GetType());
 			SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
-			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
+				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+		}
+		else
+		{
+			XY xy = m_to->GetposIdx();
+			int tempNum = abs(m_to->GetCnt() - m_selectTile->GetCnt());
+			if (tempNum == 0)
+			{
+				m_to = nullptr;
+				m_selectTile = nullptr;
+				return;
+			}
+
+			switch (m_to->GetType())
+			{
+			case TILE_TYPE::FIRE:
+				if (m_selectTile->GetType() == TILE_TYPE::WATER)
+				{
+					newTile = beforeTile;
+				}
+				break;
+			case TILE_TYPE::WATER:
+				if (m_selectTile->GetType() == TILE_TYPE::GRASS)
+				{
+					newTile = beforeTile;
+				}
+				break;
+			case TILE_TYPE::GRASS:
+				if (m_selectTile->GetType() == TILE_TYPE::FIRE)
+				{
+					newTile = beforeTile;
+				}
+				break;
+			}
+			newTile->SetCnt(-newTile->GetCnt());
+			newTile->SetCnt(tempNum);
+			newTile->ResetVec();
+			newTile->AddImage(newTile->GetCnt(), newTile->GetType());
+			newTile->SetposIdx(xy);
+			SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
+			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
+				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 		}
@@ -176,8 +218,8 @@ const void SelectManager::Merge()
 		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
 		{
 			Tile* tempTile = (Tile*)i;
-			if (tempTile->GetposIdx().xidx == (tempTile->GetposIdx().yidx % 2 == 0?
-				newTile->GetposIdx().xidx - 1: newTile->GetposIdx().xidx)
+			if (tempTile->GetposIdx().xidx == (tempTile->GetposIdx().yidx % 2 == 0 ?
+				newTile->GetposIdx().xidx - 1 : newTile->GetposIdx().xidx)
 				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx - 1)
 			{
 				m_to = tempTile;
@@ -213,8 +255,8 @@ const void SelectManager::Merge()
 		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
 		{
 			Tile* tempTile = (Tile*)i;
-			if (tempTile->GetposIdx().xidx == (newTile->GetposIdx().yidx % 2 == 0?
-				newTile->GetposIdx().xidx: newTile->GetposIdx().xidx - 1)
+			if (tempTile->GetposIdx().xidx == (newTile->GetposIdx().yidx % 2 == 0 ?
+				newTile->GetposIdx().xidx : newTile->GetposIdx().xidx - 1)
 				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx + 1)
 			{
 				m_to = tempTile;
@@ -232,7 +274,7 @@ const void SelectManager::Merge()
 		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
 		{
 			Tile* tempTile = (Tile*)i;
-			if (tempTile->GetposIdx().xidx == (tempTile->GetposIdx().yidx % 2 ==0 ?
+			if (tempTile->GetposIdx().xidx == (tempTile->GetposIdx().yidx % 2 == 0 ?
 				newTile->GetposIdx().xidx : newTile->GetposIdx().xidx + 1)
 				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx - 1)
 			{
@@ -268,9 +310,9 @@ const void SelectManager::Merge()
 		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
 		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
 		{
-			Tile*  tempTile = (Tile*)i;
+			Tile* tempTile = (Tile*)i;
 			if (tempTile->GetposIdx().xidx == (newTile->GetposIdx().yidx % 2 == 0 ?
-				newTile->GetposIdx().xidx + 1: newTile->GetposIdx().xidx)
+				newTile->GetposIdx().xidx + 1 : newTile->GetposIdx().xidx)
 				&& tempTile->GetposIdx().yidx == newTile->GetposIdx().yidx + 1)
 			{
 				m_to = tempTile;

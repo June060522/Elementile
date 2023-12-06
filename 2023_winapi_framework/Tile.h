@@ -28,6 +28,7 @@ private:
 	Texture*		m_pTex;
 	Texture*		m_pTexDark;
 	Texture*		m_pBGDark;
+	Texture*		m_pselect;
 	XY				m_posidx;
 	TILE_TYPE		m_eType;
 	int				m_cnt;
