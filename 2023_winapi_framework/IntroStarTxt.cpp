@@ -29,6 +29,8 @@ void IntroStarTxt::Render(HDC _dc)
         CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
     SelectObject(_dc, hFont);
 
+    SetTextColor(_dc, RGB(255, 255, 0));
+
     TextOut(_dc, GetPos().x, GetPos().y, m_wstr.c_str(), wcslen(m_wstr.c_str()));
 
     DeleteObject(hFont);

@@ -5,7 +5,7 @@ class IntroStarTxt
 {
 public:
 	IntroStarTxt(int _iFontSize, Vec2 _vPos, wstring _wstr, int _iSetSize
-	, float _fMaxTime, float _fWaitTime = 0);
+		, float _fMaxTime, float _fWaitTime = 0);
 public:
 	virtual void Update() override;
 	virtual void Render(HDC _dc) override;

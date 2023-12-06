@@ -9,7 +9,7 @@ public:
     virtual void Update() override;
     virtual void Render(HDC _dc) override;
     virtual void Release() override;
-    virtual void SetTextSize(HWND _hWnd, int newSize);
+    //virtual void SetTextSize(HWND _hWnd, int newSize);
 private:
     Vec2 pos = Vec2(550, 350);
      DWORD lastCharTime;

@@ -17,9 +17,42 @@ const float darknessActivationTime = 5.0f;
 
 void IntroScene::Init()
 {   
-    m_string = new UIText(Vec2(-150.f, -250.f), L"난쟁2");
+    m_string = new UIText(Vec2(655, 320), L"난쟁2");
 
-    m_vObj.push_back(new IntroStarTxt(100,Vec2(-300.f, 1080.f), L"★",180,2.5f,1.5f));
+    for (int i = 0; i < 4; i++)
+    {
+        float xPos, yPos;
+
+        if (i == 0)
+        {
+            // 위쪽에서 아래쪽으로
+            xPos = -0;
+            yPos = -0;
+        }
+        else if (i == 1)
+        {
+            // 왼쪽에서 오른쪽으로
+            xPos = Core::GetInst()->GetResolution().x;
+            yPos = 0;
+        }
+        else if (i == 2)
+        {
+            // 아래쪽에서 위쪽으로
+            xPos = 0;
+            yPos = Core::GetInst()->GetResolution().y;
+        }
+        else
+        {
+            // 오른쪽에서 왼쪽으로
+            xPos = Core::GetInst()->GetResolution().x;
+            yPos = Core::GetInst()->GetResolution().y;
+        }
+
+        m_vObj.push_back(new IntroStarTxt(100, Vec2(xPos, yPos), L"★", 150, 2.f, 3.f));
+    }
+
+    
+
     //m_string->SetAlpha(0.0f);
     
     AddObject(m_string, OBJECT_GROUP::UI);
@@ -46,10 +79,12 @@ void IntroScene::Update()
 {
     deltaTime += TimeMgr::GetInst()->GetDT();
 
+    
+
     for (size_t i = 0; i < m_vObj.size(); ++i)
     {
         SceneMgr::GetInst()->GetCurScene()->
-            AddObject(new Dotween(m_vObj[i], Vec2(700, 320), 1.5f, DOTWEEN_TYPE::MOVE
+            AddObject(new Dotween(m_vObj[i], Vec2(655, 320), 1.5f, DOTWEEN_TYPE::MOVE
             ), OBJECT_GROUP::DOTWEEN);
     }
 
@@ -62,11 +97,11 @@ void IntroScene::Update()
         }
         
         SceneMgr::GetInst()->GetCurScene()->
-            AddObject(new Dotween(m_string, Vec2(590, 370), 1.2f, DOTWEEN_TYPE::MOVE
+            AddObject(new Dotween(m_string, Vec2(600, 370), 1.2f, DOTWEEN_TYPE::MOVE
             ), OBJECT_GROUP::DOTWEEN);
     }
 
-    if (deltaTime >= 25.0f && darknessLevel < 300)
+    if (deltaTime >= 18.0f && darknessLevel < 300)
     {
         darknessLevel += 1;
     }
@@ -125,14 +160,4 @@ void IntroScene::Release()
 {
     Scene::Release();
     RemoveFontResource(L"Res\\Font\\인천교육소통.ttf");
-}
-
-void IntroScene::SetTextSize(HWND _hWnd, int newSize)
-{
-    /*newSize = 50;
-    HFONT hFont = GetStockObject(DEFAULT_GUI_FONT);
-    LOGFONT lf;
-    GetObject(hFont, sizeof(LOGFONT), &lf);
-    lf.lfHeight = newSize;
-    HFONT hNewFont = CreateFontIndirect(&lf);*/
 }
