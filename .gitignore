@@ -255,3 +255,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+Output/bin_debug/2023_winapi_framework.exe
+Output/bin_debug/2023_winapi_framework.exe
+Output/bin_debug/2023_winapi_framework.exe
