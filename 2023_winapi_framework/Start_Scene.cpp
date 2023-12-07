@@ -19,45 +19,23 @@ float t = 0;
 void Start_Scene::Init()
 {
 	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"NoBlend"));
-
 	DataManager::GetInst()->Init();
 	int result = AddFontResource(L"Res\\Font\\Font.ttf");
 
 	for (size_t i = 0; i < m_vObj.size(); ++i)
 		AddObject(m_vObj[i], OBJECT_GROUP::UI);
+
+	
 }
 
 void Start_Scene::Update()
 {
-	deltaTime += TimeMgr::GetInst()->GetDT();
-	StartelapsedTime += deltaTime;
-
-	if (StartelapsedTime <= 300.0f && StartdarknessLevel < 300)
-	{
-		StartdarknessLevel -= 1;
-	}
-
+	StartScreenDoFade();
 	Scene::Update();
-
 	t += TimeMgr::GetInst()->GetDT();
-	if (t >= 2.5f)
-	{
-		int x;
-		for (size_t i = 0; i < m_vObj.size(); ++i)
-		{
-			SceneMgr::GetInst()->GetCurScene()->
-				AddObject(new Dotween(m_vObj[i], Vec2(188 * (i + 1) / 2 + 400, 100), 1.f, DOTWEEN_TYPE::MOVE
-				), OBJECT_GROUP::DOTWEEN);
-			SceneMgr::GetInst()->GetCurScene()->
-				AddObject(new Dotween(m_vObj[i], Vec2(177 * (i + 1) / 2 + 400, 120) , 1.2f, 1, DOTWEEN_TYPE::MOVE
-				), OBJECT_GROUP::DOTWEEN);
-		}
-		t = 0;
-	}
-
-	const KEY_STATE& leftMouseButtonState = KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON);
+	TitleMoveDotween();
 	mousePos = KeyMgr::GetInst()->GetMousePos();
-
+	
 	if (mousePos.x >= 0 && mousePos.x <= 1920 &&
 		mousePos.y >= 0 && mousePos.y <= 1080)
 	{
@@ -91,6 +69,7 @@ void Start_Scene::Render(HDC _dc)
 	Scene::Render(_dc);
 
 	DeleteObject(hFont);
+	TextOut()
 }
 
 void Start_Scene::Release()
@@ -98,4 +77,33 @@ void Start_Scene::Release()
 	Scene::Release();
 
 	RemoveFontResource(L"Res\\Font\\Font.ttf");
+}
+
+void Start_Scene::StartScreenDoFade()
+{
+	deltaTime += TimeMgr::GetInst()->GetDT();
+	StartelapsedTime += deltaTime;
+
+	if (StartelapsedTime <= 300.0f && StartdarknessLevel < 300)
+	{
+		StartdarknessLevel -= 1;
+	}
+}
+
+void Start_Scene::TitleMoveDotween()
+{
+	if (t >= 2.5f)
+	{
+		int x;
+		for (size_t i = 0; i < m_vObj.size(); ++i)
+		{
+			SceneMgr::GetInst()->GetCurScene()->
+				AddObject(new Dotween(m_vObj[i], Vec2(188 * (i + 1) / 2 + 400, 100), 1.f, DOTWEEN_TYPE::MOVE
+				), OBJECT_GROUP::DOTWEEN);
+			SceneMgr::GetInst()->GetCurScene()->
+				AddObject(new Dotween(m_vObj[i], Vec2(177 * (i + 1) / 2 + 400, 120), 1.2f, 1, DOTWEEN_TYPE::MOVE
+				), OBJECT_GROUP::DOTWEEN);
+		}
+		t = 0;
+	}
 }
