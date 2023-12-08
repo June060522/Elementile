@@ -13,11 +13,11 @@
 #include "IntroStarTxt.h"
 
 int darknessLevel = 0;
-const float darknessActivationTime = 5.0f;  
+const float darknessActivationTime = 5.0f;
 
 void IntroScene::Init()
-{   
-    m_string = new UIText(Vec2(655, 320), L"난쟁2");
+{
+    m_string = new UIText(Vec2(600, 320), L"난쟁2");
 
     for (int i = 0; i < 4; i++)
     {
@@ -51,25 +51,14 @@ void IntroScene::Init()
         m_vObj.push_back(new IntroStarTxt(100, Vec2(xPos, yPos), L"★", 150, 2.f, 3.f));
     }
 
-    
+
 
     //m_string->SetAlpha(0.0f);
-    
+
     AddObject(m_string, OBJECT_GROUP::UI);
     DataManager::GetInst()->Init();
-    
 
-    int title = AddFontResource(L"Res\\Font\\인천교육소통.ttf");
-
-    //SceneMgr::GetInst()->GetCurScene()->
-    //    AddObject(new Dotween(m_string, Vec2(250, 560), 1.8f, DOTWEEN_TYPE::MOVE
-    //    ), OBJECT_GROUP::DOTWEEN);
-    //SceneMgr::GetInst()->GetCurScene()->
-    //    AddObject(new Dotween(m_string, Vec2(500, 250), 2.f, 1.5f, DOTWEEN_TYPE::MOVE
-    //    ), OBJECT_GROUP::DOTWEEN);
-    //SceneMgr::GetInst()->GetCurScene()->
-    //    AddObject(new Dotween(m_string, Vec2(570, 350), 1.6f, 2.7f, DOTWEEN_TYPE::MOVE
-    //    ), OBJECT_GROUP::DOTWEEN);
+    AddFontResource(L"Res\\Font\\인천교육소통.ttf");
 
     for (size_t i = 0; i < m_vObj.size(); ++i)
         AddObject(m_vObj[i], OBJECT_GROUP::STAR);
@@ -79,8 +68,6 @@ void IntroScene::Update()
 {
     deltaTime += TimeMgr::GetInst()->GetDT();
 
-    
-
     for (size_t i = 0; i < m_vObj.size(); ++i)
     {
         SceneMgr::GetInst()->GetCurScene()->
@@ -89,24 +76,25 @@ void IntroScene::Update()
     }
 
     //여기서 별의 이미지가 파티클로 사라지고 글씨가 나타나게 한다
-    if (deltaTime >= 9.5f)
+    if (deltaTime >= 7.5f)
     {
         for (size_t i = 0; i < GET_OBJECT(OBJECT_GROUP::STAR).size();)
         {
-             GET_OBJECT(OBJECT_GROUP::STAR).erase(GET_OBJECT(OBJECT_GROUP::STAR).begin() + i);
+            GET_OBJECT(OBJECT_GROUP::STAR).erase(GET_OBJECT(OBJECT_GROUP::STAR).begin() + i);
         }
-        
+
         SceneMgr::GetInst()->GetCurScene()->
-            AddObject(new Dotween(m_string, Vec2(600, 370), 1.2f, DOTWEEN_TYPE::MOVE
+            AddObject(new Dotween(m_string, Vec2(600, 370), 0.f, DOTWEEN_TYPE::MOVE
             ), OBJECT_GROUP::DOTWEEN);
     }
 
-    if (deltaTime >= 18.0f && darknessLevel < 300)
+    //원래 18
+    if (deltaTime >= 8.5f )
     {
         darknessLevel += 1;
     }
 
-    
+
     if (KEY_DOWN(KEY_TYPE::T))
         SceneMgr::GetInst()->LoadScene(L"NameScene");
 
@@ -142,11 +130,7 @@ void IntroScene::Render(HDC _dc)
             CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
         SelectObject(_dc, hFont);
 
-        if (darknessLevel >= 280)
-        {
-            SceneMgr::GetInst()->LoadScene(L"NameScene");
-        }
-        else
+        if (darknessLevel <= 300)
         {
             DeleteObject(hFont);
             SetTextColor(_dc, RGB(0, 0, 0));
@@ -154,22 +138,15 @@ void IntroScene::Render(HDC _dc)
         }
 
         Scene::Render(_dc);
-        DeleteObject(hFont);
+        //DeleteObject(hFont);
     }
-    else
-    {
-        // 별이 사라진 후에는 다시 흰색 바탕화면으로
-        COLORREF bgColor = RGB(255, 255, 255);
-        HBRUSH hBrush = CreateSolidBrush(bgColor);
-        FillRect(_dc, &rcClient, hBrush);
-        DeleteObject(hBrush);
 
-        // 별을 다시 그릴 때 별들을 하얗게 표현하려면 아래의 코드를 추가
-        for (size_t i = 0; i < m_vObj.size(); ++i)
-        {
-            m_vObj[i]->Render(_dc);
-        }
+    //여기인듯
+    else 
+    {
+        SceneMgr::GetInst()->LoadScene(L"NameScene");
     }
+
 }
 
 void IntroScene::Release()
