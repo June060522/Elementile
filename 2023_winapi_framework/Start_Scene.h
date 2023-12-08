@@ -12,11 +12,13 @@ public:
 private:
     void StartScreenDoFade();
     void TitleMoveDotween();
+    void ObjectRender(HDC _dc);
 private:
     Vec2 pos = Vec2(500, 350);
     vector<Object*> m_vObj;
     POINT mousePos;
     float deltaTime;
     const KEY_STATE& leftMouseButtonState = KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON);
+    wstring m_Stage;
 };
 

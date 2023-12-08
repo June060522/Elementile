@@ -25,7 +25,8 @@ void Start_Scene::Init()
 	for (size_t i = 0; i < m_vObj.size(); ++i)
 		AddObject(m_vObj[i], OBJECT_GROUP::UI);
 
-	
+	m_Stage = L"Stage";
+	m_Stage += to_wstring(DataManager::GetInst()->GetLastStage());
 }
 
 void Start_Scene::Update()
@@ -48,28 +49,13 @@ void Start_Scene::Update()
 
 void Start_Scene::Render(HDC _dc)
 {
-	Scene::Render(_dc);
-
-	RECT rcClient;
-	GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
-
-	// 迄飘 利侩 棺 力格 积己
-	HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+	ObjectRender(_dc);
+	HFONT hFont = CreateFont(50, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
 		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
 	SelectObject(_dc, hFont);
-
-	StartdarknessLevel = max(StartdarknessLevel, 0);
-	COLORREF bgColor = RGB(255 - StartdarknessLevel, 255 - StartdarknessLevel, 255 - StartdarknessLevel);
-	HBRUSH hBrush = CreateSolidBrush(bgColor);
-	FillRect(_dc, &rcClient, hBrush);
-	DeleteObject(hBrush);
-
-	SetTextColor(_dc, RGB(0, 0, 0));
-	SetBkMode(_dc, TRANSPARENT);
-	Scene::Render(_dc);
+	TextOut(_dc,500,500, m_Stage.c_str(), m_Stage.size());
 
 	DeleteObject(hFont);
-	TextOut()
 }
 
 void Start_Scene::Release()
@@ -106,4 +92,26 @@ void Start_Scene::TitleMoveDotween()
 		}
 		t = 0;
 	}
+}
+
+void Start_Scene::ObjectRender(HDC _dc)
+{
+	RECT rcClient;
+	GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
+
+	// 迄飘 利侩 棺 力格 积己
+	HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
+	SelectObject(_dc, hFont);
+
+	StartdarknessLevel = max(StartdarknessLevel, 0);
+	COLORREF bgColor = RGB(255 - StartdarknessLevel, 255 - StartdarknessLevel, 255 - StartdarknessLevel);
+	HBRUSH hBrush = CreateSolidBrush(bgColor);
+	FillRect(_dc, &rcClient, hBrush);
+	DeleteObject(hBrush);
+
+	SetTextColor(_dc, RGB(0, 0, 0));
+	SetBkMode(_dc, TRANSPARENT);
+	Scene::Render(_dc);
+	DeleteObject(hFont);
 }
