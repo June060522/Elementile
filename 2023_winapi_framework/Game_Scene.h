@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 class Tile;
+class GameSceneUI;
 class Game_Scene :
 	public Scene
 {
@@ -8,4 +9,6 @@ class Game_Scene :
 	virtual void Update() override;
 	virtual void Render(HDC _dc) override;
 	virtual void Release() override;
+private:
+	GameSceneUI* m_GameSceneUI;
 };

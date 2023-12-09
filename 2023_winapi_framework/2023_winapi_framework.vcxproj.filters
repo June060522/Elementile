@@ -74,6 +74,9 @@
     <Filter Include="Engine\09. UI">
       <UniqueIdentifier>{d8e62418-04ae-4266-98df-3a16283181f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\09. UI\GameObject">
+      <UniqueIdentifier>{4485eb9b-99af-4b4f-826c-3b30a536fd42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -189,6 +192,15 @@
     </ClInclude>
     <ClInclude Include="DevMin.h" />
     <ClInclude Include="IntroStarTxt.h" />
+    <ClInclude Include="GameSceneUI.h">
+      <Filter>Engine\05. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Engine\09. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuIcon.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -299,6 +311,15 @@
     </ClCompile>
     <ClCompile Include="DevMin.cpp" />
     <ClCompile Include="IntroStarTxt.cpp" />
+    <ClCompile Include="GameSceneUI.cpp">
+      <Filter>Engine\05. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Engine\09. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuIcon.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

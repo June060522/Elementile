@@ -172,6 +172,7 @@
     <ClInclude Include="Animator.h" />
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="GameSceneUI.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="Debug.h" />
@@ -182,7 +183,9 @@
     <ClInclude Include="EventMgr.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game_Scene.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="IntroStarTxt.h" />
+    <ClInclude Include="MenuIcon.h" />
     <ClInclude Include="NameScene.h" />
     <ClInclude Include="SelectManager.h" />
     <ClInclude Include="IntroScene.h" />
@@ -212,6 +215,7 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="GameSceneUI.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Debug.cpp" />
@@ -219,7 +223,9 @@
     <ClCompile Include="Dotween.cpp" />
     <ClCompile Include="EventMgr.cpp" />
     <ClCompile Include="Game_Scene.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="IntroStarTxt.cpp" />
+    <ClCompile Include="MenuIcon.cpp" />
     <ClCompile Include="NameScene.cpp" />
     <ClCompile Include="SelectManager.cpp" />
     <ClCompile Include="IntroScene.cpp" />

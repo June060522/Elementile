@@ -6,12 +6,17 @@
 #include "SelectManager.h"
 #include "SceneMgr.h"
 #include "Debug.h"
+#include "UIText.h"
+#include "GameSceneUI.h"
 
 void Game_Scene::Init()
 {
+	m_GameSceneUI = new GameSceneUI();
+	GetGroupObject(OBJECT_GROUP::TILE).clear();
 	SelectManager::GetInst()->Init();
 	StageManager::GetInst()->Init(DataManager::GetInst()->GetLastStage(), this);
 	DataManager::GetInst()->SaveData();
+	m_GameSceneUI->Init();
 }
 
 void Game_Scene::Update()
@@ -19,6 +24,7 @@ void Game_Scene::Update()
 	SelectManager::GetInst()->Update();
 	SelectManager::GetInst()->TileClick(GetGroupObject(OBJECT_GROUP::TILE));
 	Scene::Update();
+	m_GameSceneUI->Update();
 	if (GetGroupObject(OBJECT_GROUP::TILE).size() == 0)
 	{
 		if(DataManager::GetInst()->GetLastStage() == DataManager::GetInst()->GetHighStage())
@@ -31,9 +37,11 @@ void Game_Scene::Update()
 void Game_Scene::Render(HDC _dc)
 {
 	Scene::Render(_dc);
+	m_GameSceneUI->Render(_dc);
 }
 
 void Game_Scene::Release()
 {
 	Scene::Release();
+	m_GameSceneUI->Release();
 }

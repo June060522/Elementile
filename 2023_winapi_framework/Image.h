@@ -1,13 +1,15 @@
 #pragma once
 #include "Object.h"
-class UIText :
+class Texture;
+class Image :
     public Object
 {
 public:
-    UIText(Vec2 _vPos, wstring _wstr);
+    Image(Texture* _tex, Vec2 _pos, Vec2 _scale);
 public:
     virtual void Update() override;
     virtual void Render(HDC _dc) override;
 protected:
-    wstring m_wstr;
+    Texture* m_pTex;
 };
+
