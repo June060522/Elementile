@@ -4,7 +4,7 @@ class Texture;
 class TileImage : public Object
 {
 public:
-	TileImage(const TILE_TYPE& _eType, int _cnt = 1);
+	TileImage(const TILE_TYPE& _eType);
 	~TileImage();
 public:
 	virtual void Update() override;

@@ -3,56 +3,28 @@
 #include "TimeMgr.h"
 #include "SceneMgr.h"
 #include "Scene.h"
-#include "Texture.h"
 
 Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, DOTWEEN_TYPE _etype)
-	: m_target(_target)
+	:m_target(_target)
 	, m_vendval(value)
 	, m_ftime(_fdelay)
 	, m_fcurtime(0.f)
 	, m_etype(_etype)
 	, m_fwaittime(0)
-	, m_tex(nullptr)
 {
 	SetOriginVal(m_etype);
 }
 
 Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, const float& _fwait, DOTWEEN_TYPE _etype)
-	: m_target(_target)
+	:m_target(_target)
 	, m_vendval(value)
 	, m_ftime(_fdelay)
 	, m_fcurtime(0.f)
 	, m_etype(_etype)
 	, m_fwaittime(_fwait)
-	, m_tex(nullptr)
 {
 	SetOriginVal(m_etype);
 }
-Dotween::Dotween(Object* _target, const float& value, const float& _fdelay, Texture* _tex, DOTWEEN_TYPE _etype)
-	: m_target(_target)
-	, m_fendval(value)
-	, m_ftime(_fdelay)
-	, m_fcurtime(0.f)
-	, m_etype(_etype)
-	, m_fwaittime(0)
-	, m_tex(nullptr)
-{
-	m_tex = _tex;
-	SetOriginVal(m_etype);
-}
-Dotween::Dotween(Object* _target, const float& value, const float& _fdelay, Texture* _tex, const float& _fwait, DOTWEEN_TYPE _etype)
-	: m_target(_target)
-	, m_fendval(value)
-	, m_ftime(_fdelay)
-	, m_fcurtime(0.f)
-	, m_etype(_etype)
-	, m_fwaittime(_fwait)
-	, m_tex(nullptr)
-{
-	m_tex = _tex;
-	SetOriginVal(m_etype);
-}
-
 void Dotween::SetOriginVal(DOTWEEN_TYPE _etype)
 {
 	switch (m_etype)
@@ -89,14 +61,12 @@ void Dotween::Update()
 			DoScale();
 			break;
 		case DOTWEEN_TYPE::ROTATE:
-			DoRotate();
+			DoScale();
 			break;
 		case DOTWEEN_TYPE::FADE:
 			DoFade();
 			break;
 		}
-		if (m_target == nullptr)
-			DoKill();
 		if (m_fcurtime >= m_ftime)
 		{
 			switch (m_etype)
@@ -152,21 +122,26 @@ void Dotween::DoScale()
 
 void Dotween::DoRotate()
 {
-	float centerX = m_tex->GetWidth() / 2.f;
-	float centerY = m_tex->GetHeight() / 2.f;
-	float angle = m_foriginval + (m_fendval - m_foriginval) * (m_fcurtime / m_ftime);
-	// 변환 매트릭스 설정
-	XFORM xForm;
-	xForm.eM11 = cos(angle);
-	xForm.eM12 = -sin(angle);
-	xForm.eM21 = sin(angle);
-	xForm.eM22 = cos(angle);
-	xForm.eDx = centerX - centerX * cos(angle) + centerY * sin(angle);
-	xForm.eDy = centerY - centerX * sin(angle) - centerY * cos(angle);
+	//BITMAP bmp;
+	//GetObject(hBitmap, sizeof(BITMAP), &bmp);
 
-	// 변환 적용
-	SetGraphicsMode(m_tex->GetDC(), GM_ADVANCED);
-	SetWorldTransform(m_tex->GetDC(), &xForm);
+	//// 이미지 중심 계산
+	//float centerX = bmp.bmWidth / 2.0f;
+	//float centerY = bmp.bmHeight / 2.0f;
+
+	//// 변환 매트릭스 설정
+	//XFORM xForm;
+	//xForm.eM11 = cos(angle);
+	//xForm.eM12 = -sin(angle);
+	//xForm.eM21 = sin(angle);
+	//xForm.eM22 = cos(angle);
+	//xForm.eDx = centerX - centerX * cos(angle) + centerY * sin(angle);
+	//xForm.eDy = centerY - centerX * sin(angle) - centerY * cos(angle);
+
+	//// 변환 적용
+	//SetGraphicsMode(hdc, GM_ADVANCED);
+	//SetWorldTransform(hdc, &xForm);
+
 }
 
 void Dotween::DoFade()

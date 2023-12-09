@@ -23,12 +23,12 @@ public:
 	const void SetState(const TILE_STATE value) { m_eState = value; }
 	const TILE_STATE GetState() const { return m_eState; }
 	const bool CanGo(Tile* _temptile);
+	const bool MoveableGo(Tile* _temptile);
 private:
 	vector<TileImage*>	m_tilevec;
 	Texture*		m_pTex;
 	Texture*		m_pTexDark;
 	Texture*		m_pBGDark;
-	Texture*		m_pselect;
 	XY				m_posidx;
 	TILE_TYPE		m_eType;
 	int				m_cnt;
