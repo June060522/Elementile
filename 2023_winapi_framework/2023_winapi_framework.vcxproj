@@ -182,6 +182,7 @@
     <ClInclude Include="enums.h" />
     <ClInclude Include="EventMgr.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameTitleScene.h" />
     <ClInclude Include="Game_Scene.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="IntroStarTxt.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="DevMin.cpp" />
     <ClCompile Include="Dotween.cpp" />
     <ClCompile Include="EventMgr.cpp" />
+    <ClCompile Include="GameTitleScene.cpp" />
     <ClCompile Include="Game_Scene.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="IntroStarTxt.cpp" />
