@@ -10,6 +10,8 @@
 #include "Scene.h";
 #include "Dotween.h";
 
+
+
 int NamedarknessLevel = 255;
 float NameelapsedTime = -5.0f;
 const float NamedarknessActivationTime = 5.0f;
@@ -67,10 +69,17 @@ void NameScene::Render(HDC _dc)
     FillRect(_dc, &rcClient, hBrush);
     DeleteObject(hBrush);
 
+    if (deltaTime > 5.5f)
+    {
+        ResMgr::GetInst()->Volume(SOUND_CHANNEL::BGM, 5);
+        ResMgr::GetInst()->Play(L"Res\\Sound\\soft-daydream-18538.wav");
+    }
+
     if (deltaTime > 6.2f)
     {
         SceneMgr::GetInst()->LoadScene(L"StartScene");
     }
+
 
     SetTextColor(_dc, RGB(0, 0, 0));
     SetBkMode(_dc, TRANSPARENT);
@@ -85,3 +94,5 @@ void NameScene::Release()
 
     RemoveFontResource(L"Res\\Font\\Font.ttf");
 }
+
+

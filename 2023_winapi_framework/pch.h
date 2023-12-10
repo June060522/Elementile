@@ -9,6 +9,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <fstream>
+#include <mmsystem.h>
 #include "Vec2.h"
 #include "enums.h"
 #include "define.h"
