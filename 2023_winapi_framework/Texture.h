@@ -12,6 +12,7 @@ public:
     const LONG& GetWidth() const { return (m_bitInfo.bmWidth); }
     const LONG& GetHeight() const { return (m_bitInfo.bmHeight); }
     const HDC& GetDC() const { return m_hDC; }
+    const HBITMAP& GetBITMAP() { return m_hBit; }
 private:
     HBITMAP m_hBit;
     HDC     m_hDC;

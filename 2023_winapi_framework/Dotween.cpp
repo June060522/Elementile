@@ -3,6 +3,8 @@
 #include "TimeMgr.h"
 #include "SceneMgr.h"
 #include "Scene.h"
+#include "Texture.h"
+#include "Debug.h"
 
 Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, DOTWEEN_TYPE _etype)
 	:m_target(_target)
@@ -25,6 +27,27 @@ Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, const
 {
 	SetOriginVal(m_etype);
 }
+Dotween::Dotween(Texture* _target, const float& value, const float& originvalue, const float& _fdelay, DOTWEEN_TYPE _etype)
+	: m_pTex(_target)
+	, m_foriginval(originvalue)
+	, m_fendval(value)
+	, m_ftime(_fdelay)
+	, m_fcurtime(0.f)
+	, m_etype(_etype)
+{
+	SetOriginVal(m_etype);
+}
+Dotween::Dotween(Texture* _target, const float& value, const float& originvalue, const float& _fdelay, const float& _fwait, DOTWEEN_TYPE _etype)
+	: m_pTex(_target)
+	, m_fendval(value)
+	, m_foriginval(originvalue)
+	, m_ftime(_fdelay)
+	, m_fcurtime(0.f)
+	, m_etype(_etype)
+	, m_fwaittime(_fwait)
+{
+	SetOriginVal(m_etype);
+}
 void Dotween::SetOriginVal(DOTWEEN_TYPE _etype)
 {
 	switch (m_etype)
@@ -33,12 +56,6 @@ void Dotween::SetOriginVal(DOTWEEN_TYPE _etype)
 		m_voriginval = m_target->GetPos();
 		break;
 	case DOTWEEN_TYPE::SCALE:
-		m_voriginval = m_target->GetScale();
-		break;
-	case DOTWEEN_TYPE::ROTATE:
-		m_voriginval = m_target->GetScale();
-		break;
-	case DOTWEEN_TYPE::FADE:
 		m_voriginval = m_target->GetScale();
 		break;
 	}
@@ -61,7 +78,7 @@ void Dotween::Update()
 			DoScale();
 			break;
 		case DOTWEEN_TYPE::ROTATE:
-			DoScale();
+			DoRotate();
 			break;
 		case DOTWEEN_TYPE::FADE:
 			DoFade();
@@ -76,14 +93,6 @@ void Dotween::Update()
 				break;
 			case DOTWEEN_TYPE::SCALE:
 				m_target->SetScale(m_vendval);
-				break;
-			case DOTWEEN_TYPE::ROTATE:
-				break;
-			case DOTWEEN_TYPE::FADE:
-				break;
-			case DOTWEEN_TYPE::END:
-				break;
-			default:
 				break;
 			}
 
@@ -104,8 +113,6 @@ void Dotween::Render(HDC _dc)
 {
 }
 
-
-
 void Dotween::DoMove()
 {
 	m_target->SetPos(
@@ -122,27 +129,29 @@ void Dotween::DoScale()
 
 void Dotween::DoRotate()
 {
-	//BITMAP bmp;
-	//GetObject(hBitmap, sizeof(BITMAP), &bmp);
+	BITMAP bmp;
+	GetObject(m_pTex->GetBITMAP(), sizeof(BITMAP), &bmp);
 
-	//// 이미지 중심 계산
-	//float centerX = bmp.bmWidth / 2.0f;
-	//float centerY = bmp.bmHeight / 2.0f;
+	// 이미지 중심 계산
+	float centerX = bmp.bmWidth / 2.0f;
+	float centerY = bmp.bmHeight / 2.0f;
 
-	//// 변환 매트릭스 설정
-	//XFORM xForm;
-	//xForm.eM11 = cos(angle);
-	//xForm.eM12 = -sin(angle);
-	//xForm.eM21 = sin(angle);
-	//xForm.eM22 = cos(angle);
-	//xForm.eDx = centerX - centerX * cos(angle) + centerY * sin(angle);
-	//xForm.eDy = centerY - centerX * sin(angle) - centerY * cos(angle);
+	// 변환 매트릭스 설정
+	XFORM xForm;
+	float angle = m_foriginval + (m_fendval - m_foriginval) * (m_fcurtime / m_ftime);
+	angle *= (2 * M_PI);  // 각도를 라디안으로 변환
+	xForm.eM11 = cos(angle);
+	xForm.eM12 = sin(angle);
+	xForm.eM21 = -sin(angle);
+	xForm.eM22 = cos(angle);
+	xForm.eDx = centerX - centerX * cos(angle) - centerY * sin(angle);
+	xForm.eDy = centerY + centerX * sin(angle) - centerY * cos(angle);
 
-	//// 변환 적용
-	//SetGraphicsMode(hdc, GM_ADVANCED);
-	//SetWorldTransform(hdc, &xForm);
-
+	// 변환 적용
+	SetGraphicsMode(m_pTex->GetDC(), GM_ADVANCED);
+	SetWorldTransform(m_pTex->GetDC(), &xForm);
 }
+
 
 void Dotween::DoFade()
 {

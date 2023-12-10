@@ -14,6 +14,7 @@ void Game_Scene::Init()
 {
 	m_GameSceneUI = new GameSceneUI();
 	GetGroupObject(OBJECT_GROUP::TILE).clear();
+	GetGroupObject(OBJECT_GROUP::DOTWEEN).clear();
 	SelectManager::GetInst()->Init();
 	StageManager::GetInst()->Init(DataManager::GetInst()->GetLastStage(), this);
 	DataManager::GetInst()->SaveData();
