@@ -9,6 +9,7 @@
 #include "ResMgr.h"
 #include "TimeMgr.h"
 #include "UIText.h"
+#include "ResMgr.h"
 
 int StartdarknessLevel = 255;
 float StartelapsedTime = -5.0f;
@@ -18,6 +19,12 @@ float t = 0;
 
 void Start_Scene::Init()
 {
+	for (int i = (int)OBJECT_GROUP::END - 1; i >= 0; --i)
+	{
+		SceneMgr::GetInst()->GetCurScene()->GetGroupObject((OBJECT_GROUP)i).clear();
+	}
+	m_vObj.clear();
+
 	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"NoBlend"));
 	DataManager::GetInst()->Init();
 	int result = AddFontResource(L"Res\\Font\\Font.ttf");
@@ -40,7 +47,7 @@ void Start_Scene::Update()
 	if (mousePos.x >= 0 && mousePos.x <= 1920 &&
 		mousePos.y >= 0 && mousePos.y <= 1080)
 	{
-		if (leftMouseButtonState == KEY_STATE::DOWN || leftMouseButtonState == KEY_STATE::PRESS)
+		if (leftMouseButtonState == KEY_STATE::DOWN)
 		{
 			SceneMgr::GetInst()->LoadScene(L"GameScene");
 		}

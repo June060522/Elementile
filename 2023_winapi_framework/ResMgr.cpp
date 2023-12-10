@@ -59,10 +59,25 @@ void ResMgr::Release()
 
 void ResMgr::Init()
 {
+    isOff = false;
     FMOD::System_Create(&m_pSystem); // 시스템 생성 함수
     // 채널수, 사운드 모드
     if (m_pSystem != nullptr)
         m_pSystem->init((int)SOUND_CHANNEL::END, FMOD_INIT_NORMAL, nullptr);
+}
+
+void ResMgr::Update()
+{
+    if(isOff)
+    {
+        Volume(SOUND_CHANNEL::BGM, 0);
+        Volume(SOUND_CHANNEL::EFFECT, 0);
+    }
+    else
+    {
+        Volume(SOUND_CHANNEL::BGM, 1);
+        Volume(SOUND_CHANNEL::EFFECT, 1);
+    }
 }
 
 void ResMgr::LoadSound(const wstring& _strKey, const wstring& _strReleativePath, bool _IsLoop)

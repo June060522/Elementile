@@ -30,7 +30,7 @@ enum class OBJECT_GROUP
 	STAR,
 	DEBUG,
 	DOTWEEN,
-	END = 30
+	END
 };
 
 enum class PEN_TYPE

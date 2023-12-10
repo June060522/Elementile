@@ -190,8 +190,6 @@
     <ClInclude Include="UIText.h">
       <Filter>Engine\09. UI</Filter>
     </ClInclude>
-    <ClInclude Include="DevMin.h" />
-    <ClInclude Include="IntroStarTxt.h" />
     <ClInclude Include="GameSceneUI.h">
       <Filter>Engine\05. Scene</Filter>
     </ClInclude>
@@ -211,6 +209,12 @@
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="SoundIcon.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTitleScene.h">
+      <Filter>Engine\05. Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroStarTxt.h">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
@@ -321,8 +325,6 @@
     <ClCompile Include="UIText.cpp">
       <Filter>Engine\09. UI</Filter>
     </ClCompile>
-    <ClCompile Include="DevMin.cpp" />
-    <ClCompile Include="IntroStarTxt.cpp" />
     <ClCompile Include="GameSceneUI.cpp">
       <Filter>Engine\05. Scene</Filter>
     </ClCompile>
@@ -342,6 +344,12 @@
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="SoundIcon.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTitleScene.cpp">
+      <Filter>Engine\05. Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroStarTxt.cpp">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClCompile>
   </ItemGroup>

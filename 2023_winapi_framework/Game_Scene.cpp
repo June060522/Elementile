@@ -8,6 +8,7 @@
 #include "Debug.h"
 #include "UIText.h"
 #include "GameSceneUI.h"
+#include "ResMgr.h"
 
 void Game_Scene::Init()
 {
@@ -21,10 +22,6 @@ void Game_Scene::Init()
 
 void Game_Scene::Update()
 {
-	SelectManager::GetInst()->Update();
-	SelectManager::GetInst()->TileClick(GetGroupObject(OBJECT_GROUP::TILE));
-	Scene::Update();
-	m_GameSceneUI->Update();
 	if (GetGroupObject(OBJECT_GROUP::TILE).size() == 0)
 	{
 		if(DataManager::GetInst()->GetLastStage() == DataManager::GetInst()->GetHighStage())
@@ -32,6 +29,12 @@ void Game_Scene::Update()
 		DataManager::GetInst()->SetLastStage(DataManager::GetInst()->GetLastStage() + 1);
 		SceneMgr::GetInst()->LoadScene(L"GameScene");
 	}
+	SelectManager::GetInst()->Update();
+	SelectManager::GetInst()->TileClick(GetGroupObject(OBJECT_GROUP::TILE));
+	Scene::Update();
+	
+	ResMgr::GetInst()->Update();
+	m_GameSceneUI->Update();
 }
 
 void Game_Scene::Render(HDC _dc)

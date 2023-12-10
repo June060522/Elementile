@@ -177,7 +177,6 @@
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="define.h" />
-    <ClInclude Include="DevMin.h" />
     <ClInclude Include="Dotween.h" />
     <ClInclude Include="enums.h" />
     <ClInclude Include="EventMgr.h" />
@@ -224,7 +223,6 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="DevMin.cpp" />
     <ClCompile Include="Dotween.cpp" />
     <ClCompile Include="EventMgr.cpp" />
     <ClCompile Include="GameTitleScene.cpp" />
