@@ -48,7 +48,7 @@ void IntroScene::Init()
             yPos = Core::GetInst()->GetResolution().y;
         }
 
-        m_vObj.push_back(new IntroStarTxt(100, Vec2(xPos, yPos), L"★", 150, 2.f, 3.f));
+        m_vObj.push_back(new IntroStarTxt(100, Vec2(xPos, yPos), L"★", 150, 2.f, 4.f));
     }
 
 
@@ -77,7 +77,7 @@ void IntroScene::Update()
     }
 
     // 일정 시간이 지나면 별 삭제
-    if (deltaTime >= 7.5f)
+    if (deltaTime >= 8.5f)
     {
         GET_OBJECT(OBJECT_GROUP::STAR).clear();
 
@@ -88,7 +88,7 @@ void IntroScene::Update()
     }
 
     // 어둡기 효과
-    if (deltaTime >= 7.5f && darknessLevel < 300)
+    if (deltaTime >= 8.3f && darknessLevel < 300)
     {
         darknessLevel += 1;
     }
