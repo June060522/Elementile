@@ -201,6 +201,18 @@
     <ClInclude Include="MenuIcon.h">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="LevelIcon.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MainIcon.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ReIcon.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundIcon.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -318,6 +330,18 @@
       <Filter>Engine\09. UI</Filter>
     </ClCompile>
     <ClCompile Include="MenuIcon.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelIcon.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="MainIcon.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ReIcon.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundIcon.cpp">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClCompile>
   </ItemGroup>

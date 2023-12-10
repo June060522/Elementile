@@ -6,6 +6,6 @@ MenuIcon::MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale)
 {
 }
 
-void MenuIcon::Update()
+void MenuIcon::Function()
 {
 }

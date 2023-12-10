@@ -7,6 +7,6 @@ class MenuIcon :
 public:
 	MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale);
 public:
-	virtual void Update() override;
+	virtual void Function() override;
 };
 

@@ -10,6 +10,8 @@ public:
     virtual void Update() override;
     virtual void Render(HDC _dc) override;
 protected:
+    virtual void Function();
+protected:
     Texture* m_pTex;
 };
 

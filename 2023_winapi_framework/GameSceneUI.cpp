@@ -8,6 +8,10 @@
 #include "Texture.h"
 #include "Image.h"
 #include "MenuIcon.h"
+#include "MainIcon.h"
+#include "LevelIcon.h"
+#include "SoundIcon.h"
+#include "ReIcon.h"
 
 void GameSceneUI::Init()
 {
@@ -15,13 +19,19 @@ void GameSceneUI::Init()
 	m_pMenuTex = ResMgr::GetInst()->TexLoad(L"Menu", L"Texture\\menu.bmp");
 	m_pRETex = ResMgr::GetInst()->TexLoad(L"Regame", L"Texture\\regame.bmp");
 	m_pMainTex = ResMgr::GetInst()->TexLoad(L"Main", L"Texture\\main.bmp");
+	m_pLvTex = ResMgr::GetInst()->TexLoad(L"Lv", L"Texture\\level.bmp");
+	m_pSoundTex = ResMgr::GetInst()->TexLoad(L"Sound", L"Texture\\sound.bmp");
 
 	m_pMenu = new MenuIcon(m_pMenuTex, { 1450,90 }, { 20,20 });
-	m_pMain = new MenuIcon(m_pMainTex, { 1450, 200 }, { 35,35 });
-	m_pRe = new MenuIcon(m_pRETex, { 1450, 310 }, { 20,20 });
+	m_pMain = new MainIcon(m_pMainTex, { 1450, 200 }, { 35,35 });
+	m_pLv = new LevelIcon(m_pLvTex, { 1450, 310 }, { 20,20 });
+	m_pSound = new SoundIcon(m_pSoundTex, { 1450, 420 }, { 20,20 });
+	m_pRe = new ReIcon(m_pRETex, { 1450, 530 }, { 20,20 });
 
 	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pMenu, OBJECT_GROUP::UI);
 	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pMain, OBJECT_GROUP::UI);
+	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pLv, OBJECT_GROUP::UI);
+	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pSound, OBJECT_GROUP::UI);
 	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pRe, OBJECT_GROUP::UI);
 }
 

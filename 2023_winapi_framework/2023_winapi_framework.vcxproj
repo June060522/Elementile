@@ -185,8 +185,11 @@
     <ClInclude Include="Game_Scene.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="IntroStarTxt.h" />
+    <ClInclude Include="LevelIcon.h" />
+    <ClInclude Include="MainIcon.h" />
     <ClInclude Include="MenuIcon.h" />
     <ClInclude Include="NameScene.h" />
+    <ClInclude Include="ReIcon.h" />
     <ClInclude Include="SelectManager.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="KeyMgr.h" />
@@ -200,6 +203,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="SelectGDI.h" />
+    <ClInclude Include="SoundIcon.h" />
     <ClInclude Include="StageManager.h" />
     <ClInclude Include="Start_Scene.h" />
     <ClInclude Include="targetver.h" />
@@ -225,8 +229,11 @@
     <ClCompile Include="Game_Scene.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="IntroStarTxt.cpp" />
+    <ClCompile Include="LevelIcon.cpp" />
+    <ClCompile Include="MainIcon.cpp" />
     <ClCompile Include="MenuIcon.cpp" />
     <ClCompile Include="NameScene.cpp" />
+    <ClCompile Include="ReIcon.cpp" />
     <ClCompile Include="SelectManager.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
@@ -239,6 +246,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="SelectGDI.cpp" />
+    <ClCompile Include="SoundIcon.cpp" />
     <ClCompile Include="StageManager.cpp" />
     <ClCompile Include="Start_Scene.cpp" />
     <ClCompile Include="Texture.cpp" />

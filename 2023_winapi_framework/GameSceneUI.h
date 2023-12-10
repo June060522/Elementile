@@ -19,6 +19,8 @@ private:
 	Texture* m_pMenuTex;
 	Texture* m_pRETex;
 	Texture* m_pMainTex;
+	Texture* m_pLvTex;
+	Texture* m_pSoundTex;
 
 	bool m_isOpen;
 	bool m_isStageOpen;
@@ -26,4 +28,6 @@ private:
 	Object* m_pMenu;
 	Object* m_pRe;
 	Object* m_pMain;
+	Object* m_pLv;
+	Object* m_pSound;
 };
