@@ -189,6 +189,7 @@
     </ClInclude>
     <ClInclude Include="DevMin.h" />
     <ClInclude Include="IntroStarTxt.h" />
+    <ClInclude Include="GameTitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -299,6 +300,7 @@
     </ClCompile>
     <ClCompile Include="DevMin.cpp" />
     <ClCompile Include="IntroStarTxt.cpp" />
+    <ClCompile Include="GameTitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

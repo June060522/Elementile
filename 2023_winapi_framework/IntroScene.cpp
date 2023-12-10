@@ -17,7 +17,7 @@ const float darknessActivationTime = 5.0f;
 
 void IntroScene::Init()
 {
-    m_string = new UIText(Vec2(600, 320), L"난쟁2");
+    m_string = new UIText(Vec2(600, 310), L"난쟁2");
 
     for (int i = 0; i < 4; i++)
     {
@@ -68,6 +68,7 @@ void IntroScene::Update()
 {
     deltaTime += TimeMgr::GetInst()->GetDT();
 
+    // 별 이동
     for (size_t i = 0; i < m_vObj.size(); ++i)
     {
         SceneMgr::GetInst()->GetCurScene()->
@@ -75,26 +76,31 @@ void IntroScene::Update()
             ), OBJECT_GROUP::DOTWEEN);
     }
 
-    //여기서 별의 이미지가 파티클로 사라지고 글씨가 나타나게 한다
+    // 일정 시간이 지나면 별 삭제
     if (deltaTime >= 7.5f)
     {
-        for (size_t i = 0; i < GET_OBJECT(OBJECT_GROUP::STAR).size();)
-        {
-            GET_OBJECT(OBJECT_GROUP::STAR).erase(GET_OBJECT(OBJECT_GROUP::STAR).begin() + i);
-        }
+        GET_OBJECT(OBJECT_GROUP::STAR).clear();
 
+        // 글씨 나타나기
         SceneMgr::GetInst()->GetCurScene()->
-            AddObject(new Dotween(m_string, Vec2(600, 370), 0.f, DOTWEEN_TYPE::MOVE
+            AddObject(new Dotween(m_string, Vec2(600, 310), 0.f, DOTWEEN_TYPE::MOVE
             ), OBJECT_GROUP::DOTWEEN);
     }
 
-    //원래 18
-    if (deltaTime >= 8.5f )
+    // 어둡기 효과
+    if (deltaTime >= 7.5f && darknessLevel < 300)
     {
         darknessLevel += 1;
     }
 
+    // 키 입력으로 씬 전환
+    HandleSceneChangeInput();
 
+    Scene::Update();
+}
+
+void IntroScene::HandleSceneChangeInput()
+{
     if (KEY_DOWN(KEY_TYPE::T))
         SceneMgr::GetInst()->LoadScene(L"NameScene");
 
@@ -102,14 +108,10 @@ void IntroScene::Update()
         SceneMgr::GetInst()->LoadScene(L"IntroScene");
 
     if (KEY_DOWN(KEY_TYPE::X))
-    {
         SceneMgr::GetInst()->LoadScene(L"StartScene");
-    }
 
     if (KEY_DOWN(KEY_TYPE::C))
         SceneMgr::GetInst()->LoadScene(L"GameScene");
-
-    Scene::Update();
 }
 
 void IntroScene::Render(HDC _dc)
@@ -117,36 +119,33 @@ void IntroScene::Render(HDC _dc)
     RECT rcClient;
     GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
-    // 처음에는 어둡게
+    // 어둡게 설정
     COLORREF bgColor = RGB(darknessLevel, darknessLevel, darknessLevel);
     HBRUSH hBrush = CreateSolidBrush(bgColor);
     FillRect(_dc, &rcClient, hBrush);
     DeleteObject(hBrush);
 
+    // 어두운 상태에서 폰트 설정
     if (darknessLevel < 255)
     {
-        // 별이 사라지기 전까지 폰트 설정
         HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
             CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
         SelectObject(_dc, hFont);
 
-        if (darknessLevel <= 300)
+        // darknessLevel이 270 이하인 경우에만 렌더링
+        if (darknessLevel <= 270)
         {
             DeleteObject(hFont);
             SetTextColor(_dc, RGB(0, 0, 0));
             SetBkMode(_dc, TRANSPARENT);
+            Scene::Render(_dc);
         }
-
-        Scene::Render(_dc);
-        //DeleteObject(hFont);
     }
-
-    //여기인듯
-    else 
+    else
     {
-        SceneMgr::GetInst()->LoadScene(L"NameScene");
+        // darknessLevel이 255 이상이면 GameTitleScene으로 전환
+        SceneMgr::GetInst()->LoadScene(L"GameTitleScene");
     }
-
 }
 
 void IntroScene::Release()
