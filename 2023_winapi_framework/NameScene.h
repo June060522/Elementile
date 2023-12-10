@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+
 class NameScene :
     public Scene
 {
@@ -14,6 +15,7 @@ private:
     Object* m_string2;
     Object* m_string3;
     float deltaTime;
+    
 };
 
 
