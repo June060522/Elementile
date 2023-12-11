@@ -40,7 +40,7 @@ void Image::Update()
 	}
 	if (m_fTime <= 0)
 	{
-		if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
+		if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN && !m_pGameSceneUI->GetStagePenalOpen())
 		{
 			POINT mousePos;
 			Vec2 leftTop;

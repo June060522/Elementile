@@ -14,6 +14,7 @@ SoundIcon::SoundIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, Vec2 _vmenupos, Game
 
 void SoundIcon::Function()
 {
+	ResMgr::GetInst()->Play(L"Button");
 	ResMgr::GetInst()->SetSoundVol(!ResMgr::GetInst()->GetSoundVol());
 }
 

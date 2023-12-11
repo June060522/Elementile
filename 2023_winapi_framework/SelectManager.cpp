@@ -9,6 +9,7 @@
 #include "Core.h"
 #include "Dotween.h"
 #include "TimeMgr.h"
+#include "ResMgr.h"
 
 void SelectManager::Init()
 {
@@ -68,6 +69,7 @@ const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 				Polygon(Core::GetInst()->GetMainDC(), points, 3);*/
 				if (TriangleInPoint(p1, p2, p3, m_pMousePos))
 				{
+					ResMgr::GetInst()->Play(L"Tile");
 					if (m_selectTile == a)
 					{
 						m_selectTile = nullptr;

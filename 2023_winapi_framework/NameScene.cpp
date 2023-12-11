@@ -69,14 +69,9 @@ void NameScene::Render(HDC _dc)
     FillRect(_dc, &rcClient, hBrush);
     DeleteObject(hBrush);
 
-    if (deltaTime > 5.5f)
-    {
-        ResMgr::GetInst()->Volume(SOUND_CHANNEL::BGM, 5);
-        ResMgr::GetInst()->Play(L"Res\\Sound\\soft-daydream-18538.wav");
-    }
-
     if (deltaTime > 6.2f)
     {
+        ResMgr::GetInst()->Play(L"BGM");
         SceneMgr::GetInst()->LoadScene(L"StartScene");
     }
 

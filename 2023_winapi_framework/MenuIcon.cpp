@@ -7,6 +7,7 @@
 #include "Core.h"
 #include "Debug.h"
 #include "TimeMgr.h"
+#include "ResMgr.h"
 
 MenuIcon::MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, GameSceneUI* _pGameSceneUI, Vec2 _vmenupos)
 	:Image(_tex, _pos, _scale, _vmenupos,_pGameSceneUI)
@@ -21,6 +22,7 @@ MenuIcon::MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, GameSceneUI* _pGameSce
 
 void MenuIcon::Function()
 {
+	ResMgr::GetInst()->Play(L"Button");
 	m_pGameSceneUI->SetMenuOpen(!m_pGameSceneUI->GetMenuOpen());
 	m_fcurTime = 0.f;
 }

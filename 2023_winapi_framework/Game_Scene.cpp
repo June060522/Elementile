@@ -31,7 +31,8 @@ void Game_Scene::Update()
 		SceneMgr::GetInst()->LoadScene(L"GameScene");
 	}
 	SelectManager::GetInst()->Update();
-	SelectManager::GetInst()->TileClick(GetGroupObject(OBJECT_GROUP::TILE));
+	if (!m_GameSceneUI->GetStagePenalOpen())
+		SelectManager::GetInst()->TileClick(GetGroupObject(OBJECT_GROUP::TILE));
 	Scene::Update();
 	
 	ResMgr::GetInst()->Update();

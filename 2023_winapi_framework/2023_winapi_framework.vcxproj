@@ -189,6 +189,7 @@
     <ClInclude Include="MainIcon.h" />
     <ClInclude Include="MenuIcon.h" />
     <ClInclude Include="NameScene.h" />
+    <ClInclude Include="RankingIcon.h" />
     <ClInclude Include="ReIcon.h" />
     <ClInclude Include="SelectManager.h" />
     <ClInclude Include="IntroScene.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="SelectGDI.h" />
     <ClInclude Include="SoundIcon.h" />
     <ClInclude Include="StageManager.h" />
+    <ClInclude Include="StagePanel.h" />
     <ClInclude Include="Start_Scene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
@@ -233,6 +235,7 @@
     <ClCompile Include="MainIcon.cpp" />
     <ClCompile Include="MenuIcon.cpp" />
     <ClCompile Include="NameScene.cpp" />
+    <ClCompile Include="RankingIcon.cpp" />
     <ClCompile Include="ReIcon.cpp" />
     <ClCompile Include="SelectManager.cpp" />
     <ClCompile Include="IntroScene.cpp" />
@@ -248,6 +251,7 @@
     <ClCompile Include="SelectGDI.cpp" />
     <ClCompile Include="SoundIcon.cpp" />
     <ClCompile Include="StageManager.cpp" />
+    <ClCompile Include="StagePanel.cpp" />
     <ClCompile Include="Start_Scene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />

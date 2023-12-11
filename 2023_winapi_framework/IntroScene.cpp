@@ -2,6 +2,7 @@
 #include "IntroScene.h"
 #include "KeyMgr.h"
 #include "SceneMgr.h"
+#include "ResMgr.h"
 #include "Scene.h"
 #include "Dotween.h"
 #include "DataManager.h"
@@ -17,6 +18,10 @@ const float darknessActivationTime = 5.0f;
 
 void IntroScene::Init()
 {
+    ResMgr::GetInst()->LoadSound(L"BGM", L"Sound\\bgm.wav", true);
+    ResMgr::GetInst()->LoadSound(L"Tile", L"Sound\\Tile.wav", false);
+    ResMgr::GetInst()->LoadSound(L"Button", L"Sound\\Button.wav", false);
+
     m_string = new UIText(Vec2(600, 310), L"난쟁2");
 
     for (int i = 0; i < 4; i++)
