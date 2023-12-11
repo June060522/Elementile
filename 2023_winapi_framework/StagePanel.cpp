@@ -27,6 +27,7 @@ void StagePanel::Update()
 		if (mousePos.x >= leftTop.x && mousePos.x <= rightBottom.x &&
 			mousePos.y >= leftTop.y && mousePos.y <= rightBottom.y)
 		{
+			ResMgr::GetInst()->Play(L"Button");
 			m_pGameSceneUI->SetStagePenalOpen(false);
 		}
 	}
