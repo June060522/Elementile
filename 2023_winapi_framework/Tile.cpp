@@ -30,7 +30,11 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Grass Tile", L"Texture\\grasshexagon.bmp");
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Grass Tile Dark", L"Texture\\grasshexagondark.bmp");
 		break;
-	case TILE_TYPE::LOCK:
+	case TILE_TYPE::FIRELOCK:
+	case TILE_TYPE::WATERLOCK:
+	case TILE_TYPE::GRASSLOCK:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Black Tile", L"Texture\\lockhexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Black Dark", L"Texture\\lockhexagon.bmp");
 		break;
 	case TILE_TYPE::TELEPORT:
 		break;
@@ -49,6 +53,7 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		break;
 	}
 	m_pBGDark = ResMgr::GetInst()->TexLoad(L"BGDark", L"Texture\\bgtiledark.bmp");
+	m_pselect = ResMgr::GetInst()->TexLoad(L"BGSelect", L"Texture\\selecthexagon.bmp");
 }
 
 Tile::~Tile()
@@ -90,7 +95,14 @@ void Tile::Render(HDC _dc)
 	float left = centerX - (Width * (vScale.x / 200));
 	float top = centerY - (Height * (vScale.y / 200));
 
-	if (m_eState == TILE_STATE::DEFAULT || m_eState == TILE_STATE::CANMOVE)
+	if (SelectManager::GetInst()->GetSelectTile() == this)
+	{
+		TransparentBlt(_dc, left, top + 5,
+			Width * (vScale.x / 100), Height * (vScale.y / 100),
+			m_pselect->GetDC(), 0, 0,
+			Width, Height, RGB(255, 0, 255));
+	}
+	if (m_eState == TILE_STATE::CANMOVE || m_eState == TILE_STATE::DEFAULT)
 	{
 		TransparentBlt(_dc, left, top,
 			Width * (vScale.x / 100), Height * (vScale.y / 100),
@@ -106,6 +118,7 @@ void Tile::Render(HDC _dc)
 				m_pTexDark->GetDC(), 0, 0,
 				Width, Height, RGB(255, 0, 255));
 		}
+
 		TransparentBlt(_dc, left, top,
 			Width * (vScale.x / 100), Height * (vScale.y / 100),
 			m_pBGDark->GetDC(), 0, 0,
@@ -128,91 +141,104 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 {
 	Vec2 pos;
 	Vec2 scale;
-	switch (_cnt) // 그릴 이미지 갯수 일단 5개까지만
-	{
-	case 1:
+	if (_type == TILE_TYPE::FIRE || _type == TILE_TYPE::GRASS || _type == TILE_TYPE::WATER)
+		switch (_cnt) // 그릴 이미지 갯수 일단 5개까지만
+		{
+		case 1:
+		{
+			pos = Vec2(GetPos().x + 75, GetPos().y + 75);
+			scale = Vec2(13, 13);
+			AddVec(scale, pos, _type);
+		}
+		break;
+		case 2:
+		{
+			scale = Vec2(10, 10);
+			pos = Vec2(GetPos().x + 100, GetPos().y + 80);
+			AddVec(scale, pos, _type);
+
+			pos = Vec2(GetPos().x + 50, GetPos().y + 80);
+			AddVec(scale, pos, _type);
+		}
+		break;
+		case 3:
+		{
+			scale = Vec2(8, 8);
+			Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 80);
+			float radius = 27.0f;
+			for (int i = 0; i < 3; i++)
+			{
+				float angle = i * (2 * M_PI / 3.0f) + M_PI / 6.0f;
+
+				pos.x = midPos.x + radius * cos(angle);
+				pos.y = midPos.y + radius * sin(angle);
+				AddVec(scale, pos, _type);
+
+			}
+		}
+		break;
+		case 4:
+		{
+			float middis = 20.f;
+			Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
+			scale = Vec2(7, 7);
+
+			pos.x = midPos.x + middis;
+			pos.y = midPos.y + middis;
+			AddVec(scale, pos, _type);
+
+			pos.x = midPos.x + middis;
+			pos.y = midPos.y - middis;
+			AddVec(scale, pos, _type);
+
+			pos.x = midPos.x - middis;
+			pos.y = midPos.y + middis;
+			AddVec(scale, pos, _type);
+
+			pos.x = midPos.x - middis;
+			pos.y = midPos.y - middis;
+			AddVec(scale, pos, _type);
+		}
+		break;
+		case 5:
+		{
+			scale = Vec2(7, 7);
+			Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
+
+			float radius = 28.0f;
+
+			for (int i = 0; i < 5; i++)
+			{
+				float angle = (i * (2 * M_PI / 5.0f)) + M_PI / 2.f;
+
+				pos.x = midPos.x + radius * cos(angle);
+				pos.y = midPos.y + radius * sin(-angle);
+
+				AddVec(scale, pos, _type);
+			}
+		}
+		break;
+		default:
+			assert(_cnt);
+			break;
+		}
+	else if (_type == TILE_TYPE::FIRELOCK || _type == TILE_TYPE::GRASSLOCK || _type == TILE_TYPE::WATERLOCK)
 	{
 		pos = Vec2(GetPos().x + 75, GetPos().y + 75);
 		scale = Vec2(13, 13);
 		AddVec(scale, pos, _type);
 	}
-	break;
-	case 2:
+	else
 	{
-		scale = Vec2(10, 10);
-		pos = Vec2(GetPos().x + 100, GetPos().y + 80);
+		pos = Vec2(GetPos().x + 75, GetPos().y + 75);
+		scale = Vec2(13, 13);
 		AddVec(scale, pos, _type);
-
-		pos = Vec2(GetPos().x + 50, GetPos().y + 80);
-		AddVec(scale, pos, _type);
-	}
-	break;
-	case 3:
-	{
-		scale = Vec2(8, 8);
-		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 80);
-		float radius = 27.0f;
-		for (int i = 0; i < 3; i++)
-		{
-			float angle = i * (2 * M_PI / 3.0f) + M_PI / 6.0f;
-
-			pos.x = midPos.x + radius * cos(angle);
-			pos.y = midPos.y + radius * sin(angle);
-			AddVec(scale, pos, _type);
-
-		}
-	}
-	break;
-	case 4:
-	{
-		float middis = 20.f;
-		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
-		scale = Vec2(7, 7);
-
-		pos.x = midPos.x + middis;
-		pos.y = midPos.y + middis;
-		AddVec(scale, pos, _type);
-
-		pos.x = midPos.x + middis;
-		pos.y = midPos.y - middis;
-		AddVec(scale, pos, _type);
-
-		pos.x = midPos.x - middis;
-		pos.y = midPos.y + middis;
-		AddVec(scale, pos, _type);
-
-		pos.x = midPos.x - middis;
-		pos.y = midPos.y - middis;
-		AddVec(scale, pos, _type);
-	}
-	break;
-	case 5:
-	{
-		scale = Vec2(7, 7);
-		Vec2 midPos = Vec2(GetPos().x + 75, GetPos().y + 78);
-
-		float radius = 28.0f;
-
-		for (int i = 0; i < 5; i++)
-		{
-			float angle = (i * (2 * M_PI / 5.0f)) + M_PI / 2.f;
-
-			pos.x = midPos.x + radius * cos(angle);
-			pos.y = midPos.y + radius * sin(-angle);
-
-			AddVec(scale, pos, _type);
-		}
-	}
-	break;
-	default:
-		assert(_cnt);
-		break;
 	}
 }
 
 void Tile::AddVec(const Vec2& _vScale, const Vec2& _vPos, const TILE_TYPE& _type)
 {
-	TileImage* _tileImage = new TileImage(_type);
+	TileImage* _tileImage = new TileImage(_type, m_cnt);
 	_tileImage->SetPos(_vPos);
 	_tileImage->SetScale(_vScale);
 	_tileImage->SetCorrectionPosX(_vPos.x - GetPos().x);
@@ -266,19 +292,40 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-#pragma region 이동가능한 속성,타일인지 검사
+#pragma region 이동가능한 타일인지 검사
 	switch (_temptile->GetType())
 	{
 	case TILE_TYPE::WATER:
 	case TILE_TYPE::FIRE:
 	case TILE_TYPE::GRASS:
 	{
-		if (selectTile->GetType() != _temptile->GetType() || selectTile->GetCnt() != _temptile->GetCnt())
+		if (selectTile->GetType() == _temptile->GetType() && selectTile->GetCnt() != _temptile->GetCnt())
 		{
 			return false;
 		}
 	}
 	break;
+	case TILE_TYPE::FIRELOCK:
+		if (!(TILE_TYPE::FIRE == selectTile->GetType() &&
+			selectTile->GetCnt() == _temptile->GetCnt()))
+		{
+			return false;
+		}
+		break;
+	case TILE_TYPE::WATERLOCK:
+		if (!(TILE_TYPE::WATER == selectTile->GetType() &&
+			selectTile->GetCnt() == _temptile->GetCnt()))
+		{
+			return false;
+		}
+		break;
+	case TILE_TYPE::GRASSLOCK:
+		if (!(TILE_TYPE::GRASS == selectTile->GetType() &&
+			selectTile->GetCnt() == _temptile->GetCnt()))
+		{
+			return false;
+		}
+		break;
 	}
 #pragma endregion
 
@@ -286,6 +333,61 @@ const bool Tile::CanGo(Tile* _temptile)
 	if (GetCnt() >= 5)
 		return false;
 #pragma endregion
+
+#pragma region 불물풀 속성 검사
+	switch (_temptile->GetType())
+	{
+	case TILE_TYPE::WATER:
+		if (selectTile->GetType() == TILE_TYPE::FIRE)
+		{
+			if (selectTile->GetCnt() > _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		else if(selectTile->GetType() == TILE_TYPE::GRASS)
+		{
+			if (selectTile->GetCnt() < _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		break;
+	case TILE_TYPE::FIRE:
+		if (selectTile->GetType() == TILE_TYPE::GRASS)
+		{
+			if (selectTile->GetCnt() > _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		else if (selectTile->GetType() == TILE_TYPE::WATER)
+		{
+			if (selectTile->GetCnt() < _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		break;
+	case TILE_TYPE::GRASS:
+		if (selectTile->GetType() == TILE_TYPE::FIRE)
+		{
+			if (selectTile->GetCnt() < _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		else if (selectTile->GetType() == TILE_TYPE::WATER)
+		{
+			if (selectTile->GetCnt() > _temptile->GetCnt())
+			{
+				return false;
+			}
+		}
+		break;
+	}
+#pragma endregion
+
 
 #pragma region 자기자신인지 검사
 	if (_temptile->GetposIdx().xidx == selectTile->GetposIdx().xidx
@@ -304,16 +406,43 @@ const bool Tile::CanGo(Tile* _temptile)
 			switch (t->GetType())
 			{
 			case TILE_TYPE::WATER:
-			case TILE_TYPE::FIRE:
-			case TILE_TYPE::GRASS:
-				//갯수 체크, 속성체크
 				if (t->GetCnt() != _temptile->GetCnt())
 					return false;
 				if (t->GetType() != _temptile->GetType())
 					return false;
 				break;
-			case TILE_TYPE::LOCK:
-				//속성체크
+			case TILE_TYPE::FIRE:
+				if (t->GetCnt() != _temptile->GetCnt())
+					return false;
+				if (t->GetType() != _temptile->GetType())
+					return false;
+				break;
+			case TILE_TYPE::GRASS:
+				if (t->GetCnt() != _temptile->GetCnt())
+					return false;
+				if (t->GetType() != _temptile->GetType())
+					return false;
+				break;
+			case TILE_TYPE::FIRELOCK:
+				if (!(TILE_TYPE::FIRE == selectTile->GetType() &&
+					t->GetCnt() == selectTile->GetCnt()))
+				{
+					return false;
+				}
+				break;
+			case TILE_TYPE::WATERLOCK:
+				if (!(TILE_TYPE::WATER == selectTile->GetType() &&
+					t->GetCnt() == selectTile->GetCnt()))
+				{
+					return false;
+				}
+				break;
+			case TILE_TYPE::GRASSLOCK:
+				if (!(TILE_TYPE::GRASS == selectTile->GetType() &&
+					selectTile->GetCnt() == t->GetCnt()))
+				{
+					return false;
+				}
 				break;
 			case TILE_TYPE::MOVELU:
 			{
@@ -383,9 +512,4 @@ const bool Tile::CanGo(Tile* _temptile)
 #pragma endregion
 	return false;
 
-}
-
-const bool Tile::MoveableGo(Tile* _temptile)
-{
-	return false;
 }

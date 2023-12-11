@@ -28,6 +28,14 @@ Debug::Debug(const int& _textnum)
 		text.c_str(), text.length());
 }
 
+Debug::Debug(const float& _textnum)
+{
+	wstring text = to_wstring(_textnum);
+	TextOut(Core::GetInst()->GetMainDC(),
+		100, Core::GetInst()->GetResolution().y - 100,
+		text.c_str(), text.length());
+}
+
 Debug::Debug(const wstring& _text, const int& _posX, const int& _posY)
 {
 	TextOut(Core::GetInst()->GetMainDC(),

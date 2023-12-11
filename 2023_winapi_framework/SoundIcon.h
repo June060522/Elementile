@@ -5,7 +5,7 @@ class SoundIcon :
     public Image
 {
 public:
-	SoundIcon(Texture* _tex, Vec2 _pos, Vec2 _scale);
+	SoundIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, Vec2 _vmenupos);
 public:
 	virtual void Function() override;
 	virtual void Render(HDC _dc) override;

@@ -2,8 +2,8 @@
 #include "ReIcon.h"
 #include "SceneMgr.h"
 
-ReIcon::ReIcon(Texture* _tex, Vec2 _pos, Vec2 _scale)
-	:Image(_tex, _pos, _scale)
+ReIcon::ReIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, Vec2 _vmenupos)
+	:Image(_tex, _pos, _scale, _vmenupos)
 {
 }
 
