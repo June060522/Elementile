@@ -9,7 +9,7 @@ public:
 	void Update();
 	void Render(HDC _dc);
 	void Release();
-private:
+public:
 	void UIRender(HDC _dc);
 
 public:
@@ -37,4 +37,6 @@ private:
 	Object* m_pRanking;
 
 	StagePanel* m_pStagePanel;
+
+	bool m_isBegin;
 };

@@ -42,6 +42,7 @@ void GameSceneUI::Init()
 
 
 	m_pStagePanel = new StagePanel(this);
+	m_isBegin = true;
 }
 
 void GameSceneUI::Update()
@@ -52,7 +53,11 @@ void GameSceneUI::Update()
 
 void GameSceneUI::Render(HDC _dc)
 {
-	UIRender(_dc);
+	if (m_isBegin)
+	{
+		UIRender(_dc);
+		m_isBegin = false;
+	}
 	if (m_isStageOpen)
 		m_pStagePanel->Render(_dc);
 }

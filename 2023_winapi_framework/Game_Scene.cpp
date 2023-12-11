@@ -9,6 +9,7 @@
 #include "UIText.h"
 #include "GameSceneUI.h"
 #include "ResMgr.h"
+#include "KeyMgr.h"
 
 void Game_Scene::Init()
 {
