@@ -251,6 +251,7 @@ void Tile::AddVec(const Vec2& _vScale, const Vec2& _vPos, const TILE_TYPE& _type
 const bool Tile::CanGo(Tile* _temptile)
 {
 	Tile* selectTile = SelectManager::GetInst()->GetSelectTile();
+
 #pragma region 인접한 타일인지 검사
 	int difX = selectTile->GetposIdx().xidx - m_posidx.xidx;
 	int difY = selectTile->GetposIdx().yidx - m_posidx.yidx;
@@ -354,12 +355,11 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-
 #pragma region 갯수가 5개미만인지 검사
 	if (GetCnt() >= 5)
 		return false;
 #pragma endregion
-
+	
 #pragma region 불물풀 속성 검사
 	switch (_temptile->GetType())
 	{
@@ -433,19 +433,13 @@ const bool Tile::CanGo(Tile* _temptile)
 			case TILE_TYPE::WATER:
 				if (t->GetCnt() != _temptile->GetCnt())
 					return false;
-				if (t->GetType() != _temptile->GetType())
-					return false;
 				break;
 			case TILE_TYPE::FIRE:
 				if (t->GetCnt() != _temptile->GetCnt())
 					return false;
-				if (t->GetType() != _temptile->GetType())
-					return false;
 				break;
 			case TILE_TYPE::GRASS:
 				if (t->GetCnt() != _temptile->GetCnt())
-					return false;
-				if (t->GetType() != _temptile->GetType())
 					return false;
 				break;
 			case TILE_TYPE::FIRELOCK:
