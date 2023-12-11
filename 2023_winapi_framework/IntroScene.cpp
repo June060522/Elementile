@@ -13,7 +13,7 @@
 #include "IntroStarTxt.h"
 
 int darknessLevel = 0;
-const float darknessActivationTime = 5.0f;
+const float darknessActivationTime = 5.0f;  
 
 void IntroScene::Init()
 {
@@ -51,14 +51,25 @@ void IntroScene::Init()
         m_vObj.push_back(new IntroStarTxt(100, Vec2(xPos, yPos), L"★", 150, 2.f, 4.f));
     }
 
-
+    
 
     //m_string->SetAlpha(0.0f);
-
+    
     AddObject(m_string, OBJECT_GROUP::UI);
     DataManager::GetInst()->Init();
+    
 
-    AddFontResource(L"Res\\Font\\인천교육소통.ttf");
+    int title = AddFontResource(L"Res\\Font\\인천교육소통.ttf");
+
+    //SceneMgr::GetInst()->GetCurScene()->
+    //    AddObject(new Dotween(m_string, Vec2(250, 560), 1.8f, DOTWEEN_TYPE::MOVE
+    //    ), OBJECT_GROUP::DOTWEEN);
+    //SceneMgr::GetInst()->GetCurScene()->
+    //    AddObject(new Dotween(m_string, Vec2(500, 250), 2.f, 1.5f, DOTWEEN_TYPE::MOVE
+    //    ), OBJECT_GROUP::DOTWEEN);
+    //SceneMgr::GetInst()->GetCurScene()->
+    //    AddObject(new Dotween(m_string, Vec2(570, 350), 1.6f, 2.7f, DOTWEEN_TYPE::MOVE
+    //    ), OBJECT_GROUP::DOTWEEN);
 
     for (size_t i = 0; i < m_vObj.size(); ++i)
         AddObject(m_vObj[i], OBJECT_GROUP::STAR);
@@ -68,7 +79,6 @@ void IntroScene::Update()
 {
     deltaTime += TimeMgr::GetInst()->GetDT();
 
-    // 별 이동
     for (size_t i = 0; i < m_vObj.size(); ++i)
     {
         SceneMgr::GetInst()->GetCurScene()->
@@ -92,6 +102,7 @@ void IntroScene::Update()
     {
         darknessLevel += 1;
     }
+
 
     // 키 입력으로 씬 전환
     HandleSceneChangeInput();
@@ -119,13 +130,15 @@ void IntroScene::Render(HDC _dc)
     RECT rcClient;
     GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
-    // 어둡게 설정
-    COLORREF bgColor = RGB(darknessLevel, darknessLevel, darknessLevel);
+
+    darknessLevel = max(darknessLevel, 255);
+
+    COLORREF bgColor = RGB( darknessLevel,  darknessLevel,  darknessLevel);
     HBRUSH hBrush = CreateSolidBrush(bgColor);
     FillRect(_dc, &rcClient, hBrush);
     DeleteObject(hBrush);
 
-    // 어두운 상태에서 폰트 설정
+
     if (darknessLevel < 255)
     {
         HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,

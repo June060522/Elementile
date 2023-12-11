@@ -3,7 +3,7 @@
 #include "ResMgr.h"
 #include "Texture.h"
 
-TileImage::TileImage(const TILE_TYPE& _eType)
+TileImage::TileImage(const TILE_TYPE& _eType, int _cnt)
 	:m_eType(_eType)
 {
 	switch (m_eType)
@@ -17,8 +17,41 @@ TileImage::TileImage(const TILE_TYPE& _eType)
 	case TILE_TYPE::GRASS:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Grass", L"Texture\\grass.bmp");
 		break;
-	case TILE_TYPE::LOCK:
-		m_pTex = ResMgr::GetInst()->TexLoad(L"Lock", L"Texture\\lock.bmp");
+	case TILE_TYPE::FIRELOCK:
+		if (_cnt == 1)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire1", L"Texture\\lockfire1.bmp");
+		if (_cnt == 2)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire2", L"Texture\\lockfire2.bmp");
+		if (_cnt == 3)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire3", L"Texture\\lockfire3.bmp");
+		if (_cnt == 4)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire4", L"Texture\\lockfire4.bmp");
+		if (_cnt == 5)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire5", L"Texture\\lockfire5.bmp");
+		break;
+	case TILE_TYPE::WATERLOCK:
+		if (_cnt == 1)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater1", L"Texture\\lockwater1.bmp");
+		if (_cnt == 2)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater2", L"Texture\\lockwater2.bmp");
+		if (_cnt == 3)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater3", L"Texture\\lockwater3.bmp");
+		if (_cnt == 4)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater4", L"Texture\\lockwater4.bmp");
+		if (_cnt == 5)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater5", L"Texture\\lockwater5.bmp");
+		break;
+	case TILE_TYPE::GRASSLOCK:
+		if (_cnt == 1)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass1", L"Texture\\lockgrass1.bmp");
+		if (_cnt == 2)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass2", L"Texture\\lockgrass2.bmp");
+		if (_cnt == 3)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass3", L"Texture\\lockgrass3.bmp");
+		if (_cnt == 4)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass4", L"Texture\\lockgrass4.bmp");
+		if (_cnt == 5)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass5", L"Texture\\lockgrass5.bmp");
 		break;
 	case TILE_TYPE::TELEPORT:
 		break;
@@ -41,10 +74,6 @@ TileImage::TileImage(const TILE_TYPE& _eType)
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Moverd", L"Texture\\arrowrightdown.bmp");
 		break;
 	case TILE_TYPE::WIND:
-		break;
-	case TILE_TYPE::END:
-		break;
-	default:
 		break;
 	}
 }

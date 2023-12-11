@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "Tile.h"
 #include "TileImage.h"
+#include "SceneMgr.h"
 #include "Core.h"
 
 void StageManager::Init(const int& curStage, Game_Scene* _curGameScene)
@@ -40,7 +41,7 @@ const void StageManager::LoadMap(const int& curStage)
 		inputFile.close();
 	}
 	else
-		assert(isOpen);
+		SceneMgr::GetInst()->LoadScene(L"StartScene");
 	RenderBoard();
 }
 
@@ -126,6 +127,67 @@ const void StageManager::RenderBoard()
 			{
 				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::MOVERD, 1), OBJECT_GROUP::TILE);
 			}
+			else if (m_board[i][j] == '1')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::FIRELOCK, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '2')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::FIRELOCK, 2), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '3')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::FIRELOCK, 3), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '4')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::FIRELOCK, 4), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '5')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::FIRELOCK, 5), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '!')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WATERLOCK, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '@')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WATERLOCK, 2), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '#')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WATERLOCK, 3), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '$')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WATERLOCK, 4), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '%')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WATERLOCK, 5), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '^')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASSLOCK, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '&')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASSLOCK, 2), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '*')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASSLOCK, 3), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '(')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASSLOCK, 4), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == ')')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASSLOCK, 5), OBJECT_GROUP::TILE);
+			}
+
 		}
 	}
 }

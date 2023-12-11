@@ -7,26 +7,29 @@
 #include "Debug.h"
 
 Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, DOTWEEN_TYPE _etype)
-	:m_target(_target)
+	: m_target(_target)
 	, m_vendval(value)
 	, m_ftime(_fdelay)
 	, m_fcurtime(0.f)
 	, m_etype(_etype)
 	, m_fwaittime(0)
+	, m_pTex(nullptr)
 {
 	SetOriginVal(m_etype);
 }
 
 Dotween::Dotween(Object* _target, const Vec2& value, const float& _fdelay, const float& _fwait, DOTWEEN_TYPE _etype)
-	:m_target(_target)
+	: m_target(_target)
 	, m_vendval(value)
 	, m_ftime(_fdelay)
 	, m_fcurtime(0.f)
 	, m_etype(_etype)
 	, m_fwaittime(_fwait)
+	, m_pTex(nullptr)
 {
 	SetOriginVal(m_etype);
 }
+
 Dotween::Dotween(Texture* _target, const float& value, const float& originvalue, const float& _fdelay, DOTWEEN_TYPE _etype)
 	: m_pTex(_target)
 	, m_foriginval(originvalue)
@@ -78,12 +81,13 @@ void Dotween::Update()
 			DoScale();
 			break;
 		case DOTWEEN_TYPE::ROTATE:
-
 			break;
 		case DOTWEEN_TYPE::FADE:
 
 			break;
 		}
+		if (m_target == nullptr)
+			DoKill();
 		if (m_fcurtime >= m_ftime)
 		{
 			switch (m_etype)

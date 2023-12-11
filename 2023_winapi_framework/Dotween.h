@@ -25,12 +25,15 @@ private:
 	Object*		 m_target;
 	Vec2		 m_voriginval;
 	Vec2		 m_vendval;
+
+	float		 m_foriginval;
+	float		 m_fendval;
+
 	float		 m_fcurtime;
 	float		 m_ftime;
 	float		 m_fwaittime;
 	bool		 m_isBegin;
 	DOTWEEN_TYPE m_etype;
 	Texture*	 m_pTex;
-	float		 m_foriginval;
-	float		 m_fendval;
+
 };
