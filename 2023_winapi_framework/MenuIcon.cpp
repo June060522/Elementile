@@ -6,36 +6,38 @@
 #include "GameSceneUI.h"
 #include "Core.h"
 #include "Debug.h"
+#include "TimeMgr.h"
 
 MenuIcon::MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, GameSceneUI* _pGameSceneUI)
-	:Image(_tex,_pos,_scale)
-	, m_fAngle(0.f)
+	:Image(_tex, _pos, _scale)
 {
 	m_pGameSceneUI = _pGameSceneUI;
+	m_fAngle = (!m_pGameSceneUI->GetMenuOpen()) ? 0.f : 45.f;
+	m_fdelay = 0.3f;
+	m_fAngle = -45.f;
+	m_fcurAngle = 0.f;
+	m_fcurTime = m_fdelay;
 }
 
 void MenuIcon::Function()
 {
-	if (!m_pGameSceneUI->GetMenuOpen())
-	{
-		m_pGameSceneUI->SetMenuOpen(!m_pGameSceneUI->GetMenuOpen());
-		m_fAngle = 45.f;
-	}
-	else
-	{
-		m_pGameSceneUI->SetMenuOpen(!m_pGameSceneUI->GetMenuOpen());
-		m_fAngle = 0.f;
-
-	}
+	m_pGameSceneUI->SetMenuOpen(!m_pGameSceneUI->GetMenuOpen());
+	m_fcurTime = 0.f;
 }
 
 void MenuIcon::Render(HDC _dc)
 {
+	m_fcurTime += TimeMgr::GetInst()->GetDT();
+	m_fcurTime = min(m_fcurTime, m_fdelay);
+	if(!m_pGameSceneUI->GetMenuOpen())
+		m_fcurAngle = 45 - m_fAngle * (m_fcurTime / m_fdelay);
+	else
+		m_fcurAngle = m_fAngle * (m_fcurTime / m_fdelay);
 	Vec2 vCenter = GetPos();
 	Vec2 vScale = GetScale();
 	POINT tPoint[3] = { 0 };
 	float fx, fy, fxDest, fyDest;
-	float fRadian = m_fAngle * M_PI / 180.f;
+	float fRadian = m_fcurAngle * M_PI / 180.f;
 	float cosTheta = cosf(fRadian);
 	float sinTheta = sinf(fRadian);
 	float width = m_pTex->GetWidth();
@@ -76,5 +78,5 @@ void MenuIcon::Render(HDC _dc)
 		width, height, RGB(255, 0, 255));
 
 	PlgBlt(_dc, tPoint, _hDC,
-		left, top,width * (GetScale().x / 100.f), height * (GetScale().y / 100.f), nullptr, 0,0);
+		left, top, width * (GetScale().x / 100.f), height * (GetScale().y / 100.f), nullptr, 0, 0);
 }

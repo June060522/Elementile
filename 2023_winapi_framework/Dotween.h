@@ -19,8 +19,6 @@ public:
 private:
 	void DoMove();
 	void DoScale();
-	void DoRotate();
-	void DoFade();
 	void DoKill();
 	void SetOriginVal(DOTWEEN_TYPE _etype);
 private:

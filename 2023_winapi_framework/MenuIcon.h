@@ -13,5 +13,8 @@ public:
 private:
 	GameSceneUI* m_pGameSceneUI;
 	float m_fAngle;
+	float m_fcurAngle;
+	float m_fcurTime;
+	float m_fdelay;
 };
 

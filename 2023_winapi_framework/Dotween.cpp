@@ -78,10 +78,10 @@ void Dotween::Update()
 			DoScale();
 			break;
 		case DOTWEEN_TYPE::ROTATE:
-			DoRotate();
+
 			break;
 		case DOTWEEN_TYPE::FADE:
-			DoFade();
+
 			break;
 		}
 		if (m_fcurtime >= m_ftime)
@@ -125,50 +125,6 @@ void Dotween::DoScale()
 	m_target->SetScale(
 		Vec2(m_voriginval.x + (m_vendval.x - m_voriginval.x) * (m_fcurtime / m_ftime)
 			, m_voriginval.y + (m_vendval.y - m_voriginval.y) * (m_fcurtime / m_ftime)));
-}
-
-void Dotween::DoRotate()
-{
-	BITMAP bmp;
-	GetObject(m_pTex->GetBITMAP(), sizeof(BITMAP), &bmp);
-
-	// 이미지 중심 계산
-	float centerX = bmp.bmWidth / 2.0f;
-	float centerY = bmp.bmHeight / 2.0f;
-
-	// 변환 매트릭스 설정
-	XFORM xForm;
-	float angle = m_foriginval + (m_fendval - m_foriginval) * (m_fcurtime / m_ftime);
-	angle *= (2 * M_PI);  // 각도를 라디안으로 변환
-	xForm.eM11 = cos(angle);
-	xForm.eM12 = sin(angle);
-	xForm.eM21 = -sin(angle);
-	xForm.eM22 = cos(angle);
-	xForm.eDx = centerX - centerX * cos(angle) - centerY * sin(angle);
-	xForm.eDy = centerY + centerX * sin(angle) - centerY * cos(angle);
-
-	// 변환 적용
-	SetGraphicsMode(m_pTex->GetDC(), GM_ADVANCED);
-	SetWorldTransform(m_pTex->GetDC(), &xForm);
-}
-
-
-void Dotween::DoFade()
-{
-	//BITMAP bmp;
-	//GetObject(hBitmap, sizeof(BITMAP), &bmp);
-
-	//// 이미지 정보 설정
-	//BLENDFUNCTION blendFunc;
-	//blendFunc.BlendOp = AC_SRC_OVER;
-	//blendFunc.BlendFlags = 0;
-	//blendFunc.SourceConstantAlpha = alpha;  // 알파값 설정 (0: 투명, 255: 불투명)
-	//blendFunc.AlphaFormat = AC_SRC_ALPHA;
-
-	//// 이미지 그리기
-	//AlphaBlend(hdc, 0, 0, bmp.bmWidth, bmp.bmHeight,
-	//	CreateCompatibleDC(hdc), 0, 0, bmp.bmWidth, bmp.bmHeight,
-	//	blendFunc);
 }
 
 void Dotween::DoKill()
