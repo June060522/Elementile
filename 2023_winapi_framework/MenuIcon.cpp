@@ -9,7 +9,7 @@
 #include "TimeMgr.h"
 
 MenuIcon::MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, GameSceneUI* _pGameSceneUI, Vec2 _vmenupos)
-	:Image(_tex, _pos, _scale, _vmenupos)
+	:Image(_tex, _pos, _scale, _vmenupos,_pGameSceneUI)
 {
 	m_pGameSceneUI = _pGameSceneUI;
 	m_fAngle = (!m_pGameSceneUI->GetMenuOpen()) ? 0.f : 45.f;
