@@ -329,6 +329,35 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
+#pragma region 선택된 타일 입장에서 검사
+	switch (selectTile->GetType())
+	{
+	case TILE_TYPE::FIRELOCK:
+	case TILE_TYPE::WATERLOCK:
+	case TILE_TYPE::GRASSLOCK:
+		if (_temptile->GetType() != TILE_TYPE::TELEPORT)
+			return false;
+		break;
+	case TILE_TYPE::TELEPORT:
+		break;
+	case TILE_TYPE::MOVELU:
+		break;
+	case TILE_TYPE::MOVEL:
+		break;
+	case TILE_TYPE::MOVELD:
+		break;
+	case TILE_TYPE::MOVERU:
+		break;
+	case TILE_TYPE::MOVER:
+		break;
+	case TILE_TYPE::MOVERD:
+		break;
+	case TILE_TYPE::WIND:
+		break;
+	}
+#pragma endregion
+
+
 #pragma region 갯수가 5개미만인지 검사
 	if (GetCnt() >= 5)
 		return false;
@@ -345,7 +374,7 @@ const bool Tile::CanGo(Tile* _temptile)
 				return false;
 			}
 		}
-		else if(selectTile->GetType() == TILE_TYPE::GRASS)
+		else if (selectTile->GetType() == TILE_TYPE::GRASS)
 		{
 			if (selectTile->GetCnt() < _temptile->GetCnt())
 			{
@@ -387,7 +416,6 @@ const bool Tile::CanGo(Tile* _temptile)
 		break;
 	}
 #pragma endregion
-
 
 #pragma region 자기자신인지 검사
 	if (_temptile->GetposIdx().xidx == selectTile->GetposIdx().xidx
@@ -510,6 +538,7 @@ const bool Tile::CanGo(Tile* _temptile)
 		}
 	}
 #pragma endregion
+
 	return false;
 
 }
