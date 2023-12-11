@@ -130,9 +130,6 @@ void IntroScene::Render(HDC _dc)
     RECT rcClient;
     GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
-
-    darknessLevel = max(darknessLevel, 255);
-
     COLORREF bgColor = RGB( darknessLevel,  darknessLevel,  darknessLevel);
     HBRUSH hBrush = CreateSolidBrush(bgColor);
     FillRect(_dc, &rcClient, hBrush);
