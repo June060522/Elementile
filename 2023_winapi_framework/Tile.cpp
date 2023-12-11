@@ -341,16 +341,13 @@ const bool Tile::CanGo(Tile* _temptile)
 	case TILE_TYPE::TELEPORT:
 		break;
 	case TILE_TYPE::MOVELU:
-		break;
 	case TILE_TYPE::MOVEL:
-		break;
 	case TILE_TYPE::MOVELD:
-		break;
 	case TILE_TYPE::MOVERU:
-		break;
 	case TILE_TYPE::MOVER:
-		break;
 	case TILE_TYPE::MOVERD:
+		if (_temptile->GetType() != TILE_TYPE::TELEPORT)
+			return false;
 		break;
 	case TILE_TYPE::WIND:
 		break;
