@@ -13,10 +13,12 @@
 #include "SoundIcon.h"
 #include "ReIcon.h"
 #include "RankingIcon.h"
+#include "StagePanel.h"
 
 void GameSceneUI::Init()
 {
 	m_isOpen = false;
+	m_isStageOpen = false;
 	m_pMenuTex = ResMgr::GetInst()->TexLoad(L"Menu", L"Texture\\menu.bmp");
 	m_pRETex = ResMgr::GetInst()->TexLoad(L"Regame", L"Texture\\regame.bmp");
 	m_pMainTex = ResMgr::GetInst()->TexLoad(L"Main", L"Texture\\main.bmp");
@@ -37,15 +39,22 @@ void GameSceneUI::Init()
 	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pSound, OBJECT_GROUP::UI);
 	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pRe, OBJECT_GROUP::UI);
 	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pRanking, OBJECT_GROUP::UI);
+
+
+	m_pStagePanel = new StagePanel(this);
 }
 
 void GameSceneUI::Update()
 {
+	if (m_isStageOpen)
+		m_pStagePanel->Update();
 }
 
 void GameSceneUI::Render(HDC _dc)
 {
 	UIRender(_dc);
+	if (m_isStageOpen)
+		m_pStagePanel->Render(_dc);
 }
 
 void GameSceneUI::Release()

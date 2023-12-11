@@ -206,6 +206,7 @@
     <ClInclude Include="SelectGDI.h" />
     <ClInclude Include="SoundIcon.h" />
     <ClInclude Include="StageManager.h" />
+    <ClInclude Include="StagePanel.h" />
     <ClInclude Include="Start_Scene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
@@ -250,6 +251,7 @@
     <ClCompile Include="SelectGDI.cpp" />
     <ClCompile Include="SoundIcon.cpp" />
     <ClCompile Include="StageManager.cpp" />
+    <ClCompile Include="StagePanel.cpp" />
     <ClCompile Include="Start_Scene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tile.cpp" />

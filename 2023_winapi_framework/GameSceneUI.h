@@ -1,6 +1,7 @@
 #pragma once
 class Texture;
 class Object;
+class StagePanel;
 class GameSceneUI
 {
 public:
@@ -14,6 +15,8 @@ private:
 public:
 	void SetMenuOpen(const bool _value) { m_isOpen = _value; }
 	bool& GetMenuOpen() { return m_isOpen; }
+	void SetStagePenalOpen(const bool _value) { m_isStageOpen = _value; }
+	bool& GetStagePenalOpen() { return m_isStageOpen; }
 
 private:
 	Texture* m_pMenuTex;
@@ -32,4 +35,6 @@ private:
 	Object* m_pLv;
 	Object* m_pSound;
 	Object* m_pRanking;
+
+	StagePanel* m_pStagePanel;
 };
