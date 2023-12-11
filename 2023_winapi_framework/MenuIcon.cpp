@@ -8,8 +8,8 @@
 #include "Debug.h"
 #include "TimeMgr.h"
 
-MenuIcon::MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, GameSceneUI* _pGameSceneUI)
-	:Image(_tex, _pos, _scale)
+MenuIcon::MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, GameSceneUI* _pGameSceneUI, Vec2 _vmenupos)
+	:Image(_tex, _pos, _scale, _vmenupos)
 {
 	m_pGameSceneUI = _pGameSceneUI;
 	m_fAngle = (!m_pGameSceneUI->GetMenuOpen()) ? 0.f : 45.f;
@@ -29,7 +29,7 @@ void MenuIcon::Render(HDC _dc)
 {
 	m_fcurTime += TimeMgr::GetInst()->GetDT();
 	m_fcurTime = min(m_fcurTime, m_fdelay);
-	if(!m_pGameSceneUI->GetMenuOpen())
+	if (!m_pGameSceneUI->GetMenuOpen())
 		m_fcurAngle = 45 - m_fAngle * (m_fcurTime / m_fdelay);
 	else
 		m_fcurAngle = m_fAngle * (m_fcurTime / m_fdelay);

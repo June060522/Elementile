@@ -22,11 +22,11 @@ void GameSceneUI::Init()
 	m_pLvTex = ResMgr::GetInst()->TexLoad(L"Lv", L"Texture\\level.bmp");
 	m_pSoundTex = ResMgr::GetInst()->TexLoad(L"Sound", L"Texture\\sound.bmp");
 
-	m_pMenu = new MenuIcon(m_pMenuTex, { 1450,90 }, { 20,20 },this);
-	m_pMain = new MainIcon(m_pMainTex, { 1450, 200 }, { 35,35 });
-	m_pLv = new LevelIcon(m_pLvTex, { 1450, 310 }, { 20,20 });
-	m_pSound = new SoundIcon(m_pSoundTex, { 1450, 420 }, { 20,20 });
-	m_pRe = new ReIcon(m_pRETex, { 1450, 530 }, { 20,20 });
+	m_pMenu = new MenuIcon(m_pMenuTex, { 1450,90 }, { 20,20 },this, { 1450,90 });
+	m_pMain = new MainIcon(m_pMainTex, { 1450, 200 }, { 35,35 }, { 1450,90 });
+	m_pLv = new LevelIcon(m_pLvTex, { 1450, 310 }, { 20,20 }, { 1450,90 });
+	m_pSound = new SoundIcon(m_pSoundTex, { 1450, 420 }, { 20,20 }, { 1450,90 });
+	m_pRe = new ReIcon(m_pRETex, { 1450, 530 }, { 20,20 }, { 1450,90 });
 
 	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pMenu, OBJECT_GROUP::UI);
 	SceneMgr::GetInst()->GetCurScene()->AddObject(m_pMain, OBJECT_GROUP::UI);

@@ -4,7 +4,7 @@
 #include "KeyMgr.h"
 #include "Debug.h"
 
-Image::Image(Texture* _tex, Vec2 _pos, Vec2 _scale)
+Image::Image(Texture* _tex, Vec2 _pos, Vec2 _scale, Vec2 _vmenupos)
 	:m_pTex(_tex)
 {
 	SetScale(_scale);

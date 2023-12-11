@@ -3,8 +3,8 @@
 #include "Texture.h"
 #include "ResMgr.h"
 
-SoundIcon::SoundIcon(Texture* _tex, Vec2 _pos, Vec2 _scale)
-	:Image(_tex, _pos, _scale)
+SoundIcon::SoundIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, Vec2 _vmenupos)
+	:Image(_tex, _pos, _scale, _vmenupos)
 {
 	m_pTex = _tex;
 	m_pOffTex = ResMgr::GetInst()->TexLoad(L"SoundOff", L"Texture\\soundoff.bmp");

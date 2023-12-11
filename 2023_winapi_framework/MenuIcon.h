@@ -6,7 +6,7 @@ class MenuIcon :
 	public Image
 {
 public:
-	MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, GameSceneUI* _pGameSceneUI);
+	MenuIcon(Texture* _tex, Vec2 _pos, Vec2 _scale, GameSceneUI* _pGameSceneUI,Vec2 _vmenupos);
 public:
 	virtual void Function() override;
 	virtual void Render(HDC _dc) override;
