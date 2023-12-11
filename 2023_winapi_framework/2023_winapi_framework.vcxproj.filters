@@ -217,6 +217,9 @@
     <ClInclude Include="IntroStarTxt.h">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="RankingIcon.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -350,6 +353,9 @@
       <Filter>Engine\05. Scene\MainScene</Filter>
     </ClCompile>
     <ClCompile Include="IntroStarTxt.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="RankingIcon.cpp">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClCompile>
   </ItemGroup>

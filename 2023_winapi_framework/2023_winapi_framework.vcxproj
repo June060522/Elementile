@@ -189,6 +189,7 @@
     <ClInclude Include="MainIcon.h" />
     <ClInclude Include="MenuIcon.h" />
     <ClInclude Include="NameScene.h" />
+    <ClInclude Include="RankingIcon.h" />
     <ClInclude Include="ReIcon.h" />
     <ClInclude Include="SelectManager.h" />
     <ClInclude Include="IntroScene.h" />
@@ -233,6 +234,7 @@
     <ClCompile Include="MainIcon.cpp" />
     <ClCompile Include="MenuIcon.cpp" />
     <ClCompile Include="NameScene.cpp" />
+    <ClCompile Include="RankingIcon.cpp" />
     <ClCompile Include="ReIcon.cpp" />
     <ClCompile Include="SelectManager.cpp" />
     <ClCompile Include="IntroScene.cpp" />

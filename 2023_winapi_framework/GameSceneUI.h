@@ -21,6 +21,7 @@ private:
 	Texture* m_pMainTex;
 	Texture* m_pLvTex;
 	Texture* m_pSoundTex;
+	Texture* m_pRankingTex;
 
 	bool m_isOpen;
 	bool m_isStageOpen;
@@ -30,4 +31,5 @@ private:
 	Object* m_pMain;
 	Object* m_pLv;
 	Object* m_pSound;
+	Object* m_pRanking;
 };
