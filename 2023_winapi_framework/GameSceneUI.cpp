@@ -26,7 +26,7 @@ void GameSceneUI::Init()
 	m_pSoundTex = ResMgr::GetInst()->TexLoad(L"Sound", L"Texture\\sound.bmp");
 	m_pRankingTex = ResMgr::GetInst()->TexLoad(L"Ranking", L"Texture\\ranking.bmp");
 
-	m_pMenu = new MenuIcon(m_pMenuTex, { 1450,90 }, { 20,20 },this, { 1450,90 });
+	m_pMenu = new MenuIcon(m_pMenuTex, { 1450,90 }, { 20,20 }, this, { 1450,90 });
 	m_pMain = new MainIcon(m_pMainTex, { 1450, 220 }, { 35,35 }, { 1450,90 }, this);
 	m_pLv = new LevelIcon(m_pLvTex, { 1450, 320 }, { 20,20 }, { 1450,90 }, this);
 	m_pSound = new SoundIcon(m_pSoundTex, { 1450, 420 }, { 20,20 }, { 1450,90 }, this);
@@ -42,7 +42,6 @@ void GameSceneUI::Init()
 
 
 	m_pStagePanel = new StagePanel(this);
-	m_isBegin = true;
 }
 
 void GameSceneUI::Update()
@@ -53,11 +52,7 @@ void GameSceneUI::Update()
 
 void GameSceneUI::Render(HDC _dc)
 {
-	if (m_isBegin)
-	{
-		UIRender(_dc);
-		m_isBegin = false;
-	}
+	UIRender(_dc);
 	if (m_isStageOpen)
 		m_pStagePanel->Render(_dc);
 }
@@ -75,7 +70,8 @@ void GameSceneUI::UIRender(HDC _dc)
 	SelectObject(_dc, hFont);
 
 	SetTextColor(_dc, RGB(0, 0, 0));
-	SceneMgr::GetInst()->GetCurScene()->AddObject(new UIText(Vec2(25.f, 25.f), to_wstring(DataManager::GetInst()->GetLastStage())), OBJECT_GROUP::UI);
+	wstring s = to_wstring(DataManager::GetInst()->GetLastStage());
+	TextOut(_dc, 25.f, 25.f, s.c_str(), s.size());
 
 	DeleteObject(hFont);
 }

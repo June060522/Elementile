@@ -220,6 +220,8 @@
     <ClInclude Include="RankingIcon.h">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="StagePanel.h" />
+    <ClInclude Include="StageIcon.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -358,6 +360,8 @@
     <ClCompile Include="RankingIcon.cpp">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="StagePanel.cpp" />
+    <ClCompile Include="StageIcon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
