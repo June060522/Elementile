@@ -81,4 +81,7 @@ void MenuIcon::Render(HDC _dc)
 
 	PlgBlt(_dc, tPoint, _hDC,
 		left, top, width * (GetScale().x / 100.f), height * (GetScale().y / 100.f), nullptr, 0, 0);
+
+	DeleteObject(_hDC);
+	DeleteObject(_hWnd);
 }

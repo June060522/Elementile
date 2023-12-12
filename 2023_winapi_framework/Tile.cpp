@@ -7,6 +7,8 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include"Core.h"
+#include "KeyMgr.h"
+#include "Debug.h"
 
 Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	: Object()
@@ -125,6 +127,8 @@ void Tile::Render(HDC _dc)
 			Width, Height, RGB(255, 0, 255));
 	}
 
+	if (KeyMgr::GetInst()->GetKey(KEY_TYPE::L) == KEY_STATE::PRESS)
+		Debug(48);
 	for (size_t i = 0; i < m_tilevec.size(); ++i)
 	{
 		m_tilevec[i]->SetPos(Vec2(
