@@ -365,6 +365,7 @@ const void SelectManager::Merge()
 		m_selectTile = nullptr;
 		break;
 	case TILE_TYPE::MINUS:
+	{
 		XY xy = newTile->GetposIdx();
 		newTile = beforeTile;
 		newTile->SetCnt(-1);
@@ -389,8 +390,10 @@ const void SelectManager::Merge()
 			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
 			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
-		break;
+	}
+	break;
 	case TILE_TYPE::PLUS:
+	{
 		XY xy = newTile->GetposIdx();
 		newTile = beforeTile;
 		newTile->SetCnt(1);
@@ -412,6 +415,7 @@ const void SelectManager::Merge()
 
 		m_to = nullptr;
 		m_selectTile = nullptr;
+	}
 		break;
 	}
 }
