@@ -392,6 +392,9 @@ const void SelectManager::Merge()
 			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
 			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+
+		m_to = nullptr;
+		m_selectTile = nullptr;
 	}
 	break;
 	case TILE_TYPE::PLUS:
