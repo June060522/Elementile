@@ -21,10 +21,12 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	switch (m_eType)
 	{
 	case TILE_TYPE::WATER:
+	case TILE_TYPE::PLUS:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Water Tile", L"Texture\\waterhexagon.bmp");
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Water Tile Dark", L"Texture\\waterhexagondark.bmp");
 		break;
 	case TILE_TYPE::FIRE:
+	case TILE_TYPE::MINUS:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Fire Tile", L"Texture\\firehexagon.bmp");
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Fire Tile Dark", L"Texture\\firehexagondark.bmp");
 		break;
@@ -40,7 +42,7 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		break;
 	case TILE_TYPE::TELEPORT:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Teleport Tile", L"Texture\\teleporthexagon.bmp");
-		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Teleport Dark", L"Texture\\teleporthexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Teleport Dark", L"Texture\\teleporthexagondark.bmp");
 		break;
 	case TILE_TYPE::MOVEL:
 	case TILE_TYPE::MOVELU:
@@ -52,8 +54,8 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Arrow Tile Dark", L"Texture\\arrowhexagondark.bmp");
 		break;
 	case TILE_TYPE::WIND:
-		break;
-	case TILE_TYPE::END:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Wind Tile", L"Texture\\windhexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Wind Tile Dark", L"Texture\\windhexagondark.bmp");
 		break;
 	}
 	m_pBGDark = ResMgr::GetInst()->TexLoad(L"BGDark", L"Texture\\bgtiledark.bmp");
@@ -330,6 +332,23 @@ const bool Tile::CanGo(Tile* _temptile)
 			return false;
 		}
 		break;
+	case TILE_TYPE::WIND:
+		if (selectTile->GetType() == TILE_TYPE::GRASSLOCK ||
+			selectTile->GetType() == TILE_TYPE::WATERLOCK ||
+			selectTile->GetType() == TILE_TYPE::FIRELOCK ||
+			selectTile->GetType() == TILE_TYPE::PLUS ||
+			selectTile->GetType() == TILE_TYPE::MINUS)
+			return false;
+		break;
+	case TILE_TYPE::PLUS:
+	case TILE_TYPE::MINUS:
+		if (selectTile->GetType() == TILE_TYPE::GRASSLOCK ||
+			selectTile->GetType() == TILE_TYPE::WATERLOCK ||
+			selectTile->GetType() == TILE_TYPE::FIRELOCK ||
+			selectTile->GetType() == TILE_TYPE::WIND ||
+			selectTile->GetType() == TILE_TYPE::PLUS ||
+			selectTile->GetType() == TILE_TYPE::MINUS)
+			return false;
 	}
 #pragma endregion
 
@@ -355,12 +374,28 @@ const bool Tile::CanGo(Tile* _temptile)
 			return false;
 		break;
 	case TILE_TYPE::WIND:
+		if(_temptile->GetType() == TILE_TYPE::GRASSLOCK ||
+			_temptile->GetType() == TILE_TYPE::WATERLOCK || 
+			_temptile->GetType() == TILE_TYPE::FIRELOCK || 
+			_temptile->GetType() == TILE_TYPE::PLUS ||
+			_temptile->GetType() == TILE_TYPE::MINUS)
+			return false;
+	break;
+	case TILE_TYPE::PLUS:
+	case TILE_TYPE::MINUS:
+		if (_temptile->GetType() == TILE_TYPE::GRASSLOCK ||
+			_temptile->GetType() == TILE_TYPE::WATERLOCK ||
+			_temptile->GetType() == TILE_TYPE::FIRELOCK ||
+			_temptile->GetType() == TILE_TYPE::WIND ||
+			_temptile->GetType() == TILE_TYPE::PLUS ||
+			_temptile->GetType() == TILE_TYPE::MINUS)
+			return false;
 		break;
 	}
 #pragma endregion
 
 #pragma region 갯수가 5개미만인지 검사
-	if (GetCnt() >= 5)
+	if (_temptile->GetCnt() >= 5 || selectTile->GetCnt() >= 5)
 		return false;
 #pragma endregion
 

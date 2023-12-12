@@ -59,7 +59,7 @@ void StagePanel::BGRender(HDC _dc)
 	BLENDFUNCTION blendFunc;
 	blendFunc.BlendOp = AC_SRC_OVER;
 	blendFunc.BlendFlags = 0;
-	blendFunc.SourceConstantAlpha = 128;
+	blendFunc.SourceConstantAlpha = 180;
 	blendFunc.AlphaFormat = AC_SRC_ALPHA;
 
 	float width = m_pDarkBG->GetWidth();

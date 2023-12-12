@@ -191,6 +191,18 @@ const void StageManager::RenderBoard()
 			{
 				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::TELEPORT, 1), OBJECT_GROUP::TILE);
 			}
+			else if (m_board[i][j] == 'H')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::WIND, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '+')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::PLUS, 1), OBJECT_GROUP::TILE);
+			}
+			else if (m_board[i][j] == '-')
+			{
+				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::MINUS, 1), OBJECT_GROUP::TILE);
+			}
 		}
 	}
 }

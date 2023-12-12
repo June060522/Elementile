@@ -145,7 +145,7 @@ const void SelectManager::Merge()
 	case TILE_TYPE::WATER:
 	case TILE_TYPE::FIRE:
 	case TILE_TYPE::GRASS:
-		if (m_to->GetType() == m_selectTile->GetType())
+		if (m_to->GetType() == m_selectTile->GetType() || m_selectTile->GetType() == TILE_TYPE::PLUS)
 		{
 			newTile->SetCnt(1);
 			newTile->ResetVec();
@@ -155,6 +155,11 @@ const void SelectManager::Merge()
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+		}
+		else if (m_selectTile->GetType() == TILE_TYPE::WIND)
+		{
+			m_to = nullptr;
+			m_selectTile = nullptr;
 		}
 		else
 		{
@@ -207,7 +212,6 @@ const void SelectManager::Merge()
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 		}
-
 		m_to = nullptr;
 		m_selectTile = nullptr;
 		break;
@@ -357,6 +361,61 @@ const void SelectManager::Merge()
 		}
 		break;
 	case TILE_TYPE::WIND:
+		m_to = nullptr;
+		m_selectTile = nullptr;
+		break;
+	case TILE_TYPE::MINUS:
+	{
+		XY xy = newTile->GetposIdx();
+		newTile = beforeTile;
+		newTile->SetCnt(-1);
+		if (newTile->GetCnt() <= 0)
+		{
+			m_to = nullptr;
+			m_selectTile = nullptr;
+			return;
+		}
+		newTile->ResetVec();
+		Vec2 pos = Vec2(xy.xidx * 128, xy.yidx * 105);
+		if (xy.yidx % 2 == 1)
+		{
+			pos.x -= 65;
+		}
+		pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
+		pos.y += (float)Core::GetInst()->GetResolution().y / 12;
+		newTile->SetPos(pos);
+		newTile->AddImage(newTile->GetCnt(), newTile->GetType());
+		SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
+		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
+			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
+			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+	}
+	break;
+	case TILE_TYPE::PLUS:
+	{
+		XY xy = newTile->GetposIdx();
+		newTile = beforeTile;
+		newTile->SetCnt(1);
+		newTile->ResetVec();
+		Vec2 pos = Vec2(xy.xidx * 128, xy.yidx * 105);
+		if (xy.yidx % 2 == 1)
+		{
+			pos.x -= 65;
+		}
+		pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
+		pos.y += (float)Core::GetInst()->GetResolution().y / 12;
+		newTile->SetPos(pos);
+		newTile->AddImage(newTile->GetCnt(), newTile->GetType());
+		SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
+		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
+			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
+			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+
+		m_to = nullptr;
+		m_selectTile = nullptr;
+	}
 		break;
 	}
 }
