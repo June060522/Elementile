@@ -340,6 +340,15 @@ const bool Tile::CanGo(Tile* _temptile)
 			selectTile->GetType() == TILE_TYPE::MINUS)
 			return false;
 		break;
+	case TILE_TYPE::PLUS:
+	case TILE_TYPE::MINUS:
+		if (_temptile->GetType() == TILE_TYPE::GRASSLOCK ||
+			_temptile->GetType() == TILE_TYPE::WATERLOCK ||
+			_temptile->GetType() == TILE_TYPE::FIRELOCK ||
+			_temptile->GetType() == TILE_TYPE::WIND ||
+			_temptile->GetType() == TILE_TYPE::PLUS ||
+			_temptile->GetType() == TILE_TYPE::MINUS)
+			return false;
 	}
 #pragma endregion
 
@@ -372,11 +381,21 @@ const bool Tile::CanGo(Tile* _temptile)
 			_temptile->GetType() == TILE_TYPE::MINUS)
 			return false;
 	break;
+	case TILE_TYPE::PLUS:
+	case TILE_TYPE::MINUS:
+		if (_temptile->GetType() == TILE_TYPE::GRASSLOCK ||
+			_temptile->GetType() == TILE_TYPE::WATERLOCK ||
+			_temptile->GetType() == TILE_TYPE::FIRELOCK ||
+			_temptile->GetType() == TILE_TYPE::WIND ||
+			_temptile->GetType() == TILE_TYPE::PLUS ||
+			_temptile->GetType() == TILE_TYPE::MINUS)
+			return false;
+		break;
 	}
 #pragma endregion
 
 #pragma region 갯수가 5개미만인지 검사
-	if (GetCnt() >= 5)
+	if (_temptile->GetCnt() >= 5 || selectTile->GetCnt() >= 5)
 		return false;
 #pragma endregion
 

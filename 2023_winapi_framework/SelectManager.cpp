@@ -145,7 +145,7 @@ const void SelectManager::Merge()
 	case TILE_TYPE::WATER:
 	case TILE_TYPE::FIRE:
 	case TILE_TYPE::GRASS:
-		if (m_to->GetType() == m_selectTile->GetType())
+		if (m_to->GetType() == m_selectTile->GetType() || m_selectTile->GetType() == TILE_TYPE::PLUS)
 		{
 			newTile->SetCnt(1);
 			newTile->ResetVec();
@@ -156,7 +156,12 @@ const void SelectManager::Merge()
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 		}
-		else if(m_to->GetType() != TILE_TYPE::WIND)
+		else if (m_selectTile->GetType() == TILE_TYPE::WIND)
+		{
+			m_to = nullptr;
+			m_selectTile = nullptr;
+		}
+		else
 		{
 			XY xy = m_to->GetposIdx();
 			int tempNum = abs(m_to->GetCnt() - m_selectTile->GetCnt());
@@ -207,7 +212,6 @@ const void SelectManager::Merge()
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 		}
-
 		m_to = nullptr;
 		m_selectTile = nullptr;
 		break;
@@ -357,6 +361,10 @@ const void SelectManager::Merge()
 		}
 		break;
 	case TILE_TYPE::WIND:
+		m_to = nullptr;
+		m_selectTile = nullptr;
+		break;
+	case TILE_TYPE::PLUS:
 		m_to = nullptr;
 		m_selectTile = nullptr;
 		break;
