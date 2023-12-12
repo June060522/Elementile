@@ -40,7 +40,7 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		break;
 	case TILE_TYPE::TELEPORT:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Teleport Tile", L"Texture\\teleporthexagon.bmp");
-		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Teleport Dark", L"Texture\\teleporthexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Teleport Dark", L"Texture\\teleporthexagondark.bmp");
 		break;
 	case TILE_TYPE::MOVEL:
 	case TILE_TYPE::MOVELU:
@@ -52,8 +52,8 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Arrow Tile Dark", L"Texture\\arrowhexagondark.bmp");
 		break;
 	case TILE_TYPE::WIND:
-		break;
-	case TILE_TYPE::END:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Wind Tile", L"Texture\\windhexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Wind Tile Dark", L"Texture\\windhexagondark.bmp");
 		break;
 	}
 	m_pBGDark = ResMgr::GetInst()->TexLoad(L"BGDark", L"Texture\\bgtiledark.bmp");
@@ -330,6 +330,14 @@ const bool Tile::CanGo(Tile* _temptile)
 			return false;
 		}
 		break;
+	case TILE_TYPE::WIND:
+		if (selectTile->GetType() == TILE_TYPE::GRASSLOCK ||
+			selectTile->GetType() == TILE_TYPE::WATERLOCK ||
+			selectTile->GetType() == TILE_TYPE::FIRELOCK ||
+			selectTile->GetType() == TILE_TYPE::PLUS ||
+			selectTile->GetType() == TILE_TYPE::MINUS)
+			return false;
+		break;
 	}
 #pragma endregion
 
@@ -355,6 +363,12 @@ const bool Tile::CanGo(Tile* _temptile)
 			return false;
 		break;
 	case TILE_TYPE::WIND:
+		if(_temptile->GetType() == TILE_TYPE::GRASSLOCK ||
+			_temptile->GetType() == TILE_TYPE::WATERLOCK || 
+			_temptile->GetType() == TILE_TYPE::FIRELOCK || 
+			_temptile->GetType() == TILE_TYPE::PLUS ||
+			_temptile->GetType() == TILE_TYPE::MINUS)
+			return false;
 		break;
 	}
 #pragma endregion

@@ -156,7 +156,7 @@ const void SelectManager::Merge()
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 		}
-		else
+		else if(m_to->GetType() != TILE_TYPE::WIND)
 		{
 			XY xy = m_to->GetposIdx();
 			int tempNum = abs(m_to->GetCnt() - m_selectTile->GetCnt());
@@ -357,6 +357,8 @@ const void SelectManager::Merge()
 		}
 		break;
 	case TILE_TYPE::WIND:
+		m_to = nullptr;
+		m_selectTile = nullptr;
 		break;
 	}
 }

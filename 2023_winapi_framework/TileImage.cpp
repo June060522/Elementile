@@ -75,6 +75,7 @@ TileImage::TileImage(const TILE_TYPE& _eType, int _cnt)
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Moverd", L"Texture\\arrowrightdown.bmp");
 		break;
 	case TILE_TYPE::WIND:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Wind", L"Texture\\wind.bmp");
 		break;
 	}
 }
