@@ -30,6 +30,7 @@ void SelectManager::Update()
 		if (!m_canMove)
 		{
 			m_canMove = true;
+			ResMgr::GetInst()->Play(L"Move");
 			Merge();
 		}
 	}
