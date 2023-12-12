@@ -342,12 +342,12 @@ const bool Tile::CanGo(Tile* _temptile)
 		break;
 	case TILE_TYPE::PLUS:
 	case TILE_TYPE::MINUS:
-		if (_temptile->GetType() == TILE_TYPE::GRASSLOCK ||
-			_temptile->GetType() == TILE_TYPE::WATERLOCK ||
-			_temptile->GetType() == TILE_TYPE::FIRELOCK ||
-			_temptile->GetType() == TILE_TYPE::WIND ||
-			_temptile->GetType() == TILE_TYPE::PLUS ||
-			_temptile->GetType() == TILE_TYPE::MINUS)
+		if (selectTile->GetType() == TILE_TYPE::GRASSLOCK ||
+			selectTile->GetType() == TILE_TYPE::WATERLOCK ||
+			selectTile->GetType() == TILE_TYPE::FIRELOCK ||
+			selectTile->GetType() == TILE_TYPE::WIND ||
+			selectTile->GetType() == TILE_TYPE::PLUS ||
+			selectTile->GetType() == TILE_TYPE::MINUS)
 			return false;
 	}
 #pragma endregion
