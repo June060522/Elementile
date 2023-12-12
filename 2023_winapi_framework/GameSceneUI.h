@@ -37,6 +37,4 @@ private:
 	Object* m_pRanking;
 
 	StagePanel* m_pStagePanel;
-
-	bool m_isBegin;
 };
