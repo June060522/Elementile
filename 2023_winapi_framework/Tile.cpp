@@ -7,6 +7,8 @@
 #include "SceneMgr.h"
 #include "Scene.h"
 #include"Core.h"
+#include "KeyMgr.h"
+#include "Debug.h"
 
 Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	: Object()
@@ -124,7 +126,6 @@ void Tile::Render(HDC _dc)
 			m_pBGDark->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
-
 	for (size_t i = 0; i < m_tilevec.size(); ++i)
 	{
 		m_tilevec[i]->SetPos(Vec2(
