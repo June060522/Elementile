@@ -4,6 +4,9 @@
 #include "StagePanel.h"
 #include "Texture.h"
 #include "DataManager.h"
+#include "KeyMgr.h"
+#include "SceneMgr.h"
+#include "Debug.h"
 
 StageIcon::StageIcon(Vec2 _vPos, Vec2 _vScale, int _iStage, StagePanel* _pStagePanel)
 {
@@ -18,6 +21,22 @@ StageIcon::StageIcon(Vec2 _vPos, Vec2 _vScale, int _iStage, StagePanel* _pStageP
 
 void StageIcon::Update()
 {
+	POINT mousePos;
+	Vec2 leftTop;
+	Vec2 rightBottom;
+	mousePos = KeyMgr::GetInst()->GetMousePos();
+	leftTop = { ((m_iStage - 1) % 10 + 1) * 80 - 30 + 300, ((m_iStage - 1) / 10) * 80 - 30 + 70 };
+	rightBottom = { ((m_iStage - 1) % 10 + 1) * 80 + 30 + 300, ((m_iStage - 1) / 10) * 80 + 30 + 70 };
+	
+	if (mousePos.x >= leftTop.x && mousePos.x <= rightBottom.x &&
+		mousePos.y >= leftTop.y && mousePos.y <= rightBottom.y)
+	{
+		if (m_iStage <= DataManager::GetInst()->GetHighStage())
+		{
+			DataManager::GetInst()->SetLastStage(m_iStage);
+			SceneMgr::GetInst()->LoadScene(L"GameScene");
+		}
+	}
 }
 
 void StageIcon::Render(HDC _dc)

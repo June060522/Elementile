@@ -28,6 +28,9 @@ void StagePanel::Update()
 {
 	if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
 	{
+		for (auto i : m_vecStageIcon)
+			i->Update();
+
 		POINT mousePos;
 		Vec2 leftTop;
 		Vec2 rightBottom;
@@ -40,6 +43,7 @@ void StagePanel::Update()
 			ResMgr::GetInst()->Play(L"Button");
 			m_pGameSceneUI->SetStagePenalOpen(false);
 		}
+
 	}
 }
 
