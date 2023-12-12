@@ -21,10 +21,12 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	switch (m_eType)
 	{
 	case TILE_TYPE::WATER:
+	case TILE_TYPE::PLUS:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Water Tile", L"Texture\\waterhexagon.bmp");
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Water Tile Dark", L"Texture\\waterhexagondark.bmp");
 		break;
 	case TILE_TYPE::FIRE:
+	case TILE_TYPE::MINUS:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Fire Tile", L"Texture\\firehexagon.bmp");
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Fire Tile Dark", L"Texture\\firehexagondark.bmp");
 		break;
@@ -369,7 +371,7 @@ const bool Tile::CanGo(Tile* _temptile)
 			_temptile->GetType() == TILE_TYPE::PLUS ||
 			_temptile->GetType() == TILE_TYPE::MINUS)
 			return false;
-		break;
+	break;
 	}
 #pragma endregion
 

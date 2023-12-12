@@ -77,6 +77,12 @@ TileImage::TileImage(const TILE_TYPE& _eType, int _cnt)
 	case TILE_TYPE::WIND:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Wind", L"Texture\\wind.bmp");
 		break;
+	case TILE_TYPE::PLUS:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Plus", L"Texture\\plus.bmp");
+		break;
+	case TILE_TYPE::MINUS:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Minus", L"Texture\\minus.bmp");
+		break;
 	}
 }
 
