@@ -363,7 +363,7 @@ const bool Tile::CanGo(Tile* _temptile)
 	if (GetCnt() >= 5)
 		return false;
 #pragma endregion
-	
+
 #pragma region 불물풀 속성 검사
 	switch (_temptile->GetType())
 	{
@@ -472,59 +472,77 @@ const bool Tile::CanGo(Tile* _temptile)
 				break;
 			case TILE_TYPE::MOVELU:
 			{
-				Tile temptile = *selectTile;
-				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
-				_temptile->GetposIdx().xidx : _temptile->GetposIdx().xidx - 1),
+				Tile* temptile = FindTile(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+					_temptile->GetposIdx().xidx : _temptile->GetposIdx().xidx - 1),
 					_temptile->GetposIdx().yidx - 1 });
-				if (!CanGo(&temptile))
+
+				if (temptile == nullptr)
+					return false;
+
+				if (!CanGo(temptile))
 					return false;
 			}
 			break;
 			case TILE_TYPE::MOVEL:
 			{
-				Tile temptile = *selectTile;
-				temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx - 1,
+				Tile* temptile = FindTile(XY{ _temptile->GetposIdx().xidx - 1,
 					_temptile->GetposIdx().yidx });
-				if (!CanGo(&temptile))
+
+				if (temptile == nullptr)
+					return false;
+
+				if (!CanGo(temptile))
 					return false;
 			}
 			break;
 			case TILE_TYPE::MOVELD:
 			{
-				Tile temptile = *selectTile;
-				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+				Tile* temptile = FindTile(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
 					_temptile->GetposIdx().xidx : _temptile->GetposIdx().xidx - 1) ,
 					_temptile->GetposIdx().yidx + 1 });
-				if (!CanGo(&temptile))
+
+				if (temptile == nullptr)
+					return false;
+
+				if (!CanGo(temptile))
 					return false;
 			}
 			break;
 			case TILE_TYPE::MOVERU:
 			{
-				Tile temptile = *selectTile;
-				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+				Tile* temptile = FindTile(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
 					_temptile->GetposIdx().xidx + 1 : _temptile->GetposIdx().xidx),
 					_temptile->GetposIdx().yidx - 1 });
-				if (!CanGo(&temptile))
+
+				if (temptile == nullptr)
+					return false;
+
+				if (!CanGo(temptile))
 					return false;
 			}
 			break;
 			case TILE_TYPE::MOVER:
 			{
-				Tile temptile = *selectTile;
-				temptile.SetposIdx(XY{ _temptile->GetposIdx().xidx + 1,
+				Tile* temptile = FindTile(XY{ _temptile->GetposIdx().xidx + 1,
 					_temptile->GetposIdx().yidx });
-				if (!CanGo(&temptile))
+
+				if (temptile == nullptr)
+					return false;
+
+				if (!CanGo(temptile))
 					return false;
 			}
 			break;
 			case TILE_TYPE::MOVERD:
 			{
-				Tile temptile = *selectTile;
-				temptile.SetposIdx(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
+				Tile* temptile = FindTile(XY{ (_temptile->GetposIdx().yidx % 2 == 0 ?
 					_temptile->GetposIdx().xidx + 1 : _temptile->GetposIdx().xidx),
 					_temptile->GetposIdx().yidx + 1 });
-				if (!CanGo(&temptile))
+
+				if (temptile == nullptr)
+					return false;
+
+				if (!CanGo(temptile))
 					return false;
 			}
 			break;
@@ -539,4 +557,18 @@ const bool Tile::CanGo(Tile* _temptile)
 
 	return false;
 
+}
+
+Tile* Tile::FindTile(XY pos)
+{
+	for (int i = 0; i < GET_OBJECT(OBJECT_GROUP::TILE).size(); ++i)
+	{
+		Tile* t = (Tile*)GET_OBJECT(OBJECT_GROUP::TILE)[i];
+		if (t->GetposIdx().xidx == pos.xidx &&
+			t->GetposIdx().yidx == pos.yidx)
+		{
+			return t;
+		}
+	}
+	return nullptr;
 }
