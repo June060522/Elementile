@@ -54,6 +54,7 @@ TileImage::TileImage(const TILE_TYPE& _eType, int _cnt)
 			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass5", L"Texture\\lockgrass5.bmp");
 		break;
 	case TILE_TYPE::TELEPORT:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Teleport", L"Texture\\teleport.bmp");
 		break;
 	case TILE_TYPE::MOVEL:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Movel", L"Texture\\arrowleft.bmp");

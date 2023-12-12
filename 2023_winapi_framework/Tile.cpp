@@ -39,6 +39,8 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Black Dark", L"Texture\\lockhexagon.bmp");
 		break;
 	case TILE_TYPE::TELEPORT:
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Teleport Tile", L"Texture\\teleporthexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Teleport Dark", L"Texture\\teleporthexagon.bmp");
 		break;
 	case TILE_TYPE::MOVEL:
 	case TILE_TYPE::MOVELU:
@@ -341,6 +343,7 @@ const bool Tile::CanGo(Tile* _temptile)
 			return false;
 		break;
 	case TILE_TYPE::TELEPORT:
+		return false;
 		break;
 	case TILE_TYPE::MOVELU:
 	case TILE_TYPE::MOVEL:

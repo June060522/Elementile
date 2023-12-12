@@ -218,6 +218,31 @@ const void SelectManager::Merge()
 		m_selectTile = nullptr;
 		break;
 	case TILE_TYPE::TELEPORT:
+		for (int i = 0; i < tilevec.size(); ++i)
+		{
+			Tile* t = (Tile*)tilevec[i];
+			if (t != m_to && t->GetType() == TILE_TYPE::TELEPORT)
+			{
+				newTile = beforeTile;
+				newTile->SetposIdx(t->GetposIdx());
+				Vec2 pos = Vec2(t->GetposIdx().xidx * 128, t->GetposIdx().yidx * 105);
+				if (t->GetposIdx().yidx % 2 == 1)
+				{
+					pos.x -= 65;
+				}
+				pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
+				pos.y += (float)Core::GetInst()->GetResolution().y / 12;
+				newTile->SetPos(pos);
+				tilevec.erase(tilevec.begin() + i);
+			}
+		}
+		SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
+		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
+			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, tempScale, 0.05f, 0.05f,
+			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
+		m_to = nullptr;
+		m_selectTile = nullptr;
 		break;
 	case TILE_TYPE::MOVELU:
 		newTile->ResetVec();
@@ -332,10 +357,6 @@ const void SelectManager::Merge()
 		}
 		break;
 	case TILE_TYPE::WIND:
-		break;
-	case TILE_TYPE::END:
-		break;
-	default:
 		break;
 	}
 }
