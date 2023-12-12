@@ -25,7 +25,7 @@ void Start_Scene::Init()
 	}
 	m_vObj.clear();
 
-	m_vObj.push_back(new UIText(Vec2(-85.f, -155.f), L"NoBlend"));
+	m_vObj.push_back(new UIText(Vec2(493.f, 100.f), L"NoBlend"));
 	DataManager::GetInst()->Init();
 	int result = AddFontResource(L"Res\\Font\\Font.ttf");
 
