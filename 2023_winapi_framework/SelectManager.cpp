@@ -377,6 +377,7 @@ const void SelectManager::Merge()
 			return;
 		}
 		newTile->ResetVec();
+		newTile->SetposIdx(xy);
 		Vec2 pos = Vec2(xy.xidx * 128, xy.yidx * 105);
 		if (xy.yidx % 2 == 1)
 		{
@@ -399,6 +400,7 @@ const void SelectManager::Merge()
 		newTile = beforeTile;
 		newTile->SetCnt(1);
 		newTile->ResetVec();
+		newTile->SetposIdx(xy);
 		Vec2 pos = Vec2(xy.xidx * 128, xy.yidx * 105);
 		if (xy.yidx % 2 == 1)
 		{
