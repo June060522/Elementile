@@ -20,6 +20,7 @@ void IntroScene::Init()
     ResMgr::GetInst()->LoadSound(L"BGM", L"Sound\\bgm.wav", true);
     ResMgr::GetInst()->LoadSound(L"Tile", L"Sound\\Tile.wav", false);
     ResMgr::GetInst()->LoadSound(L"Button", L"Sound\\Button.wav", false);
+    ResMgr::GetInst()->LoadSound(L"Move", L"Sound\\Move.wav", false);
 
     m_string = new UIText(Vec2(600, 310), L"난쟁2");
 
