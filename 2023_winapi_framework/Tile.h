@@ -18,6 +18,7 @@ public:
 	const XY& GetposIdx() const { return m_posidx; }
 	const void SetposIdx(XY xy) { m_posidx = xy; }
 	const TILE_TYPE& GetType() const { return m_eType; }
+	const void SetType(TILE_TYPE t) { m_eType = t; }
 	const int& GetCnt() const { return m_cnt; }
 	const void SetCnt(int val) {m_cnt += val; }
 	const void SetState(const TILE_STATE value) { m_eState = value; }

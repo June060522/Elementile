@@ -432,15 +432,18 @@ const bool Tile::CanGo(Tile* _temptile)
 			switch (t->GetType())
 			{
 			case TILE_TYPE::WATER:
-				if (t->GetCnt() != _temptile->GetCnt())
+				if (t->GetCnt() != _temptile->GetCnt()
+					&& t->GetType() == _temptile->GetType())
 					return false;
 				break;
 			case TILE_TYPE::FIRE:
-				if (t->GetCnt() != _temptile->GetCnt())
+				if (t->GetCnt() != _temptile->GetCnt()
+					&& t->GetType() == _temptile->GetType())
 					return false;
 				break;
 			case TILE_TYPE::GRASS:
-				if (t->GetCnt() != _temptile->GetCnt())
+				if (t->GetCnt() != _temptile->GetCnt()
+					&& t->GetType() == _temptile->GetType())
 					return false;
 				break;
 			case TILE_TYPE::FIRELOCK:

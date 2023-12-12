@@ -193,6 +193,14 @@ const void SelectManager::Merge()
 			newTile->ResetVec();
 			newTile->AddImage(newTile->GetCnt(), newTile->GetType());
 			newTile->SetposIdx(xy);
+			Vec2 pos = Vec2(xy.xidx * 128, xy.yidx * 105);
+			if (xy.yidx % 2 == 1)
+			{
+				pos.x -= 65;
+			}
+			pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
+			pos.y += (float)Core::GetInst()->GetResolution().y / 12;
+			newTile->SetPos(pos);
 			SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
