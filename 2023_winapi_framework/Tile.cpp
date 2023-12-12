@@ -126,9 +126,6 @@ void Tile::Render(HDC _dc)
 			m_pBGDark->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
-
-	if (KeyMgr::GetInst()->GetKey(KEY_TYPE::L) == KEY_STATE::PRESS)
-		Debug(48);
 	for (size_t i = 0; i < m_tilevec.size(); ++i)
 	{
 		m_tilevec[i]->SetPos(Vec2(
