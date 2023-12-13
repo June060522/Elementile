@@ -68,14 +68,14 @@
     <Filter Include="Engine\03. Manager\SelectManager">
       <UniqueIdentifier>{49919e39-ae72-43a9-9b79-f201c02b81d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\03. Manager\TileMoveManager">
-      <UniqueIdentifier>{8b1df585-5f3e-46e8-8ead-c112c76b6303}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\09. UI">
       <UniqueIdentifier>{d8e62418-04ae-4266-98df-3a16283181f5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\09. UI\GameObject">
       <UniqueIdentifier>{4485eb9b-99af-4b4f-826c-3b30a536fd42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Manager\DBManager">
+      <UniqueIdentifier>{8b1df585-5f3e-46e8-8ead-c112c76b6303}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -220,8 +220,15 @@
     <ClInclude Include="RankingIcon.h">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="StagePanel.h" />
-    <ClInclude Include="StageIcon.h" />
+    <ClInclude Include="StageIcon.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="StagePanel.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DBManager.h">
+      <Filter>Engine\03. Manager\DBManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -360,8 +367,15 @@
     <ClCompile Include="RankingIcon.cpp">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="StagePanel.cpp" />
-    <ClCompile Include="StageIcon.cpp" />
+    <ClCompile Include="StageIcon.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="StagePanel.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DBManager.cpp">
+      <Filter>Engine\03. Manager\DBManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
