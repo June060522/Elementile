@@ -25,4 +25,6 @@ private:
 	float		m_fCorrectionScaleY;
 	TILE_TYPE	m_eType;
 	Texture*	m_pTex;
+
+	wstring		m_tileCnt;
 };

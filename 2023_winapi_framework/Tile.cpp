@@ -21,12 +21,10 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 	switch (m_eType)
 	{
 	case TILE_TYPE::WATER:
-	case TILE_TYPE::PLUS:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Water Tile", L"Texture\\waterhexagon.bmp");
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Water Tile Dark", L"Texture\\waterhexagondark.bmp");
 		break;
 	case TILE_TYPE::FIRE:
-	case TILE_TYPE::MINUS:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Fire Tile", L"Texture\\firehexagon.bmp");
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Fire Tile Dark", L"Texture\\firehexagondark.bmp");
 		break;
@@ -57,6 +55,18 @@ Tile::Tile(XY _posidx, TILE_TYPE _eType, int _cnt)
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Wind Tile", L"Texture\\windhexagon.bmp");
 		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Wind Tile Dark", L"Texture\\windhexagondark.bmp");
 		break;
+	case TILE_TYPE::PLUS:
+	{
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Plus Tile", L"Texture\\plushexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Water Tile Dark", L"Texture\\waterhexagondark.bmp");
+	}
+	break;
+	case TILE_TYPE::MINUS:
+	{
+		m_pTex = ResMgr::GetInst()->TexLoad(L"Minus Tile", L"Texture\\minushexagon.bmp");
+		m_pTexDark = ResMgr::GetInst()->TexLoad(L"Fire Tile Dark", L"Texture\\firehexagondark.bmp");
+	}
+	break;
 	}
 	m_pBGDark = ResMgr::GetInst()->TexLoad(L"BGDark", L"Texture\\bgtiledark.bmp");
 	m_pselect = ResMgr::GetInst()->TexLoad(L"BGSelect", L"Texture\\selecthexagon.bmp");
