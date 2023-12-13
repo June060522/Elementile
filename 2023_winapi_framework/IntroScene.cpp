@@ -56,7 +56,6 @@ void IntroScene::Init()
         m_vObj.push_back(new IntroStarTxt(100, Vec2(xPos, yPos), L"★", 150, 2.f, 4.f));
     }
 
-    
 
     //m_string->SetAlpha(0.0f);
     
