@@ -6,6 +6,7 @@
 #include "PathMgr.h"
 #include "ResMgr.h"
 #include "EventMgr.h"
+#include "DBManager.h"
 bool Core::Init(HWND _hWnd, POINT _ptResolution)
 {
 	// === 변수 초기화 === 
@@ -35,6 +36,7 @@ bool Core::Init(HWND _hWnd, POINT _ptResolution)
 	KeyMgr::GetInst()->Init();
 	ResMgr::GetInst()->Init();
 	SceneMgr::GetInst()->Init();
+	DBManager::GetInst()->Init();
 
 	return true;
 }
