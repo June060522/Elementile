@@ -146,11 +146,13 @@ const void SelectManager::Merge()
 	case TILE_TYPE::WATER:
 	case TILE_TYPE::FIRE:
 	case TILE_TYPE::GRASS:
+	{
 		if (m_to->GetType() == m_selectTile->GetType() || m_selectTile->GetType() == TILE_TYPE::PLUS)
 		{
 			newTile->SetCnt(1);
 			newTile->ResetVec();
 			newTile->AddImage(newTile->GetCnt(), newTile->GetType());
+			SetTilePos(newTile);
 			SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
@@ -199,14 +201,7 @@ const void SelectManager::Merge()
 			newTile->ResetVec();
 			newTile->AddImage(newTile->GetCnt(), newTile->GetType());
 			newTile->SetposIdx(xy);
-			Vec2 pos = Vec2(xy.xidx * 128, xy.yidx * 105);
-			if (xy.yidx % 2 == 1)
-			{
-				pos.x -= 65;
-			}
-			pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
-			pos.y += (float)Core::GetInst()->GetResolution().y / 12;
-			newTile->SetPos(pos);
+			SetTilePos(newTile);
 			SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
 			SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
 				DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
@@ -215,14 +210,18 @@ const void SelectManager::Merge()
 		}
 		m_to = nullptr;
 		m_selectTile = nullptr;
+	}
 		break;
 	case TILE_TYPE::FIRELOCK:
 	case TILE_TYPE::WATERLOCK:
 	case TILE_TYPE::GRASSLOCK:
+	{
 		m_to = nullptr;
 		m_selectTile = nullptr;
+	}
 		break;
 	case TILE_TYPE::TELEPORT:
+	{
 		for (int i = 0; i < tilevec.size(); ++i)
 		{
 			Tile* t = (Tile*)tilevec[i];
@@ -230,14 +229,7 @@ const void SelectManager::Merge()
 			{
 				newTile = beforeTile;
 				newTile->SetposIdx(t->GetposIdx());
-				Vec2 pos = Vec2(t->GetposIdx().xidx * 128, t->GetposIdx().yidx * 105);
-				if (t->GetposIdx().yidx % 2 == 1)
-				{
-					pos.x -= 65;
-				}
-				pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
-				pos.y += (float)Core::GetInst()->GetResolution().y / 12;
-				newTile->SetPos(pos);
+				SetTilePos(newTile);
 				tilevec.erase(tilevec.begin() + i);
 			}
 		}
@@ -248,9 +240,14 @@ const void SelectManager::Merge()
 			DOTWEEN_TYPE::SCALE), OBJECT_GROUP::DOTWEEN);
 		m_to = nullptr;
 		m_selectTile = nullptr;
+	}
 		break;
 	case TILE_TYPE::MOVELU:
+	{
 		newTile->ResetVec();
+
+		SetTilePos(newTile);
+
 		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
 		beforeTile->SetPos(newTile->GetPos());
 		m_selectTile = beforeTile;
@@ -267,9 +264,14 @@ const void SelectManager::Merge()
 				return;
 			}
 		}
+	}
 		break;
 	case TILE_TYPE::MOVEL:
+	{
 		newTile->ResetVec();
+
+		SetTilePos(newTile);
+
 		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
 		beforeTile->SetPos(newTile->GetPos());
 		m_selectTile = beforeTile;
@@ -285,9 +287,14 @@ const void SelectManager::Merge()
 				return;
 			}
 		}
+	}
 		break;
 	case TILE_TYPE::MOVELD:
+	{
 		newTile->ResetVec();
+
+		SetTilePos(newTile);
+
 		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
 		beforeTile->SetPos(newTile->GetPos());
 		m_selectTile = beforeTile;
@@ -304,11 +311,13 @@ const void SelectManager::Merge()
 				return;
 			}
 		}
+	}
 		break;
 	case TILE_TYPE::MOVERU:
+	{
 		newTile->ResetVec();
-		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
-		beforeTile->SetPos(newTile->GetPos());
+
+		SetTilePos(newTile);
 		m_selectTile = beforeTile;
 		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
 		for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
@@ -323,10 +332,13 @@ const void SelectManager::Merge()
 				return;
 			}
 		}
+	}
 		break;
 	case TILE_TYPE::MOVER:
+	{
 		newTile->ResetVec();
-		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
+
+		SetTilePos(newTile);
 		beforeTile->SetPos(newTile->GetPos());
 		m_selectTile = beforeTile;
 		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
@@ -341,10 +353,14 @@ const void SelectManager::Merge()
 				return;
 			}
 		}
+	}
 		break;
 	case TILE_TYPE::MOVERD:
+	{
 		newTile->ResetVec();
 		beforeTile->AddImage(beforeTile->GetCnt(), beforeTile->GetType());
+
+		SetTilePos(newTile);
 		beforeTile->SetPos(newTile->GetPos());
 		m_selectTile = beforeTile;
 		SceneMgr::GetInst()->GetCurScene()->AddObject(beforeTile, OBJECT_GROUP::TILE);
@@ -360,10 +376,13 @@ const void SelectManager::Merge()
 				return;
 			}
 		}
+	}
 		break;
 	case TILE_TYPE::WIND:
+	{
 		m_to = nullptr;
 		m_selectTile = nullptr;
+	}
 		break;
 	case TILE_TYPE::MINUS:
 	{
@@ -378,14 +397,7 @@ const void SelectManager::Merge()
 		}
 		newTile->ResetVec();
 		newTile->SetposIdx(xy);
-		Vec2 pos = Vec2(xy.xidx * 128, xy.yidx * 105);
-		if (xy.yidx % 2 == 1)
-		{
-			pos.x -= 65;
-		}
-		pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
-		pos.y += (float)Core::GetInst()->GetResolution().y / 12;
-		newTile->SetPos(pos);
+		SetTilePos(newTile);
 		newTile->AddImage(newTile->GetCnt(), newTile->GetType());
 		SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
 		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
@@ -404,14 +416,7 @@ const void SelectManager::Merge()
 		newTile->SetCnt(1);
 		newTile->ResetVec();
 		newTile->SetposIdx(xy);
-		Vec2 pos = Vec2(xy.xidx * 128, xy.yidx * 105);
-		if (xy.yidx % 2 == 1)
-		{
-			pos.x -= 65;
-		}
-		pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
-		pos.y += (float)Core::GetInst()->GetResolution().y / 12;
-		newTile->SetPos(pos);
+		SetTilePos(newTile);
 		newTile->AddImage(newTile->GetCnt(), newTile->GetType());
 		SceneMgr::GetInst()->GetCurScene()->AddObject(newTile, OBJECT_GROUP::TILE);
 		SceneMgr::GetInst()->GetCurScene()->AddObject(new Dotween(newTile, Vec2(17, 17), 0.05f,
@@ -424,4 +429,16 @@ const void SelectManager::Merge()
 	}
 		break;
 	}
+}
+
+const void SelectManager::SetTilePos(Tile* _tile)
+{
+	Vec2 pos = Vec2(_tile->GetposIdx().xidx * 128, _tile->GetposIdx().yidx * 105);
+	if (_tile->GetposIdx().yidx % 2 == 1)
+	{
+		pos.x -= 65;
+	}
+	pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
+	pos.y += (float)Core::GetInst()->GetResolution().y / 12;
+	_tile->SetPos(pos);
 }

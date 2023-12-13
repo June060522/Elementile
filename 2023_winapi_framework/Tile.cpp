@@ -85,6 +85,15 @@ void Tile::Update()
 	{
 		m_eState = TILE_STATE::DEFAULT;
 	}
+
+	Vec2 pos = Vec2(GetposIdx().xidx * 128, GetposIdx().yidx * 105);
+	if (GetposIdx().yidx % 2 == 1)
+	{
+		pos.x -= 65;
+	}
+	pos.x += (float)Core::GetInst()->GetResolution().x / 4.f;
+	pos.y += (float)Core::GetInst()->GetResolution().y / 12;
+	SetPos(pos);
 }
 
 void Tile::Render(HDC _dc)

@@ -15,6 +15,7 @@ private:
 		Vec2& _p3, Vec2& _point);
 	float Cross(const Vec2& _v1, const Vec2& _v2){return _v1.x * _v2.y - _v1.y * _v2.x;}
 	const void Merge();
+	const void SetTilePos(Tile* _tile);
 public:
 	Tile* GetSelectTile() { return m_selectTile; }
 private:
