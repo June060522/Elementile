@@ -415,7 +415,12 @@ const bool Tile::CanGo(Tile* _temptile)
 
 #pragma region 갯수가 5개미만인지 검사
 	if (_temptile->GetCnt() >= 5 || selectTile->GetCnt() >= 5)
+	{
+		if(_temptile->GetType() == selectTile->GetType() || 
+			_temptile->GetType() == TILE_TYPE::PLUS || 
+			selectTile->GetType() == TILE_TYPE::PLUS )
 		return false;
+	}
 #pragma endregion
 
 #pragma region 불물풀 속성 검사
