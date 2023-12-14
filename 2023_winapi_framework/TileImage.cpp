@@ -19,16 +19,40 @@ TileImage::TileImage(const TILE_TYPE& _eType, int _cnt)
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Grass", L"Texture\\grass.bmp");
 		break;
 	case TILE_TYPE::FIRELOCK:
-		m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire", L"Texture\\lockfire.bmp");
-		m_tileCnt = to_wstring(_cnt);
+		if (_cnt == 1)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire1", L"Texture\\lockfire1.bmp");
+		if (_cnt == 2)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire2", L"Texture\\lockfire2.bmp");
+		if (_cnt == 3)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire3", L"Texture\\lockfire3.bmp");
+		if (_cnt == 4)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire4", L"Texture\\lockfire4.bmp");
+		if (_cnt == 5)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockFire5", L"Texture\\lockfire5.bmp");
 		break;
 	case TILE_TYPE::WATERLOCK:
-		m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater", L"Texture\\lockwater.bmp");
-		m_tileCnt = to_wstring(_cnt);
+		if (_cnt == 1)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater1", L"Texture\\lockwater1.bmp");
+		if (_cnt == 2)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater2", L"Texture\\lockwater2.bmp");
+		if (_cnt == 3)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater3", L"Texture\\lockwater3.bmp");
+		if (_cnt == 4)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater4", L"Texture\\lockwater4.bmp");
+		if (_cnt == 5)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockWater5", L"Texture\\lockwater5.bmp");
 		break;
 	case TILE_TYPE::GRASSLOCK:
-		m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass", L"Texture\\lockgrass.bmp");
-		m_tileCnt = to_wstring(_cnt);
+		if (_cnt == 1)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass1", L"Texture\\lockgrass1.bmp");
+		if (_cnt == 2)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass2", L"Texture\\lockgrass2.bmp");
+		if (_cnt == 3)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass3", L"Texture\\lockgrass3.bmp");
+		if (_cnt == 4)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass4", L"Texture\\lockgrass4.bmp");
+		if (_cnt == 5)
+			m_pTex = ResMgr::GetInst()->TexLoad(L"LockGrass5", L"Texture\\lockgrass5.bmp");
 		break;
 	case TILE_TYPE::TELEPORT:
 		m_pTex = ResMgr::GetInst()->TexLoad(L"Teleport", L"Texture\\teleport.bmp");
