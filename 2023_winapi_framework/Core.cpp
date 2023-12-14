@@ -36,8 +36,10 @@ bool Core::Init(HWND _hWnd, POINT _ptResolution)
 	KeyMgr::GetInst()->Init();
 	ResMgr::GetInst()->Init();
 	SceneMgr::GetInst()->Init();
-	DBManager::GetInst()->Init();
-
+	if (!DBManager::GetInst()->Init())
+	{
+		assert(0);
+	}
 	return true;
 }
 
@@ -64,6 +66,7 @@ void Core::Update()
 	TimeMgr::GetInst()->Update();
 	KeyMgr::GetInst()->Update();
 	SceneMgr::GetInst()->Update();
+	DBManager::GetInst()->Update();
 //	Vec2 vPos = m_obj.GetPos();
 //
 ////	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
@@ -146,4 +149,5 @@ void Core::Release()
 	}
 
 	ResMgr::GetInst()->Release();
+	DBManager::GetInst()->Release();
 }

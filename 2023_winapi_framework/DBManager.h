@@ -3,5 +3,14 @@ class DBManager
 {
 	SINGLE(DBManager)
 public:
-	void Init();
+	bool Init();
+	void Update();
+	void Release();
+private:
+	WSADATA wsaData;
+	SOCKET clientSocket;
+	sockaddr_in serverAddr;
+
+	int playerId;
+	int playerScore;
 };

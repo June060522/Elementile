@@ -29,3 +29,4 @@ using namespace sql;
 // transparent 등 blt 쓸 때 필요
 #pragma comment(lib, "Msimg32.lib")
 #pragma comment(lib, "mysqlcppconn.lib")
+#pragma comment(lib, "ws2_32.lib")
