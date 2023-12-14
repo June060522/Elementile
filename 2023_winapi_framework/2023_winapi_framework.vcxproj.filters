@@ -226,7 +226,7 @@
     <ClInclude Include="StagePanel.h">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="DBManager.h">
+    <ClInclude Include="ServerManager.h">
       <Filter>Engine\03. Manager\DBManager</Filter>
     </ClInclude>
   </ItemGroup>
@@ -373,7 +373,7 @@
     <ClCompile Include="StagePanel.cpp">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="DBManager.cpp">
+    <ClCompile Include="ServerManager.cpp">
       <Filter>Engine\03. Manager\DBManager</Filter>
     </ClCompile>
   </ItemGroup>

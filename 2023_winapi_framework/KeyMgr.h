@@ -12,13 +12,6 @@ class KeyMgr // InputMgr
 	SINGLE(KeyMgr);
 private:
 	vector<tKeyInfo> m_vecKey;
-	int m_arrVKKey[(int)KEY_TYPE::LAST] =
-	{ VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, 'Q' , 'W','E','R',
-	'T','Y','U','I','O','P',
-	'A','S','D','F','G','H','J','K','L',
-	'Z','X','C','V','B','N','M',
-	VK_CONTROL, VK_LMENU, VK_LSHIFT, VK_SPACE,
-		VK_RETURN, VK_TAB, VK_ESCAPE, VK_LBUTTON, VK_RBUTTON };
 
 	POINT m_ptMouse;
 public:
@@ -33,5 +26,12 @@ public:
 	{
 		return m_ptMouse;
 	}
+	int m_arrVKKey[(int)KEY_TYPE::LAST] =
+	{ VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, 'Q' , 'W','E','R',
+	'T','Y','U','I','O','P',
+	'A','S','D','F','G','H','J','K','L',
+	'Z','X','C','V','B','N','M',
+	VK_CONTROL, VK_LMENU, VK_LSHIFT, VK_SPACE,VK_BACK,
+		VK_RETURN, VK_TAB, VK_ESCAPE, VK_LBUTTON, VK_RBUTTON };
 };
 

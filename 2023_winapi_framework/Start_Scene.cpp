@@ -11,6 +11,7 @@
 #include "UIText.h"
 #include "ResMgr.h"
 #include "Texture.h"
+#include "ServerManager.h"
 
 int StartdarknessLevel = 255;
 float StartelapsedTime = -5.0f;
@@ -33,8 +34,8 @@ void Start_Scene::Init()
 	for (size_t i = 0; i < m_vObj.size(); ++i)
 		AddObject(m_vObj[i], OBJECT_GROUP::UI);
 
-	m_Stage = L"Stage ";
-	m_Stage += to_wstring(DataManager::GetInst()->GetLastStage());
+	/*m_Stage = L"Stage ";
+	m_Stage += to_wstring(DataManager::GetInst()->GetLastStage());*/
 
 	m_pSoundOn = ResMgr::GetInst()->TexLoad(L"Sound", L"Texture\\sound.bmp");
 	m_pSoundOff = ResMgr::GetInst()->TexLoad(L"SoundOff", L"Texture\\soundoff.bmp");
@@ -60,10 +61,62 @@ void Start_Scene::Update()
 		else if (mousePos.x >= 1445 && mousePos.x <= 1505 &&
 			mousePos.y >= 30 && mousePos.y <= 125)
 		{
-			ExitProcess(0 );
+			ExitProcess(0);
+		}
+		else if(m_Stage != L"")
+			SceneMgr::GetInst()->LoadScene(L"GameScene");
+
+		if (mousePos.x >= 625 && mousePos.x <= 925 &&
+			mousePos.y >= 500 && mousePos.y <= 550)
+		{
+			isIDSelect = true;
+		}
+		else if (mousePos.x >= 625 && mousePos.x <= 925 &&
+			mousePos.y >= 600 && mousePos.y <= 650)
+		{
+			isIDSelect = false;
+		}
+		else if (mousePos.x >= 625 && mousePos.x <= 925 &&
+			mousePos.y >= 700 && mousePos.y <= 750 && !ServerManager::GetInst()->GetplayerLogin())
+		{
+			ServerManager::GetInst()->Load();
+			m_Stage += L"Stage";
+			m_Stage += to_wstring(DataManager::GetInst()->GetHighStage());
+		}
+	}
+	if (!ServerManager::GetInst()->GetplayerLogin())
+	{
+		if (isIDSelect)
+		{
+			wstring s;
+			s += ServerManager::GetInst()->GetplayerID();
+			for (int i = (int)KEY_TYPE::Q; i <= (int)KEY_TYPE::M; i++)
+			{
+				//if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i)) == KEY_STATE::DOWN)
+				//s += (KEY_TYPE)i;
+				if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i) == KEY_STATE::DOWN && s.size() < 16)
+					s += (char)KeyMgr::GetInst()->m_arrVKKey[i];
+			}
+			if (KeyMgr::GetInst()->GetKey(KEY_TYPE::BACK) == KEY_STATE::DOWN && s.size() > 0)
+				s.erase(s.size() - 1);
+			ServerManager::GetInst()->SetplayerID(s);
 		}
 		else
-			SceneMgr::GetInst()->LoadScene(L"GameScene");
+		{
+			wstring s;
+			s += ServerManager::GetInst()->GetplayerPassword();
+			for (int i = (int)KEY_TYPE::Q; i <= (int)KEY_TYPE::M; i++)
+			{
+				//if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i)) == KEY_STATE::DOWN)
+				//s += (KEY_TYPE)i;
+				if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i) == KEY_STATE::DOWN && s.size() < 16)
+					s += (char)KeyMgr::GetInst()->m_arrVKKey[i];
+			}
+			if (KeyMgr::GetInst()->GetKey(KEY_TYPE::BACK) == KEY_STATE::DOWN && s.size() > 0)
+				s.erase(s.size() - 1);
+			ServerManager::GetInst()->SetplayerPassword(s);
+		}
+
 	}
 	ResMgr::GetInst()->Update();
 }
@@ -76,7 +129,8 @@ void Start_Scene::Render(HDC _dc)
 		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
 	SelectObject(_dc, hFont);
 	TextOut(_dc, 700, 500, m_Stage.c_str(), m_Stage.size());
-
+	if(!ServerManager::GetInst()->GetplayerLogin())
+		UserLoginRender(_dc);
 	DeleteObject(hFont);
 }
 
@@ -194,4 +248,33 @@ void Start_Scene::IconRender(HDC _dc)
 			m_pDoorClose->GetDC(), 0, 0,
 			width, height, RGB(255, 0, 255));
 	}
+}
+
+void Start_Scene::UserLoginRender(HDC _dc)
+{
+	HFONT hFont = CreateFont(25, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
+	SelectObject(_dc, hFont);
+
+	Rectangle(_dc, 625, 500, 925, 550);
+	if (ServerManager::GetInst()->GetplayerID() == L"")
+		TextOut(_dc, 635, 510, L"아이디를 입력해 주세요.",13);
+	else
+	{
+		wstring s = ServerManager::GetInst()->GetplayerID();
+		TextOut(_dc, 635, 510,s.c_str(), s.length());
+	}
+	Rectangle(_dc, 625, 600, 925, 650);
+	if (ServerManager::GetInst()->GetplayerPassword() == L"")
+		TextOut(_dc, 635, 610, L"비밀번호를 입력해 주세요.", 14);
+	else
+	{
+		wstring s = ServerManager::GetInst()->GetplayerPassword();
+		TextOut(_dc, 635, 610, s.c_str(), s.length());
+	}
+	Rectangle(_dc, 625, 700, 925, 750);
+	TextOut(_dc, 750, 710, L"로그인", 3);
+
+
+	DeleteObject(hFont);
 }
