@@ -14,7 +14,6 @@ void GameTitleScene::Init()
     m_string = new UIText(Vec2(600, 310), L"≥≠¿Ô2");
 
     AddObject(m_string, OBJECT_GROUP::UI);
-    DataManager::GetInst()->Init();
     AddFontResource(L"Res\\Font\\¿Œ√µ±≥¿∞º“≈Î.ttf");
 }
 

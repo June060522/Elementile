@@ -18,7 +18,6 @@ void Game_Scene::Init()
 	GetGroupObject(OBJECT_GROUP::DOTWEEN).clear();
 	SelectManager::GetInst()->Init();
 	StageManager::GetInst()->Init(DataManager::GetInst()->GetLastStage(), this);
-	DataManager::GetInst()->SaveData();
 	m_GameSceneUI->Init();
 }
 
@@ -29,6 +28,7 @@ void Game_Scene::Update()
 		if(DataManager::GetInst()->GetLastStage() == DataManager::GetInst()->GetHighStage())
 			DataManager::GetInst()->SetHighStage(1);
 		DataManager::GetInst()->SetLastStage(DataManager::GetInst()->GetLastStage() + 1);
+		DataManager::GetInst()->SaveData();
 		SceneMgr::GetInst()->LoadScene(L"GameScene");
 	}
 	SelectManager::GetInst()->Update();

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ServerManager.h"
 #include "Debug.h"
+#include "DataManager.h"
 
 struct Player {
 	string id = "";
@@ -34,13 +35,6 @@ bool ServerManager::Load() {
     p->password = playerPassword;
     p->score = 0;
 
-    // 데이터의 크기를 전송
-    // int dataSize = sizeof(Player);
-    // {
-    //     std::lock_guard<std::mutex> lock(sendMutex);  // send에 뮤텍스 적용
-    //     send(clientSocket, reinterpret_cast<char*>(&dataSize), sizeof(int), 0);
-    // }
-
     // 실제 데이터를 전송
     {
         std::lock_guard<std::mutex> lock(sendMutex);  // send에 뮤텍스 적용
@@ -57,28 +51,21 @@ bool ServerManager::Load() {
     playerScore = receivedPlayer->score;
     isLogin = true;
     closesocket(clientSocket);
-
+    DataManager::GetInst()->Init();
     return true;
 }
 
 
 void ServerManager::Send() {
-	Player playerData;
-	playerData.id = playerId;
-	playerData.password = playerPassword;
-	playerData.score = playerScore;
-
-	// 데이터의 크기를 전송
-	int dataSize = sizeof(Player);
-	{
-		std::lock_guard<std::mutex> lock(sendMutex);  // send에 뮤텍스 적용
-		send(clientSocket, reinterpret_cast<const char*>(&dataSize), sizeof(int), 0);
-	}
+	Player* playerData = new Player();
+	playerData->id = playerId;
+	playerData->password = playerPassword;
+	playerData->score = playerScore;
 
 	// 실제 데이터를 전송
 	{
 		std::lock_guard<std::mutex> lock(sendMutex);  // send에 뮤텍스 적용
-		send(clientSocket, reinterpret_cast<const char*>(&playerData), sizeof(Player), 0);
+		send(clientSocket, reinterpret_cast<const char*>(playerData), sizeof(Player), 0);
 	}
 
 	// 서버에서 응답을 기다림

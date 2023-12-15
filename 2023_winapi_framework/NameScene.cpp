@@ -24,7 +24,6 @@ void NameScene::Init()
     AddObject(m_string2, OBJECT_GROUP::UI);
     m_string3 = new UIText(Vec2(1600.f, 300.f), L"Min");
     AddObject(m_string3, OBJECT_GROUP::UI);
-    DataManager::GetInst()->Init();
     int result = AddFontResource(L"Res\\Font\\Font.ttf");
     SceneMgr::GetInst()->GetCurScene()->
         AddObject(new Dotween(m_string1, Vec2((float)GET_WINSIZE.x / 2 - 370, (float)GET_WINSIZE.y / 2 - 123), 1.8f, DOTWEEN_TYPE::MOVE

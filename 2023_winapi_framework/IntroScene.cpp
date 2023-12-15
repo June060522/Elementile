@@ -60,7 +60,6 @@ void IntroScene::Init()
     //m_string->SetAlpha(0.0f);
     
     AddObject(m_string, OBJECT_GROUP::UI);
-    DataManager::GetInst()->Init();
     
 
     int title = AddFontResource(L"Res\\Font\\인천교육소통.ttf");
