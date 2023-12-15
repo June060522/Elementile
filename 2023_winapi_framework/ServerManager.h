@@ -1,10 +1,12 @@
 #pragma once
+class GameSceneUI;
 class ServerManager
 {
 	SINGLE(ServerManager)
 public:
 	bool Load();
-	void Send();
+	void Save();
+	void GetRanking(GameSceneUI* _pGameSceneUI);
 	void Release();
 public:
 	string GetplayerID() { return playerId; }

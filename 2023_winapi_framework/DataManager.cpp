@@ -9,8 +9,9 @@ void DataManager::Init()
 
 void DataManager::SaveData() 
 {
-    if (m_lastStage >= m_highStage)
+    if (m_lastStage > m_highStage)
     {
+        ServerManager::GetInst()->Save();
         m_highStage = m_lastStage;
     }
     ServerManager::GetInst()->SetplayerScore(m_highStage);

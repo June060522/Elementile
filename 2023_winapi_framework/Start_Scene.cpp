@@ -27,7 +27,7 @@ void Start_Scene::Init()
 	}
 	m_vObj.clear();
 
-	m_vObj.push_back(new UIText(Vec2(493.f, 100.f), L"No Blend"));
+	m_vObj.push_back(new UIText(Vec2(493.f, 100.f), L"No    Blend"));
 	int result = AddFontResource(L"Res\\Font\\Font.ttf");
 
 	for (size_t i = 0; i < m_vObj.size(); ++i)
@@ -62,7 +62,7 @@ void Start_Scene::Update()
 		{
 			ExitProcess(0);
 		}
-		else if(m_Stage != L"")
+		else if (m_Stage != L"")
 			SceneMgr::GetInst()->LoadScene(L"GameScene");
 
 		if (mousePos.x >= 625 && mousePos.x <= 925 &&
@@ -79,9 +79,14 @@ void Start_Scene::Update()
 			mousePos.y >= 700 && mousePos.y <= 750 && !ServerManager::GetInst()->GetplayerLogin())
 		{
 			ServerManager::GetInst()->Load();
-			m_Stage += L"Stage ";
+			m_Stage = L"Stage ";
 			m_Stage += to_wstring(DataManager::GetInst()->GetHighStage());
 		}
+	}
+	if (ServerManager::GetInst()->GetplayerLogin())
+	{
+		m_Stage = L"Stage ";
+		m_Stage += to_wstring(DataManager::GetInst()->GetLastStage());
 	}
 	if (!ServerManager::GetInst()->GetplayerLogin())
 	{

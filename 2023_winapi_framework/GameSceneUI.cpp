@@ -14,11 +14,13 @@
 #include "ReIcon.h"
 #include "RankingIcon.h"
 #include "StagePanel.h"
+#include "RankingPanel.h"
 
 void GameSceneUI::Init()
 {
 	m_isOpen = false;
 	m_isStageOpen = false;
+	m_isRankingOpen = false;
 	m_pMenuTex = ResMgr::GetInst()->TexLoad(L"Menu", L"Texture\\menu.bmp");
 	m_pRETex = ResMgr::GetInst()->TexLoad(L"Regame", L"Texture\\regame.bmp");
 	m_pMainTex = ResMgr::GetInst()->TexLoad(L"Main", L"Texture\\main.bmp");
@@ -42,12 +44,16 @@ void GameSceneUI::Init()
 
 
 	m_pStagePanel = new StagePanel(this);
+	m_pRankingPanel = new RankingPanel(this);
+
 }
 
 void GameSceneUI::Update()
 {
 	if (m_isStageOpen)
 		m_pStagePanel->Update();
+	if (m_isRankingOpen)
+		m_pRankingPanel->Update();
 }
 
 void GameSceneUI::Render(HDC _dc)
@@ -55,6 +61,8 @@ void GameSceneUI::Render(HDC _dc)
 	UIRender(_dc);
 	if (m_isStageOpen)
 		m_pStagePanel->Render(_dc);
+	if (m_isRankingOpen)
+		m_pRankingPanel->Render(_dc);
 }
 
 void GameSceneUI::Release()
