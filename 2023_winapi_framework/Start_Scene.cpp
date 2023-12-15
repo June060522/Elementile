@@ -28,7 +28,6 @@ void Start_Scene::Init()
 	m_vObj.clear();
 
 	m_vObj.push_back(new UIText(Vec2(493.f, 100.f), L"No Blend"));
-	DataManager::GetInst()->Init();
 	int result = AddFontResource(L"Res\\Font\\Font.ttf");
 
 	for (size_t i = 0; i < m_vObj.size(); ++i)
@@ -80,7 +79,7 @@ void Start_Scene::Update()
 			mousePos.y >= 700 && mousePos.y <= 750 && !ServerManager::GetInst()->GetplayerLogin())
 		{
 			ServerManager::GetInst()->Load();
-			m_Stage += L"Stage";
+			m_Stage += L"Stage ";
 			m_Stage += to_wstring(DataManager::GetInst()->GetHighStage());
 		}
 	}
@@ -149,6 +148,10 @@ void Start_Scene::StartScreenDoFade()
 	if (StartelapsedTime <= 300.0f && StartdarknessLevel < 300)
 	{
 		StartdarknessLevel -= 1;
+		if (deltaTime >= 5)
+		{
+			deltaTime = 0.f;
+		}
 	}
 }
 
@@ -252,33 +255,61 @@ void Start_Scene::IconRender(HDC _dc)
 
 void Start_Scene::UserLoginRender(HDC _dc)
 {
-	HFONT hFont = CreateFont(25, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
-	SelectObject(_dc, hFont);
-
-	Rectangle(_dc, 625, 500, 925, 550);
-	if (ServerManager::GetInst()->GetplayerID() == "")
-		TextOut(_dc, 635, 510, L"아이디를 입력해 주세요.",13);
-	else
+	if (StartdarknessLevel < 150)
 	{
-		string s = ServerManager::GetInst()->GetplayerID();
-		wstring ws = L"";
-		ws.assign(s.begin(), s.end());
-		TextOut(_dc, 635, 510, ws.c_str(), ws.length());
-	}
-	Rectangle(_dc, 625, 600, 925, 650);
-	if (ServerManager::GetInst()->GetplayerPassword() == "")
-		TextOut(_dc, 635, 610, L"비밀번호를 입력해 주세요.", 14);
-	else
-	{
-		string s = ServerManager::GetInst()->GetplayerPassword();
-		wstring ws = L"";
-		ws.assign(s.begin(), s.end());
-		TextOut(_dc, 635, 610, ws.c_str(), ws.length());
-	}
-	Rectangle(_dc, 625, 700, 925, 750);
-	TextOut(_dc, 750, 710, L"로그인", 3);
+		// 계산된 알파 값을 기반으로 색상을 설정합니다.
+		int alpha = 255 - StartdarknessLevel;
+		alpha = max(0, alpha);  // 알파 값이 음수가 되지 않도록 보정합니다.
 
+		// 시간에 따라 천천히 변하는 알파 값을 사용하여 텍스트 색상을 설정합니다.
+		COLORREF textColor = RGB(255, 255, 255);
+		textColor = RGB(GetRValue(textColor), GetGValue(textColor), GetBValue(textColor)) | (alpha << 17);
 
-	DeleteObject(hFont);
+		HFONT hFont = CreateFont(25, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
+		SelectObject(_dc, hFont);
+
+		// 텍스트 색상을 설정합니다.
+		SetTextColor(_dc, textColor);
+
+		// 텍스트가 천천히 나타나도록 페이딩합니다.
+		float fadeSpeed = 0.5f;  // 페이딩 속도를 조절합니다.
+
+		// 특정 조건일 때만 darknessLevel을 증가시킵니다.
+		if (StartdarknessLevel < 230) {
+			StartdarknessLevel += static_cast<int>(fadeSpeed);  // 페이딩 속도만큼 darknessLevel을 감소시킵니다.
+		}
+
+		Rectangle(_dc, 625, 500, 925, 550);
+		if (ServerManager::GetInst()->GetplayerID() == "")
+			TextOut(_dc, 635, 510, L"아이디를 입력해 주세요.", 13);
+		else
+		{
+			string s = ServerManager::GetInst()->GetplayerID();
+			wstring ws = L"";
+			ws.assign(s.begin(), s.end());
+			TextOut(_dc, 635, 510, ws.c_str(), ws.length());
+		}
+
+		Rectangle(_dc, 625, 600, 925, 650);
+		if (ServerManager::GetInst()->GetplayerPassword() == "")
+			TextOut(_dc, 635, 610, L"비밀번호를 입력해 주세요.", 14);
+		else
+		{
+			string s = ServerManager::GetInst()->GetplayerPassword();
+			wstring ws = L"";
+			ws.assign(s.begin(), s.end());
+			TextOut(_dc, 635, 610, ws.c_str(), ws.length());
+		}
+
+		Rectangle(_dc, 625, 700, 925, 750);
+		TextOut(_dc, 750, 710, L"로그인", 3);
+
+		DeleteObject(hFont);
+	}
 }
+
+
+
+
+
