@@ -74,7 +74,7 @@
     <Filter Include="Engine\09. UI\GameObject">
       <UniqueIdentifier>{4485eb9b-99af-4b4f-826c-3b30a536fd42}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\03. Manager\DBManager">
+    <Filter Include="Engine\03. Manager\ServerManager">
       <UniqueIdentifier>{8b1df585-5f3e-46e8-8ead-c112c76b6303}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -226,8 +226,8 @@
     <ClInclude Include="StagePanel.h">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="DBManager.h">
-      <Filter>Engine\03. Manager\DBManager</Filter>
+    <ClInclude Include="ServerManager.h">
+      <Filter>Engine\03. Manager\ServerManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -373,8 +373,8 @@
     <ClCompile Include="StagePanel.cpp">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="DBManager.cpp">
-      <Filter>Engine\03. Manager\DBManager</Filter>
+    <ClCompile Include="ServerManager.cpp">
+      <Filter>Engine\03. Manager\ServerManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

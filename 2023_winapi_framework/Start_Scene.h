@@ -15,6 +15,7 @@ private:
     void TitleMoveDotween();
     void ObjectRender(HDC _dc);
     void IconRender(HDC _dc);
+    void UserLoginRender(HDC _dc);
 private:
     Vec2 pos = Vec2(500, 350);
     vector<Object*> m_vObj;
@@ -27,4 +28,6 @@ private:
     Texture* m_pSoundOff;
     Texture* m_pDoorOpen;
     Texture* m_pDoorClose;
+
+    bool isIDSelect = true;
 };

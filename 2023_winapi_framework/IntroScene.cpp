@@ -119,9 +119,6 @@ void IntroScene::HandleSceneChangeInput()
     if (KEY_DOWN(KEY_TYPE::T))
         SceneMgr::GetInst()->LoadScene(L"NameScene");
 
-    if (KEY_DOWN(KEY_TYPE::Z))
-        SceneMgr::GetInst()->LoadScene(L"IntroScene");
-
     if (KEY_DOWN(KEY_TYPE::X))
         SceneMgr::GetInst()->LoadScene(L"StartScene");
 
