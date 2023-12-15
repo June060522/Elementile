@@ -10,6 +10,8 @@
 #include <math.h>
 #include <fstream>
 #include <mmsystem.h>
+#include <mutex>
+#include <future>
 #include "Vec2.h"
 #include "enums.h"
 #include "define.h"

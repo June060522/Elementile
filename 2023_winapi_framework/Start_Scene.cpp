@@ -88,7 +88,7 @@ void Start_Scene::Update()
 	{
 		if (isIDSelect)
 		{
-			wstring s;
+			string s;
 			s += ServerManager::GetInst()->GetplayerID();
 			for (int i = (int)KEY_TYPE::Q; i <= (int)KEY_TYPE::M; i++)
 			{
@@ -103,7 +103,7 @@ void Start_Scene::Update()
 		}
 		else
 		{
-			wstring s;
+			string s;
 			s += ServerManager::GetInst()->GetplayerPassword();
 			for (int i = (int)KEY_TYPE::Q; i <= (int)KEY_TYPE::M; i++)
 			{
@@ -257,20 +257,24 @@ void Start_Scene::UserLoginRender(HDC _dc)
 	SelectObject(_dc, hFont);
 
 	Rectangle(_dc, 625, 500, 925, 550);
-	if (ServerManager::GetInst()->GetplayerID() == L"")
+	if (ServerManager::GetInst()->GetplayerID() == "")
 		TextOut(_dc, 635, 510, L"아이디를 입력해 주세요.",13);
 	else
 	{
-		wstring s = ServerManager::GetInst()->GetplayerID();
-		TextOut(_dc, 635, 510,s.c_str(), s.length());
+		string s = ServerManager::GetInst()->GetplayerID();
+		wstring ws = L"";
+		ws.assign(s.begin(), s.end());
+		TextOut(_dc, 635, 510, ws.c_str(), ws.length());
 	}
 	Rectangle(_dc, 625, 600, 925, 650);
-	if (ServerManager::GetInst()->GetplayerPassword() == L"")
+	if (ServerManager::GetInst()->GetplayerPassword() == "")
 		TextOut(_dc, 635, 610, L"비밀번호를 입력해 주세요.", 14);
 	else
 	{
-		wstring s = ServerManager::GetInst()->GetplayerPassword();
-		TextOut(_dc, 635, 610, s.c_str(), s.length());
+		string s = ServerManager::GetInst()->GetplayerPassword();
+		wstring ws = L"";
+		ws.assign(s.begin(), s.end());
+		TextOut(_dc, 635, 610, ws.c_str(), ws.length());
 	}
 	Rectangle(_dc, 625, 700, 925, 750);
 	TextOut(_dc, 750, 710, L"로그인", 3);

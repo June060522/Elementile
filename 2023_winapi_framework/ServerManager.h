@@ -7,13 +7,13 @@ public:
 	void Send();
 	void Release();
 public:
-	wstring GetplayerID() { return playerId; }
-	wstring GetplayerPassword() { return playerPassword; }
+	string GetplayerID() { return playerId; }
+	string GetplayerPassword() { return playerPassword; }
 	int GetplayerScore() { return playerScore; }
 	bool GetplayerLogin() { return isLogin; }
 
-	void SetplayerID(wstring val) { playerId = val; }
-	void SetplayerPassword(wstring val) { playerPassword = val; }
+	void SetplayerID(string val) { playerId = val; }
+	void SetplayerPassword(string val) { playerPassword = val; }
 	void SetplayerScore(int val) { playerScore = val; }
 	void SetLogin(bool val) { isLogin = val; }
 private:
@@ -21,9 +21,12 @@ private:
 	SOCKET clientSocket;
 	sockaddr_in serverAddr;
 
-	wstring playerId;
-	wstring playerPassword;
+	string playerId;
+	string playerPassword;
 	int playerScore;
 
 	bool isLogin = false;
+
+	std::mutex sendMutex;
+	std::mutex recvMutex;
 };
