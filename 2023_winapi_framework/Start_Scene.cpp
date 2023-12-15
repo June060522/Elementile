@@ -18,7 +18,7 @@ float StartelapsedTime = -5.0f;
 const float StartdarknessActivationTime = 5.0f;
 
 float t = 2.5f;
-        
+
 void Start_Scene::Init()
 {
 	for (int i = (int)OBJECT_GROUP::END - 1; i >= 0; --i)
@@ -28,7 +28,6 @@ void Start_Scene::Init()
 	m_vObj.clear();
 
 	m_vObj.push_back(new UIText(Vec2(493.f, 100.f), L"No Blend"));
-	DataManager::GetInst()->Init();
 	int result = AddFontResource(L"Res\\Font\\Font.ttf");
 
 	for (size_t i = 0; i < m_vObj.size(); ++i)
@@ -45,6 +44,7 @@ void Start_Scene::Init()
 
 void Start_Scene::Update()
 {
+	DataManager::GetInst()->SaveData();
 	StartScreenDoFade();
 	Scene::Update();
 	t += TimeMgr::GetInst()->GetDT();
@@ -63,7 +63,7 @@ void Start_Scene::Update()
 		{
 			ExitProcess(0);
 		}
-		else if(m_Stage != L"")
+		else if (m_Stage != L"")
 			SceneMgr::GetInst()->LoadScene(L"GameScene");
 
 		if (mousePos.x >= 625 && mousePos.x <= 925 &&
@@ -80,9 +80,14 @@ void Start_Scene::Update()
 			mousePos.y >= 700 && mousePos.y <= 750 && !ServerManager::GetInst()->GetplayerLogin())
 		{
 			ServerManager::GetInst()->Load();
-			m_Stage += L"Stage";
-			m_Stage += to_wstring(DataManager::GetInst()->GetHighStage());
+			m_Stage = L"Stage ";
+			m_Stage += to_wstring(DataManager::GetInst()->GetLastStage());
 		}
+	}
+	if (ServerManager::GetInst()->GetplayerLogin())
+	{
+		m_Stage = L"Stage ";
+		m_Stage += to_wstring(DataManager::GetInst()->GetLastStage());
 	}
 	if (!ServerManager::GetInst()->GetplayerLogin())
 	{
@@ -129,7 +134,7 @@ void Start_Scene::Render(HDC _dc)
 		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
 	SelectObject(_dc, hFont);
 	TextOut(_dc, 700, 500, m_Stage.c_str(), m_Stage.size());
-	if(!ServerManager::GetInst()->GetplayerLogin())
+	if (!ServerManager::GetInst()->GetplayerLogin())
 		UserLoginRender(_dc);
 	DeleteObject(hFont);
 }
@@ -258,7 +263,7 @@ void Start_Scene::UserLoginRender(HDC _dc)
 
 	Rectangle(_dc, 625, 500, 925, 550);
 	if (ServerManager::GetInst()->GetplayerID() == "")
-		TextOut(_dc, 635, 510, L"아이디를 입력해 주세요.",13);
+		TextOut(_dc, 635, 510, L"아이디를 입력해 주세요.", 13);
 	else
 	{
 		string s = ServerManager::GetInst()->GetplayerID();
