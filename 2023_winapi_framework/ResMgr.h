@@ -7,7 +7,7 @@ enum class SOUND_CHANNEL
 };
 struct tSoundInfo
 {
-	FMOD::Sound* pSound; // ╫га╕ ╩Г©Н╣Е ╦ч╦П╦╝
+	FMOD::Sound* pSound; // О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫ч╦О©╫
 	bool IsLoop;
 };
 class Texture;
@@ -21,9 +21,9 @@ public:
 	void Release();
 private:
 	map<wstring, Texture*> m_mapTex;
-	FMOD::System* m_pSystem; // ╩Г©Н╣Е ╫ц╫╨еш
+	FMOD::System* m_pSystem; // О©╫О©╫О©╫О©╫ О©╫ц╫О©╫О©╫О©╫
 	map<wstring, tSoundInfo*> m_mapSod;
-	FMOD::Channel* m_pChannel[(UINT)SOUND_CHANNEL::END]; // ©ю╣П©ю ц╓Ён
+	FMOD::Channel* m_pChannel[(UINT)SOUND_CHANNEL::END]; // О©╫О©╫О©╫О©╫О©╫ ц╓О©╫О©╫
 public:
 	void Init();
 	void Update();

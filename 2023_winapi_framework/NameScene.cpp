@@ -26,7 +26,6 @@ void NameScene::Init()
     AddObject(m_string2, OBJECT_GROUP::UI);
     m_string3 = new UIText(Vec2(1600.f, 300.f), L"Min");
     AddObject(m_string3, OBJECT_GROUP::UI);
-    DataManager::GetInst()->Init();
     int result = AddFontResource(L"Res\\Font\\Font.ttf");
     ResMgr::GetInst()->Play(L"NameMove");
     SceneMgr::GetInst()->GetCurScene()->
@@ -49,7 +48,7 @@ void NameScene::Update()
         return;
     }
 
-     // ½ÇÁ¦ deltaTimeÀ» ¾ò±â À§ÇØ ÀÌ¸¦ ´ëÃ¼ÇÏ¼¼¿ä
+     // ï¿½ï¿½ï¿½ï¿½ deltaTimeï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½Ã¼ï¿½Ï¼ï¿½ï¿½ï¿½
     deltaTime += TimeMgr::GetInst()->GetDT();
     NameelapsedTime += deltaTime;
 
@@ -80,7 +79,7 @@ void NameScene::Render(HDC _dc)
     RECT rcClient;
     GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
-    // ÆùÆ® Àû¿ë ¹× Á¦¸ñ »ý¼º
+    // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
         CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
     SelectObject(_dc, hFont);

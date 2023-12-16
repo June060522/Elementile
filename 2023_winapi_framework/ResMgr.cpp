@@ -4,26 +4,26 @@
 #include "Texture.h"
 Texture* ResMgr::TexLoad(const wstring& _strKey, const wstring& _strRelativePath)
 {
-    // Àß Ã£¾ÒÀ¸¸é ±×°Å ´øÁ®ÁÖ±â
+    // ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
     Texture* pTex = TexFind(_strKey);
     if (nullptr != pTex)
         return pTex;
 
-    // Ã³À½¿¡´Â ¾øÀ»°Å´Ï±î.. °æ·Î Ã£¾Æ¼­
+    // Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å´Ï±ï¿½.. ï¿½ï¿½ï¿½ Ã£ï¿½Æ¼ï¿½
     wstring strFilepath = PathMgr::GetInst()->GetResPath();
     strFilepath += _strRelativePath;
-    // ¸¸µé¾îÁà°¡Áö°í..
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à°¡ï¿½ï¿½ï¿½ï¿½..
     pTex = new Texture;
-    pTex->Load(strFilepath); // ÅØ½ºÃ³ ÀÚÃ¼¸¦ ·Îµå..
-    pTex->SetKey(_strKey); // Å° °æ·Î ¼¼ÆÃÇØµÎ°í..
+    pTex->Load(strFilepath); // ï¿½Ø½ï¿½Ã³ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Îµï¿½..
+    pTex->SetKey(_strKey); // Å° ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÎ°ï¿½..
     pTex->SetRelativePath(_strRelativePath);
-    m_mapTex.insert({ _strKey,pTex }); // ±×°Å¸¦ ¸Ê¿¡´Ù°¡ ÀúÀå.
+    m_mapTex.insert({ _strKey,pTex }); // ï¿½×°Å¸ï¿½ ï¿½Ê¿ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½.
     return pTex;
 }
 
 Texture* ResMgr::TexFind(const wstring& _strKey)
 {
-    // Ã£¾Æ¼­ return
+    // Ã£ï¿½Æ¼ï¿½ return
     auto iter = m_mapTex.find(_strKey);
     if (iter != m_mapTex.end())
     {
@@ -52,7 +52,7 @@ void ResMgr::Release()
     }
     m_mapSod.clear();
 
-    // ´Ù ¾²°í ³­ ÈÄ ½Ã½ºÅÛ ´İ°í ¹İÈ¯
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½İ°ï¿½ ï¿½ï¿½È¯
     m_pSystem->close();
     m_pSystem->release();
 }
@@ -60,8 +60,8 @@ void ResMgr::Release()
 void ResMgr::Init()
 {
     isOff = false;
-    FMOD::System_Create(&m_pSystem); // ½Ã½ºÅÛ »ı¼º ÇÔ¼ö
-    // Ã¤³Î¼ö, »ç¿îµå ¸ğµå
+    FMOD::System_Create(&m_pSystem); // ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+    // Ã¤ï¿½Î¼ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     if (m_pSystem != nullptr)
         m_pSystem->init((int)SOUND_CHANNEL::END, FMOD_INIT_NORMAL, nullptr);
 }
@@ -91,15 +91,15 @@ void ResMgr::LoadSound(const wstring& _strKey, const wstring& _strReleativePath,
     std::string str;
     str.assign(strFilePath.begin(), strFilePath.end());
 
-    // ·çÇÁÇÒÁö ¸»Áö °áÁ¤
-    FMOD_MODE eMode = FMOD_LOOP_NORMAL; // ¹İº¹ Ãâ·Â
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    FMOD_MODE eMode = FMOD_LOOP_NORMAL; // ï¿½İºï¿½ ï¿½ï¿½ï¿½
     if (!_IsLoop)
-        eMode = FMOD_DEFAULT; // »ç¿îµå 1¹ø¸¸ Ãâ·Â
+        eMode = FMOD_DEFAULT; // ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
     tSoundInfo* ptSound = new tSoundInfo;
     ptSound->IsLoop = _IsLoop;
-    // »ç¿îµå °´Ã¼¸¦ ¸¸µå´Â °ÍÀº systemÀÓ.
-                            //ÆÄÀÏ°æ·Î,  FMOD_MODE, NULL, &sound
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ systemï¿½ï¿½.
+                            //ï¿½ï¿½ï¿½Ï°ï¿½ï¿½,  FMOD_MODE, NULL, &sound
     m_pSystem->createSound(str.c_str(), eMode, nullptr, &ptSound->pSound);
     m_mapSod.insert({ _strKey, ptSound });
 }
@@ -109,11 +109,11 @@ void ResMgr::Play(const wstring& _strKey)
     tSoundInfo* ptSound = FindSound(_strKey);
     if (!ptSound)
         return;
-    m_pSystem->update(); // playÇÒ¶§ update¸¦ ÁÖ±âÀûÀ¸·Î È£ÃâÇØ¾ß »ç¿îµå°¡ Á¤ÁöµÇÁö ¾ÊÀ½.
+    m_pSystem->update(); // playï¿½Ò¶ï¿½ updateï¿½ï¿½ ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     SOUND_CHANNEL eChannel = SOUND_CHANNEL::BGM;
     if (!ptSound->IsLoop)
         eChannel = SOUND_CHANNEL::EFFECT;
-    // »ç¿îµå Àç»ı ÇÔ¼ö. &channel·Î ¾î¶² Ã¤³ÎÀ» ÅëÇØ Àç»ıµÇ´ÂÁö Æ÷ÀÎÅÍ ³Ñ±è
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½. &channelï¿½ï¿½ ï¿½î¶² Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½
     m_pSystem->playSound(ptSound->pSound, nullptr, false, &m_pChannel[(UINT)eChannel]);
 
 }
@@ -125,14 +125,14 @@ void ResMgr::Stop(SOUND_CHANNEL _eChannel)
 
 void ResMgr::Volume(SOUND_CHANNEL _eChannel, float _fVol)
 {
-    // 0.0 ~ 1.0 º¼·ı Á¶Àı
+    // 0.0 ~ 1.0 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     m_pChannel[(UINT)_eChannel]->setVolume(_fVol);
 }
 
 void ResMgr::Pause(SOUND_CHANNEL _eChannel, bool _Ispause)
 {
-    // bool°ªÀÌ true¸é ÀÏ½ÃÁ¤Áö. ´Ü, ÀÌ ÇÔ¼ö¸¦ ¾²·Á¸é CreatesoundÇÒ¶§ 
-    // FMOD_MODE°¡ FMOD_LOOP_NORMAL ÀÌ¾î¾ß ÇÔ.
+    // boolï¿½ï¿½ï¿½ï¿½ trueï¿½ï¿½ ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½, ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Createsoundï¿½Ò¶ï¿½ 
+    // FMOD_MODEï¿½ï¿½ FMOD_LOOP_NORMAL ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½.
     m_pChannel[(UINT)_eChannel]->setPaused(_Ispause);
 }
 

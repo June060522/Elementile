@@ -229,6 +229,13 @@
     <ClInclude Include="ServerManager.h">
       <Filter>Engine\03. Manager\ServerManager</Filter>
     </ClInclude>
+    <ClInclude Include="RankingPanel.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInfoPanel.h">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="HowIcon.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -376,6 +383,13 @@
     <ClCompile Include="ServerManager.cpp">
       <Filter>Engine\03. Manager\ServerManager</Filter>
     </ClCompile>
+    <ClCompile Include="RankingPanel.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInfoPanel.cpp">
+      <Filter>Engine\09. UI\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="HowIcon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

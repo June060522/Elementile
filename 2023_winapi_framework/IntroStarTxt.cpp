@@ -26,7 +26,7 @@ void IntroStarTxt::Update()
 void IntroStarTxt::Render(HDC _dc)
 {
     HFONT hFont = CreateFont(m_iFontSize, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-        CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"¿Œ√µ±≥¿∞º“≈Î");
+        CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Ïù∏Ï≤úÍµêÏú°ÏÜåÌÜµ");
     SelectObject(_dc, hFont);
 
     SetTextColor(_dc, RGB(255, 255, 0));

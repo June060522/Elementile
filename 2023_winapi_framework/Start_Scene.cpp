@@ -18,7 +18,7 @@ float StartelapsedTime = -5.0f;
 const float StartdarknessActivationTime = 5.0f;
 
 float t = 2.5f;
-        
+
 void Start_Scene::Init()
 {
 	for (int i = (int)OBJECT_GROUP::END - 1; i >= 0; --i)
@@ -27,8 +27,8 @@ void Start_Scene::Init()
 	}
 	m_vObj.clear();
 
-	m_vObj.push_back(new UIText(Vec2(475.f, 100.f), L"ø§∏Æ∏‡≈∏¿œ"));
-	int result = AddFontResource(L"Res\\Font\\¿Œ√µ±≥¿∞º“≈Î.ttf");
+	m_vObj.push_back(new UIText(Vec2(493.f, 100.f), L"No    Blend"));
+	int result = AddFontResource(L"Res\\Font\\Font.ttf");
 
 	for (size_t i = 0; i < m_vObj.size(); ++i)
 		AddObject(m_vObj[i], OBJECT_GROUP::UI);
@@ -40,6 +40,7 @@ void Start_Scene::Init()
 	m_pSoundOff = ResMgr::GetInst()->TexLoad(L"SoundOff", L"Texture\\soundoff.bmp");
 	m_pDoorOpen = ResMgr::GetInst()->TexLoad(L"Door Open", L"Texture\\dooropen.bmp");
 	m_pDoorClose = ResMgr::GetInst()->TexLoad(L"Door Close", L"Texture\\doorclose.bmp");
+	m_pHelp = ResMgr::GetInst()->TexLoad(L"Question", L"Texture\\howtoplay.bmp");
 }
 
 void Start_Scene::Update()
@@ -49,75 +50,78 @@ void Start_Scene::Update()
 	t += TimeMgr::GetInst()->GetDT();
 	TitleMoveDotween();
 	mousePos = KeyMgr::GetInst()->GetMousePos();
-
-	if (leftMouseButtonState == KEY_STATE::DOWN)
-	{
-		if (mousePos.x >= 25 && mousePos.x <= 125
-			&& mousePos.y >= 25 && mousePos.y <= 125)
+		if (leftMouseButtonState == KEY_STATE::DOWN)
 		{
-			ResMgr::GetInst()->SetSoundVol(!ResMgr::GetInst()->GetSoundVol());
-		}
-		else if (mousePos.x >= 1445 && mousePos.x <= 1505 &&
-			mousePos.y >= 30 && mousePos.y <= 125)
-		{
-			ExitProcess(0);
-		}
-		else if(m_Stage != L"")
-			SceneMgr::GetInst()->LoadScene(L"GameScene");
-
-		if (mousePos.x >= 625 && mousePos.x <= 925 &&
-			mousePos.y >= 500 && mousePos.y <= 550)
-		{
-			isIDSelect = true;
-		}
-		else if (mousePos.x >= 625 && mousePos.x <= 925 &&
-			mousePos.y >= 600 && mousePos.y <= 650)
-		{
-			isIDSelect = false;
-		}
-		else if (mousePos.x >= 625 && mousePos.x <= 925 &&
-			mousePos.y >= 700 && mousePos.y <= 750 && !ServerManager::GetInst()->GetplayerLogin())
-		{
-			ServerManager::GetInst()->Load();
-			m_Stage += L"Stage ";
-			m_Stage += to_wstring(DataManager::GetInst()->GetHighStage());
-		}
-	}
-	if (!ServerManager::GetInst()->GetplayerLogin())
-	{
-		if (isIDSelect)
-		{
-			string s;
-			s += ServerManager::GetInst()->GetplayerID();
-			for (int i = (int)KEY_TYPE::Q; i <= (int)KEY_TYPE::M; i++)
+			if (mousePos.x >= 25 && mousePos.x <= 125
+				&& mousePos.y >= 25 && mousePos.y <= 125)
 			{
-				//if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i)) == KEY_STATE::DOWN)
-				//s += (KEY_TYPE)i;
-				if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i) == KEY_STATE::DOWN && s.size() < 16)
-					s += (char)KeyMgr::GetInst()->m_arrVKKey[i];
+				ResMgr::GetInst()->SetSoundVol(!ResMgr::GetInst()->GetSoundVol());
 			}
-			if (KeyMgr::GetInst()->GetKey(KEY_TYPE::BACK) == KEY_STATE::DOWN && s.size() > 0)
-				s.erase(s.size() - 1);
-			ServerManager::GetInst()->SetplayerID(s);
-		}
-		else
-		{
-			string s;
-			s += ServerManager::GetInst()->GetplayerPassword();
-			for (int i = (int)KEY_TYPE::Q; i <= (int)KEY_TYPE::M; i++)
+			else if (mousePos.x >= 1445 && mousePos.x <= 1505 &&
+				mousePos.y >= 30 && mousePos.y <= 125)
 			{
-				//if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i)) == KEY_STATE::DOWN)
-				//s += (KEY_TYPE)i;
-				if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i) == KEY_STATE::DOWN && s.size() < 16)
-					s += (char)KeyMgr::GetInst()->m_arrVKKey[i];
+				ExitProcess(0);
 			}
-			if (KeyMgr::GetInst()->GetKey(KEY_TYPE::BACK) == KEY_STATE::DOWN && s.size() > 0)
-				s.erase(s.size() - 1);
-			ServerManager::GetInst()->SetplayerPassword(s);
-		}
+			else if (m_Stage != L"")
+				SceneMgr::GetInst()->LoadScene(L"GameScene");
 
-	}
-	ResMgr::GetInst()->Update();
+			if (mousePos.x >= 625 && mousePos.x <= 925 &&
+				mousePos.y >= 500 && mousePos.y <= 550)
+			{
+				isIDSelect = true;
+			}
+			else if (mousePos.x >= 625 && mousePos.x <= 925 &&
+				mousePos.y >= 600 && mousePos.y <= 650)
+			{
+				isIDSelect = false;
+			}
+			else if (mousePos.x >= 625 && mousePos.x <= 925 &&
+				mousePos.y >= 700 && mousePos.y <= 750 && !ServerManager::GetInst()->GetplayerLogin())
+			{
+				ServerManager::GetInst()->Load();
+				m_Stage = L"Stage ";
+				m_Stage += to_wstring(DataManager::GetInst()->GetHighStage());
+			}
+		}
+		if (ServerManager::GetInst()->GetplayerLogin())
+		{
+			m_Stage = L"Stage ";
+			m_Stage += to_wstring(DataManager::GetInst()->GetLastStage());
+		}
+		if (!ServerManager::GetInst()->GetplayerLogin())
+		{
+			if (isIDSelect)
+			{
+				string s;
+				s += ServerManager::GetInst()->GetplayerID();
+				for (int i = (int)KEY_TYPE::Q; i <= (int)KEY_TYPE::M; i++)
+				{
+					//if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i)) == KEY_STATE::DOWN)
+					//s += (KEY_TYPE)i;
+					if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i) == KEY_STATE::DOWN && s.size() < 6)
+						s += (char)KeyMgr::GetInst()->m_arrVKKey[i];
+				}
+				if (KeyMgr::GetInst()->GetKey(KEY_TYPE::BACK) == KEY_STATE::DOWN && s.size() > 0)
+					s.erase(s.size() - 1);
+				ServerManager::GetInst()->SetplayerID(s);
+			}
+			else
+			{
+				string s;
+				s += ServerManager::GetInst()->GetplayerPassword();
+				for (int i = (int)KEY_TYPE::Q; i <= (int)KEY_TYPE::M; i++)
+				{
+					//if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i)) == KEY_STATE::DOWN)
+					//s += (KEY_TYPE)i;
+					if (KeyMgr::GetInst()->GetKey((KEY_TYPE)i) == KEY_STATE::DOWN && s.size() < 16)
+						s += (char)KeyMgr::GetInst()->m_arrVKKey[i];
+				}
+				if (KeyMgr::GetInst()->GetKey(KEY_TYPE::BACK) == KEY_STATE::DOWN && s.size() > 0)
+					s.erase(s.size() - 1);
+				ServerManager::GetInst()->SetplayerPassword(s);
+			}
+		}
+		ResMgr::GetInst()->Update();
 }
 
 void Start_Scene::Render(HDC _dc)
@@ -125,10 +129,10 @@ void Start_Scene::Render(HDC _dc)
 	ObjectRender(_dc);
 	IconRender(_dc);
 	HFONT hFont = CreateFont(50, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"¿Œ√µ±≥¿∞º“≈Î");
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
 	SelectObject(_dc, hFont);
 	TextOut(_dc, 700, 500, m_Stage.c_str(), m_Stage.size());
-	if(!ServerManager::GetInst()->GetplayerLogin())
+	if (!ServerManager::GetInst()->GetplayerLogin())
 		UserLoginRender(_dc);
 	DeleteObject(hFont);
 }
@@ -137,7 +141,7 @@ void Start_Scene::Release()
 {
 	Scene::Release();
 
-	RemoveFontResource(L"Res\\Font\\¿Œ√µ±≥¿∞º“≈Î.ttf");
+	RemoveFontResource(L"Res\\Font\\Font.ttf");
 }
 
 void Start_Scene::StartScreenDoFade()
@@ -163,10 +167,10 @@ void Start_Scene::TitleMoveDotween()
 		for (size_t i = 0; i < m_vObj.size(); ++i)
 		{
 			SceneMgr::GetInst()->GetCurScene()->
-				AddObject(new Dotween(m_vObj[i], Vec2(125 * (i + 1) / 2 + 400, 100), 1.f, DOTWEEN_TYPE::MOVE
+				AddObject(new Dotween(m_vObj[i], Vec2(188 * (i + 1) / 2 + 400, 100), 1.f, DOTWEEN_TYPE::MOVE
 				), OBJECT_GROUP::DOTWEEN);
 			SceneMgr::GetInst()->GetCurScene()->
-				AddObject(new Dotween(m_vObj[i], Vec2(125 * (i + 1) / 2 + 400, 120), 1.2f, 1, DOTWEEN_TYPE::MOVE
+				AddObject(new Dotween(m_vObj[i], Vec2(177 * (i + 1) / 2 + 400, 120), 1.2f, 1, DOTWEEN_TYPE::MOVE
 				), OBJECT_GROUP::DOTWEEN);
 		}
 		t = 0;
@@ -178,9 +182,9 @@ void Start_Scene::ObjectRender(HDC _dc)
 	RECT rcClient;
 	GetClientRect(Core::GetInst()->GetHwnd(), &rcClient);
 
-	// ∆˘∆Æ ¿˚øÎ π◊ ¡¶∏Ò ª˝º∫
+	// ÔøΩÔøΩ∆Æ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ
 	HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"¿Œ√µ±≥¿∞º“≈Î");
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
 	SelectObject(_dc, hFont);
 
 	StartdarknessLevel = max(StartdarknessLevel, 0);
@@ -257,32 +261,32 @@ void Start_Scene::UserLoginRender(HDC _dc)
 {
 	if (StartdarknessLevel < 150)
 	{
-		// ∞ËªÍµ» æÀ∆ƒ ∞™¿ª ±‚π›¿∏∑Œ ªˆªÛ¿ª º≥¡§«’¥œ¥Ÿ.
+		// ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩ’¥œ¥ÔøΩ.
 		int alpha = 255 - StartdarknessLevel;
-		alpha = max(0, alpha);  // æÀ∆ƒ ∞™¿Ã ¿Ωºˆ∞° µ«¡ˆ æ µµ∑œ ∫∏¡§«’¥œ¥Ÿ.
+		alpha = max(0, alpha);  // ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩ µÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩ’¥œ¥ÔøΩ.
 
-		// Ω√∞£ø° µ˚∂Û √µ√µ»˜ ∫Ø«œ¥¬ æÀ∆ƒ ∞™¿ª ªÁøÎ«œø© ≈ÿΩ∫∆Æ ªˆªÛ¿ª º≥¡§«’¥œ¥Ÿ.
+		// ÔøΩ√∞ÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ √µ√µÔøΩÔøΩ ÔøΩÔøΩÔøΩœ¥ÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩœøÔøΩ ÔøΩÿΩÔøΩ∆Æ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩ’¥œ¥ÔøΩ.
 		COLORREF textColor = RGB(255, 255, 255);
 		textColor = RGB(GetRValue(textColor), GetGValue(textColor), GetBValue(textColor)) | (alpha << 17);
 
 		HFONT hFont = CreateFont(25, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"¿Œ√µ±≥¿∞º“≈Î");
+			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Ïù∏Ï≤úÍµêÏú°ÏÜåÌÜµ");
 		SelectObject(_dc, hFont);
 
-		// ≈ÿΩ∫∆Æ ªˆªÛ¿ª º≥¡§«’¥œ¥Ÿ.
+		// ÔøΩÿΩÔøΩ∆Æ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩ’¥œ¥ÔøΩ.
 		SetTextColor(_dc, textColor);
 
-		// ≈ÿΩ∫∆Æ∞° √µ√µ»˜ ≥™≈∏≥™µµ∑œ ∆‰¿Ãµ˘«’¥œ¥Ÿ.
-		float fadeSpeed = 0.5f;  // ∆‰¿Ãµ˘ º”µµ∏¶ ¡∂¿˝«’¥œ¥Ÿ.
+		// ÔøΩÿΩÔøΩ∆ÆÔøΩÔøΩ √µ√µÔøΩÔøΩ ÔøΩÔøΩ≈∏ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÃµÔøΩÔøΩ’¥œ¥ÔøΩ.
+		float fadeSpeed = 0.5f;  // ÔøΩÔøΩÔøΩÃµÔøΩ ÔøΩ”µÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩ’¥œ¥ÔøΩ.
 
-		// ∆Ø¡§ ¡∂∞«¿œ ∂ß∏∏ darknessLevel¿ª ¡ı∞°Ω√≈µ¥œ¥Ÿ.
+		// ∆ØÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ darknessLevelÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ≈µÔøΩœ¥ÔøΩ.
 		if (StartdarknessLevel < 230) {
-			StartdarknessLevel += static_cast<int>(fadeSpeed);  // ∆‰¿Ãµ˘ º”µµ∏∏≈≠ darknessLevel¿ª ∞®º“Ω√≈µ¥œ¥Ÿ.
+			StartdarknessLevel += static_cast<int>(fadeSpeed);  // ÔøΩÔøΩÔøΩÃµÔøΩ ÔøΩ”µÔøΩÔøΩÔøΩ≈≠ darknessLevelÔøΩÔøΩ ÔøΩÔøΩÔøΩ“ΩÔøΩ≈µÔøΩœ¥ÔøΩ.
 		}
 
 		Rectangle(_dc, 625, 500, 925, 550);
 		if (ServerManager::GetInst()->GetplayerID() == "")
-			TextOut(_dc, 635, 510, L"æ∆¿Ãµ∏¶ ¿‘∑¬«ÿ ¡÷ººø‰.", 13);
+			TextOut(_dc, 635, 510, L"ÏïÑÏù¥ÎîîÎ•º ÏûÖÎ†•Ìï¥ Ï£ºÏÑ∏Ïöî.", 13);
 		else
 		{
 			string s = ServerManager::GetInst()->GetplayerID();
@@ -293,7 +297,7 @@ void Start_Scene::UserLoginRender(HDC _dc)
 
 		Rectangle(_dc, 625, 600, 925, 650);
 		if (ServerManager::GetInst()->GetplayerPassword() == "")
-			TextOut(_dc, 635, 610, L"∫Òπ–π¯»£∏¶ ¿‘∑¬«ÿ ¡÷ººø‰.", 14);
+			TextOut(_dc, 635, 610, L"ÎπÑÎ∞ÄÎ≤àÌò∏Î•º ÏûÖÎ†•Ìï¥ Ï£ºÏÑ∏Ïöî.", 14);
 		else
 		{
 			string s = ServerManager::GetInst()->GetplayerPassword();
@@ -303,13 +307,8 @@ void Start_Scene::UserLoginRender(HDC _dc)
 		}
 
 		Rectangle(_dc, 625, 700, 925, 750);
-		TextOut(_dc, 750, 710, L"∑Œ±◊¿Œ", 3);
+		TextOut(_dc, 750, 710, L"Î°úÍ∑∏Ïù∏", 3);
 
 		DeleteObject(hFont);
 	}
 }
-
-
-
-
-

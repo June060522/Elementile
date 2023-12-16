@@ -115,7 +115,7 @@ void TileImage::Render(HDC _dc)
 	if (m_tileCnt != L"")
 	{
 		HFONT hFont = CreateFont(50, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"¿Œ√µ±≥¿∞º“≈Î");
+			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Ïù∏Ï≤úÍµêÏú°ÏÜåÌÜµ");
 		SelectObject(_dc, hFont);
 		SetBkMode(_dc, 0);
 		TextOut(_dc, left + 30, top + 5, m_tileCnt.c_str(), m_tileCnt.size());

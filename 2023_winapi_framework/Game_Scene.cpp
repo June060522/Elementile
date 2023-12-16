@@ -10,6 +10,7 @@
 #include "GameSceneUI.h"
 #include "ResMgr.h"
 #include "KeyMgr.h"
+#include "ServerManager.h"
 
 void Game_Scene::Init()
 {
@@ -18,7 +19,6 @@ void Game_Scene::Init()
 	GetGroupObject(OBJECT_GROUP::DOTWEEN).clear();
 	SelectManager::GetInst()->Init();
 	StageManager::GetInst()->Init(DataManager::GetInst()->GetLastStage(), this);
-	DataManager::GetInst()->SaveData();
 	m_GameSceneUI->Init();
 }
 
@@ -26,13 +26,19 @@ void Game_Scene::Update()
 {
 	if (GetGroupObject(OBJECT_GROUP::TILE).size() == 0)
 	{
-		if(DataManager::GetInst()->GetLastStage() == DataManager::GetInst()->GetHighStage())
+		if (DataManager::GetInst()->GetLastStage() == DataManager::GetInst()->GetHighStage())
+		{
 			DataManager::GetInst()->SetHighStage(1);
+			DataManager::GetInst()->SaveData();
+			ServerManager::GetInst()->Save();
+		}
 		DataManager::GetInst()->SetLastStage(DataManager::GetInst()->GetLastStage() + 1);
+		DataManager::GetInst()->SaveData();
 		SceneMgr::GetInst()->LoadScene(L"GameScene");
 	}
 	SelectManager::GetInst()->Update();
-	if (!m_GameSceneUI->GetStagePenalOpen())
+	if (!m_GameSceneUI->GetStagePenalOpen() && !m_GameSceneUI->GetRankingPenalOpen()
+		&& !m_GameSceneUI->GetInfoPenalOpen())
 		SelectManager::GetInst()->TileClick(GetGroupObject(OBJECT_GROUP::TILE));
 	Scene::Update();
 	

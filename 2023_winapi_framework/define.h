@@ -1,4 +1,4 @@
-#pragma once // ¤¾¤§¤¡¤§
+#pragma once 
 #define SINGLE(type)			\
 private:						\
 	type() {}					\

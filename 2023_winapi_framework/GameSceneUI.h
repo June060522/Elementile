@@ -2,6 +2,8 @@
 class Texture;
 class Object;
 class StagePanel;
+class RankingPanel;
+class GameInfoPanel;
 class GameSceneUI
 {
 public:
@@ -17,6 +19,19 @@ public:
 	bool& GetMenuOpen() { return m_isOpen; }
 	void SetStagePenalOpen(const bool _value) { m_isStageOpen = _value; }
 	bool& GetStagePenalOpen() { return m_isStageOpen; }
+	void SetRankingPenalOpen(const bool _value) { m_isRankingOpen = _value; }
+	bool& GetRankingPenalOpen() { return m_isRankingOpen; }
+	void SetInfoPenalOpen(const bool _value) { m_isInfoOpen = _value; }
+	bool& GetInfoPenalOpen() { return m_isInfoOpen; }
+	void SetIdAndRank(string _id,int _val,int _idx)
+	{
+		wstring id = L"";
+		id.assign(_id.begin(), _id.end());
+		m_wid[_idx] = id;
+		m_iscore[_idx] = _val;
+	}
+	wstring GetId(int _idx) { return m_wid[_idx]; }
+	int GetScore(int _idx) { return m_iscore[_idx]; }
 
 private:
 	Texture* m_pMenuTex;
@@ -25,9 +40,12 @@ private:
 	Texture* m_pLvTex;
 	Texture* m_pSoundTex;
 	Texture* m_pRankingTex;
+	Texture* m_pHowTex;
 
 	bool m_isOpen;
 	bool m_isStageOpen;
+	bool m_isRankingOpen;
+	bool m_isInfoOpen;
 
 	Object* m_pMenu;
 	Object* m_pRe;
@@ -35,6 +53,12 @@ private:
 	Object* m_pLv;
 	Object* m_pSound;
 	Object* m_pRanking;
+	Object* m_pHow;
 
 	StagePanel* m_pStagePanel;
+	RankingPanel* m_pRankingPanel;
+	GameInfoPanel* m_pGameInfoPanel;
+
+	wstring m_wid[3];
+	int m_iscore[3];
 };
