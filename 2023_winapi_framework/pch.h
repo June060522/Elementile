@@ -28,9 +28,5 @@ using std::wstringstream;
 using std::endl;
 using std::to_string;
 using std::to_wstring;
-#include "mysql_driver.h"
-#include "mysql_connection.h"
-using namespace sql;
 #pragma comment(lib, "Msimg32.lib")
-#pragma comment(lib, "mysqlcppconn.lib")
 #pragma comment(lib, "ws2_32.lib")

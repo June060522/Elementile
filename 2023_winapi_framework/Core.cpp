@@ -9,29 +9,32 @@
 #include "ServerManager.h"
 bool Core::Init(HWND _hWnd, POINT _ptResolution)
 {
-	// === º¯¼ö ÃÊ±âÈ­ === 
+	// === ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ === 
 	m_hWnd = _hWnd;
 	m_ptResolution = _ptResolution;
 	m_hbackDC = 0;
 	m_hbackbit = 0;
 
 
-	// ´õºí¹öÆÛ¸µ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½
 	m_hDC = GetDC(m_hWnd);	
-	// 1. »ý¼º
+	// 1. ï¿½ï¿½ï¿½ï¿½
 	m_hbackbit = CreateCompatibleBitmap(m_hDC, m_ptResolution.x, m_ptResolution.y);
 	m_hbackDC = CreateCompatibleDC(m_hDC);
 
-	// 2. ¿¬°á
+	// 2. ï¿½ï¿½ï¿½ï¿½
 	SelectObject(m_hbackDC, m_hbackbit);
 
 	CreateGDI();
+
 	// ==== Manager Init ====
 	PathMgr::GetInst()->Init();
 	TimeMgr::GetInst()->Init();
 	KeyMgr::GetInst()->Init();
 	ResMgr::GetInst()->Init();
 	SceneMgr::GetInst()->Init();
+
+	
 	return true;
 }
 
@@ -83,8 +86,8 @@ void Core::CreateGDI()
 void Core::Release()
 {
 	ReleaseDC(m_hWnd, m_hDC);
-	DeleteDC(m_hbackDC); // createdc ÇÑ°Å Áö¿ì´Â°Å
-	DeleteObject(m_hbackbit); // createbit ÇÑ°Å Áö¿ì´Â°Å
+	DeleteDC(m_hbackDC); // createdc ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½Â°ï¿½
+	DeleteObject(m_hbackbit); // createbit ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½Â°ï¿½
 	for (int i = 0; i < (UINT)PEN_TYPE::END; ++i)
 	{
 		DeleteObject(m_arrPen[i]);

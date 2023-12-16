@@ -66,7 +66,7 @@ const void SelectManager::TileClick(const vector<Object*>& _tilegroup)
 				p2.y = tileCenterPos.y + m_fRadius * sin(angle2);
 
 				p3 = tileCenterPos;
-				/*POINT points[] = { {p1.x,p1.y}, {p2.x,p2.y}, {p3.x,p3.y} };
+				/*POINT points[] = {{p1.x,p1.y}, {p2.x,p2.y}, {p3.x,p3.y}};
 				Polygon(Core::GetInst()->GetMainDC(), points, 3);*/
 				if (TriangleInPoint(p1, p2, p3, m_pMousePos))
 				{
