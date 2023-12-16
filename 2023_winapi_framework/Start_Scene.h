@@ -30,4 +30,6 @@ private:
     Texture* m_pDoorClose;
 
     bool isIDSelect = true;
+
+    Texture* m_pHelp;
 };

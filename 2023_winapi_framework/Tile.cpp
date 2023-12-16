@@ -110,7 +110,7 @@ void Tile::Render(HDC _dc)
 {
 	Vec2 vPos = GetPos();
 	Vec2 vScale = GetScale();
-	//Â¥ÇÇ Å¸ÀÏÀÎ°Ç ´Ù °°¾Æ¼­ ÇÏ³ª¸¸
+	//Â¥ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½
 	int Width = m_pTex->GetWidth();
 	int Height = m_pTex->GetHeight();
 
@@ -166,7 +166,7 @@ void Tile::AddImage(const int& _cnt, const TILE_TYPE& _type)
 	Vec2 pos;
 	Vec2 scale;
 	if (_type == TILE_TYPE::FIRE || _type == TILE_TYPE::GRASS || _type == TILE_TYPE::WATER)
-		switch (_cnt) // ±×¸± ÀÌ¹ÌÁö °¹¼ö ÀÏ´Ü 5°³±îÁö¸¸
+		switch (_cnt) // ï¿½×¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ 5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 		case 1:
 		{
@@ -276,7 +276,7 @@ const bool Tile::CanGo(Tile* _temptile)
 {
 	Tile* selectTile = SelectManager::GetInst()->GetSelectTile();
 
-#pragma region ÀÎÁ¢ÇÑ Å¸ÀÏÀÎÁö °Ë»ç
+#pragma region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	int difX = selectTile->GetposIdx().xidx - m_posidx.xidx;
 	int difY = selectTile->GetposIdx().yidx - m_posidx.yidx;
 	if (selectTile->GetposIdx().yidx % 2 == 0)
@@ -317,7 +317,7 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-#pragma region ÀÌµ¿°¡´ÉÇÑ Å¸ÀÏÀÎÁö °Ë»ç
+#pragma region ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	switch (_temptile->GetType())
 	{
 	case TILE_TYPE::WATER:
@@ -371,7 +371,7 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-#pragma region ¼±ÅÃµÈ Å¸ÀÏ ÀÔÀå¿¡¼­ °Ë»ç
+#pragma region ï¿½ï¿½ï¿½Ãµï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½Ë»ï¿½
 	switch (selectTile->GetType())
 	{
 	case TILE_TYPE::FIRELOCK:
@@ -413,7 +413,7 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-#pragma region °¹¼ö°¡ 5°³¹Ì¸¸ÀÎÁö °Ë»ç
+#pragma region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	if (_temptile->GetCnt() >= 5 || selectTile->GetCnt() >= 5)
 	{
 		if(_temptile->GetType() == selectTile->GetType() || 
@@ -423,7 +423,7 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-#pragma region ºÒ¹°Ç® ¼Ó¼º °Ë»ç
+#pragma region ï¿½Ò¹ï¿½Ç® ï¿½Ó¼ï¿½ ï¿½Ë»ï¿½
 	switch (_temptile->GetType())
 	{
 	case TILE_TYPE::WATER:
@@ -477,13 +477,13 @@ const bool Tile::CanGo(Tile* _temptile)
 	}
 #pragma endregion
 
-#pragma region ÀÚ±âÀÚ½ÅÀÎÁö °Ë»ç
+#pragma region ï¿½Ú±ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	if (_temptile->GetposIdx().xidx == selectTile->GetposIdx().xidx
 		&& _temptile->GetposIdx().yidx == selectTile->GetposIdx().yidx)
 		return false;
 #pragma endregion
 
-#pragma region ÀÖ´Â Å¸ÀÏÀÖÁö °Ë»ç
+#pragma region ï¿½Ö´ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	for (auto i : SceneMgr::GetInst()->GetCurScene()->GetGroupObject(OBJECT_GROUP::TILE))
 	{
 		Tile* t = (Tile*)i;

@@ -11,10 +11,10 @@ int TitledarknessLevel = 0;
 
 void GameTitleScene::Init()
 {
-    m_string = new UIText(Vec2(600, 310), L"≥≠¿Ô2");
+    m_string = new UIText(Vec2(600, 310), L"ÎÇúÏüÅ2");
 
     AddObject(m_string, OBJECT_GROUP::UI);
-    AddFontResource(L"Res\\Font\\¿Œ√µ±≥¿∞º“≈Î.ttf");
+    AddFontResource(L"Res\\Font\\Ïù∏Ï≤úÍµêÏú°ÏÜåÌÜµ.ttf");
 }
 
 void GameTitleScene::Update()
@@ -47,7 +47,7 @@ void GameTitleScene::Render(HDC _dc)
 
     TitledarknessLevel = max(TitledarknessLevel, 255);
     HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-        CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"¿Œ√µ±≥¿∞º“≈Î");
+        CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Ïù∏Ï≤úÍµêÏú°ÏÜåÌÜµ");
     SelectObject(_dc, hFont);
 
     Scene::Render(_dc);
@@ -58,5 +58,5 @@ void GameTitleScene::Render(HDC _dc)
 void GameTitleScene::Release()
 {
 	Scene::Release();
-	RemoveFontResource(L"Res\\Font\\¿Œ√µ±≥¿∞º“≈Î.ttf");
+	RemoveFontResource(L"Res\\Font\\Ïù∏Ï≤úÍµêÏú°ÏÜåÌÜµ.ttf");
 }

@@ -67,14 +67,14 @@ void GameSceneUI::Render(HDC _dc)
 
 void GameSceneUI::Release()
 {
-	RemoveFontResource(L"Res\\Font\\ΐΞΓµ±³ΐ°ΌÒΕλ.ttf");
+	RemoveFontResource(L"Res\\Font\\μΈμ²κµμ΅μ†ν†µ.ttf");
 }
 
 void GameSceneUI::UIRender(HDC _dc)
 {
-	AddFontResource(L"Res\\Font\\ΐΞΓµ±³ΐ°ΌÒΕλ.ttf");
+	AddFontResource(L"Res\\Font\\μΈμ²κµμ΅μ†ν†µ.ttf");
 	HFONT hFont = CreateFont(100, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"ΐΞΓµ±³ΐ°ΌÒΕλ");
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"μΈμ²κµμ΅μ†ν†µ");
 	SelectObject(_dc, hFont);
 
 	SetTextColor(_dc, RGB(0, 0, 0));

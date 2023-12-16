@@ -12,23 +12,25 @@
 #include <mmsystem.h>
 #include <mutex>
 #include <future>
+#include <sstream>
 #include "Vec2.h"
 #include "enums.h"
 #include "define.h"
-//using namespace std; »ç¿ë Áö¾ç
+//using namespace std; ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 using std::vector;
 using std::map;
 using std::wstring;
 using std::ifstream;
 using std::ofstream;
 using std::string;
+using std::stringstream;
+using std::wstringstream;
 using std::endl;
 using std::to_string;
 using std::to_wstring;
 #include "mysql_driver.h"
 #include "mysql_connection.h"
 using namespace sql;
-// transparent µî blt ¾µ ¶§ ÇÊ¿ä
 #pragma comment(lib, "Msimg32.lib")
 #pragma comment(lib, "mysqlcppconn.lib")
 #pragma comment(lib, "ws2_32.lib")
