@@ -128,7 +128,7 @@ void Start_Scene::Render(HDC _dc)
 	ObjectRender(_dc);
 	IconRender(_dc);
 	HFONT hFont = CreateFont(50, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"��õ��������");
 	SelectObject(_dc, hFont);
 	TextOut(_dc, 700, 500, m_Stage.c_str(), m_Stage.size());
 	if (!ServerManager::GetInst()->GetplayerLogin())
@@ -140,7 +140,7 @@ void Start_Scene::Release()
 {
 	Scene::Release();
 
-	RemoveFontResource(L"Res\\Font\\Font.ttf");
+	RemoveFontResource(L"Res\\Font\\��õ��������.ttf");
 }
 
 void Start_Scene::StartScreenDoFade()
@@ -166,10 +166,10 @@ void Start_Scene::TitleMoveDotween()
 		for (size_t i = 0; i < m_vObj.size(); ++i)
 		{
 			SceneMgr::GetInst()->GetCurScene()->
-				AddObject(new Dotween(m_vObj[i], Vec2(188 * (i + 1) / 2 + 400, 100), 1.f, DOTWEEN_TYPE::MOVE
+				AddObject(new Dotween(m_vObj[i], Vec2(125 * (i + 1) / 2 + 400, 100), 1.f, DOTWEEN_TYPE::MOVE
 				), OBJECT_GROUP::DOTWEEN);
 			SceneMgr::GetInst()->GetCurScene()->
-				AddObject(new Dotween(m_vObj[i], Vec2(177 * (i + 1) / 2 + 400, 120), 1.2f, 1, DOTWEEN_TYPE::MOVE
+				AddObject(new Dotween(m_vObj[i], Vec2(125 * (i + 1) / 2 + 400, 120), 1.2f, 1, DOTWEEN_TYPE::MOVE
 				), OBJECT_GROUP::DOTWEEN);
 		}
 		t = 0;
@@ -183,7 +183,7 @@ void Start_Scene::ObjectRender(HDC _dc)
 
 	// ��Ʈ ���� �� ���� ����
 	HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Merriweather Sans ExtraBold");
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"��õ��������");
 	SelectObject(_dc, hFont);
 
 	StartdarknessLevel = max(StartdarknessLevel, 0);
