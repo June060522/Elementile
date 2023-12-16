@@ -75,8 +75,8 @@ void ResMgr::Update()
     }
     else
     {
-        Volume(SOUND_CHANNEL::BGM, 1);
-        Volume(SOUND_CHANNEL::EFFECT, 1);
+        Volume(SOUND_CHANNEL::BGM, 0.6f);
+        Volume(SOUND_CHANNEL::EFFECT, 0.6f);
     }
 }
 

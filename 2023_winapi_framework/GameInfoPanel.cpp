@@ -49,8 +49,8 @@ void GameInfoPanel::Update()
 
 void GameInfoPanel::ExplainRender(HDC _dc)
 {
-	TextOut(_dc, 440, 100, L"마우스 클릭으로 타일을 선택할 수 있습니다.",24);
-	TextOut(_dc, 500, 150, L"모든 타일을 제거하면 승리합니다!",18);
+	TextOut(_dc, 440, 50, L"마우스 클릭으로 타일을 선택할 수 있습니다.",24);
+	TextOut(_dc, 500, 100, L"모든 타일을 제거하면 승리합니다!",18);
 	wstring help = L"";
 	switch (DataManager::GetInst()->GetLastStage())
 	{
@@ -70,7 +70,52 @@ void GameInfoPanel::ExplainRender(HDC _dc)
 		help = L"같은 속성을 합치기 위해서는 갯수가 같아야 합니다.";
 		break;
 	case 6:
+	case 7:
+	case 8:
+	case 9:
+	case 10:
 		help = L"자물쇠를 풀기 위해서는 색과 구멍의 수와 갯수가 같은 원소가 필요합니다.";
+		break;
+	case 11:
+	case 12:
+	case 13:
+	case 14:
+	case 15:
+		help = L"화살표 타일로 가면 해당 방향으로 한번 더 이동합니다.";
+		break;
+	case 16:
+	case 17:
+	case 18:
+	case 19:
+	case 20:
+		help = L"각 속성은 최대 5개까지 만들 수 있습니다.";
+		break;
+	case 21:
+	case 23:
+	case 25:
+		help = L"+ 타일로 가면 원소 하나가 추가됩니다.";
+		break;
+	case 22:
+	case 24:
+		help = L"- 타일로 가면 원소 하나가 삭제됩니다.";
+		break;
+	case 30:
+	case 31:
+	case 32:
+	case 33:
+	case 34:
+	case 35:
+		help = L"바람 타일은 가면 원소 타일 하나를 날려버립니다.";
+		break;
+	case 36:
+	case 37:
+	case 38:
+	case 39:
+	case 40:
+		help = L"텔레포트 타일은 다른 텔레포트 위치로 이동시킵니다.";
+		break;
+	default:
+		help = L"현민 : 있을때 잘하라 후회하지 말고..";
 		break;
 	}
 		TextOut(_dc, 420, 700, help.c_str(), help.size());
@@ -114,6 +159,7 @@ void GameInfoPanel::BGRender(HDC _dc)
 
 void GameInfoPanel::TexRender(HDC _dc)
 {
+	if(DataManager::GetInst()->GetLastStage() > 0)
 	{
 		Vec2 vPos = { 750,300 };
 		Vec2 vScale = {20,20};
@@ -130,6 +176,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pFire->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 2)
 	{
 		Vec2 vPos = { 950,550 };
 		Vec2 vScale = { 20,20 };
@@ -146,6 +193,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pGrass->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 0)
 	{
 		Vec2 vPos = { 550,550 };
 		Vec2 vScale = { 20,20 };
@@ -162,6 +210,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pWater->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 29)
 	{
 		Vec2 vPos = { 750,450 };
 		Vec2 vScale = { 20,20 };
@@ -178,6 +227,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pWind->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 1)
 	{
 		Vec2 vPos = { 650,425 };
 		Vec2 vScale = { 20,20 };
@@ -194,6 +244,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pArrowRU->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 2)
 	{
 		Vec2 vPos = { 850,425 };
 		Vec2 vScale = { 20,20 };
@@ -210,6 +261,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pArrowRD->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 3)
 	{
 		Vec2 vPos = { 750,550 };
 		Vec2 vScale = { 20,20 };
@@ -226,6 +278,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pArrowL->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 5)
 	{
 		Vec2 vPos = { 750,225 };
 		Vec2 vScale = { 10,10 };
@@ -242,6 +295,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pLockF->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 8)
 	{
 		Vec2 vPos = { 1000,625 };
 		Vec2 vScale = { 10,10 };
@@ -258,6 +312,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pLockG->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 6)
 	{
 		Vec2 vPos = { 500,625 };
 		Vec2 vScale = { 10,10 };
@@ -274,6 +329,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pLockW->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 10)
 	{
 		Vec2 vPos = { 250,275 };
 		Vec2 vScale = { 20,20 };
@@ -290,6 +346,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pArrowR->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 20)
 	{
 		Vec2 vPos = { 1250,275 };
 		Vec2 vScale = { 20,20 };
@@ -306,6 +363,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pPlus->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 21)
 	{
 		Vec2 vPos = { 1250,500 };
 		Vec2 vScale = { 20,20 };
@@ -322,6 +380,7 @@ void GameInfoPanel::TexRender(HDC _dc)
 			m_pMinus->GetDC(), 0, 0,
 			Width, Height, RGB(255, 0, 255));
 	}
+	if (DataManager::GetInst()->GetLastStage() > 35)
 	{
 		Vec2 vPos = { 250,500 };
 		Vec2 vScale = { 20,20 };

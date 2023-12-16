@@ -67,16 +67,21 @@ void Start_Scene::Update()
 			if (mousePos.x >= 625 && mousePos.x <= 925 &&
 				mousePos.y >= 500 && mousePos.y <= 550)
 			{
+				ResMgr::GetInst()->Play(L"Button");
 				isIDSelect = true;
 			}
 			else if (mousePos.x >= 625 && mousePos.x <= 925 &&
 				mousePos.y >= 600 && mousePos.y <= 650)
 			{
+				ResMgr::GetInst()->Play(L"Button");
 				isIDSelect = false;
 			}
 			else if (mousePos.x >= 625 && mousePos.x <= 925 &&
-				mousePos.y >= 700 && mousePos.y <= 750 && !ServerManager::GetInst()->GetplayerLogin())
+				mousePos.y >= 700 && mousePos.y <= 750 && !ServerManager::GetInst()->GetplayerLogin()
+				&& ServerManager::GetInst()->GetplayerID() != ""
+				&& ServerManager::GetInst()->GetplayerPassword() != "")
 			{
+				ResMgr::GetInst()->Play(L"Button");
 				ServerManager::GetInst()->Load();
 				m_Stage = L"Stage ";
 				m_Stage += to_wstring(DataManager::GetInst()->GetHighStage());

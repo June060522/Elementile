@@ -24,8 +24,8 @@ bool ServerManager::Load() {
 	}
 
 	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr("172.30.1.30");  // ¼­¹öÀÇ IP ÁÖ¼Ò (·ÎÄÃ È£½ºÆ®)
-	serverAddr.sin_port = htons(8000);  // ¼­¹öÀÇ Æ÷Æ® ¹øÈ£
+	serverAddr.sin_addr.s_addr = inet_addr("172.31.2.235");  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ IP ï¿½Ö¼ï¿½ (ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½Æ®)
+	serverAddr.sin_port = htons(8000);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½È£
 
 	if (connect(clientSocket, reinterpret_cast<sockaddr*>(&serverAddr), sizeof(serverAddr)) == SOCKET_ERROR) {
 		closesocket(clientSocket);
@@ -39,19 +39,19 @@ bool ServerManager::Load() {
 	p->score = 0;
 	p->command = "Load";
 
-	// ½ÇÁ¦ µ¥ÀÌÅÍ¸¦ Àü¼Û
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
-		std::lock_guard<std::mutex> lock(sendMutex);  // send¿¡ ¹ÂÅØ½º Àû¿ë
+		std::lock_guard<std::mutex> lock(sendMutex);  // sendï¿½ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		send(clientSocket, reinterpret_cast<char*>(p), sizeof(Player), 0);
 	}
 
-	// ºñµ¿±â·Î ¼­¹ö¿¡¼­ ·Î±×ÀÎ ÀÀ´äÀ» ±â´Ù¸²
+	// ï¿½ñµ¿±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½
 	Player* receivedPlayer = new Player();
 	{
-		std::lock_guard<std::mutex> lock(recvMutex);  // recv¿¡ ¹ÂÅØ½º Àû¿ë
+		std::lock_guard<std::mutex> lock(recvMutex);  // recvï¿½ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		recv(clientSocket, reinterpret_cast<char*>(receivedPlayer), sizeof(Player), 0);
 	}
-	// ¹Þ¾Æ¿Â µ¥ÀÌÅÍ¸¦ Ã³¸®
+	// ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ Ã³ï¿½ï¿½
 	playerScore = receivedPlayer->score;
 	isLogin = true;
 	DataManager::GetInst()->Init();
@@ -72,9 +72,9 @@ void ServerManager::Save()
 	p->score = playerScore;
 	p->command = "Save";
 
-	// ½ÇÁ¦ µ¥ÀÌÅÍ¸¦ Àü¼Û
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
-		std::lock_guard<std::mutex> lock(sendMutex);  // send¿¡ ¹ÂÅØ½º Àû¿ë
+		std::lock_guard<std::mutex> lock(sendMutex);  // sendï¿½ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		send(clientSocket, reinterpret_cast<char*>(p), sizeof(Player), 0);
 	}
 }
@@ -94,16 +94,16 @@ void ServerManager::GetRanking(GameSceneUI* _pGameSceneUI) {
 	p->score = playerScore;
 	p->command = "Rank";
 
-	// ½ÇÁ¦ µ¥ÀÌÅÍ¸¦ Àü¼Û
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 	{
-		std::lock_guard<std::mutex> lock(sendMutex);  // send¿¡ ¹ÂÅØ½º Àû¿ë
+		std::lock_guard<std::mutex> lock(sendMutex);  // sendï¿½ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		send(clientSocket, reinterpret_cast<char*>(p), sizeof(Player), 0);
 	}
 
 	for (int i = 0; i < 3; ++i) {
 		Player* receivedPlayer = new Player();
 		{
-			std::lock_guard<std::mutex> lock(recvMutex);  // recv¿¡ ¹ÂÅØ½º Àû¿ë
+			std::lock_guard<std::mutex> lock(recvMutex);  // recvï¿½ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			recv(clientSocket, reinterpret_cast<char*>(receivedPlayer), sizeof(Player), 0);
 		}
 		_pGameSceneUI->SetIdAndRank(receivedPlayer->id, receivedPlayer->score, i);

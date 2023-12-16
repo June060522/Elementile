@@ -20,6 +20,23 @@ void Game_Scene::Init()
 	SelectManager::GetInst()->Init();
 	StageManager::GetInst()->Init(DataManager::GetInst()->GetLastStage(), this);
 	m_GameSceneUI->Init();
+	switch (DataManager::GetInst()->GetLastStage())
+	{
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 6:
+	case 7:
+	case 9:
+	case 11:
+	case 21:
+	case 22:
+	case 30:
+	case 36:
+		m_GameSceneUI->SetInfoPenalOpen(true);
+		break;
+	}
 }
 
 void Game_Scene::Update()
