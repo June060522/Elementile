@@ -15,7 +15,7 @@ private:
     Object* m_string2;
     Object* m_string3;
     float deltaTime;
+    bool m_isSoundPlay;
+    bool m_isSoundPlay2;
     
 };
-
-

@@ -18,6 +18,8 @@ const float NamedarknessActivationTime = 5.0f;
 
 void NameScene::Init()
 {
+    m_isSoundPlay = false;
+    m_isSoundPlay2 = false;
     m_string1 = new UIText(Vec2(-700.f, 300.f), L"June");
     AddObject(m_string1, OBJECT_GROUP::UI);
     m_string2 = new UIText(Vec2(800.f, -300.f), L" & ");
@@ -26,19 +28,18 @@ void NameScene::Init()
     AddObject(m_string3, OBJECT_GROUP::UI);
     DataManager::GetInst()->Init();
     int result = AddFontResource(L"Res\\Font\\Font.ttf");
+    ResMgr::GetInst()->Play(L"NameMove");
     SceneMgr::GetInst()->GetCurScene()->
         AddObject(new Dotween(m_string1, Vec2((float)GET_WINSIZE.x / 2 - 370, (float)GET_WINSIZE.y / 2 - 123), 1.8f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
-    ResMgr::GetInst()->Play(L"NameMove");
     SceneMgr::GetInst()->GetCurScene()->
         AddObject(new Dotween(m_string2, Vec2((float)GET_WINSIZE.x / 2 - 50, (float)GET_WINSIZE.y / 2 - 123), 1.2f, 1.5f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
-    ResMgr::GetInst()->Play(L"NameMove");
     SceneMgr::GetInst()->GetCurScene()->
         AddObject(new Dotween(m_string3, Vec2((float)GET_WINSIZE.x / 2 + 125, (float)GET_WINSIZE.y / 2 - 123), 1.5f, 2.1f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
-    ResMgr::GetInst()->Play(L"NameMove");
 }
+
 
 void NameScene::Update()
 {
@@ -57,7 +58,17 @@ void NameScene::Update()
         NamedarknessLevel -= 1;
     }
 
+    if (deltaTime > 1.f && !m_isSoundPlay)
+    {
+        ResMgr::GetInst()->Play(L"NameMove");
+        m_isSoundPlay = true;
+    }
 
+    if (deltaTime > 2.f && !m_isSoundPlay2)
+    {
+        ResMgr::GetInst()->Play(L"NameMove");
+        m_isSoundPlay2 = true;
+    }
 
     Scene::Update();
 }

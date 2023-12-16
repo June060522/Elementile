@@ -59,7 +59,6 @@ void IntroScene::Init()
         ResMgr::GetInst()->Play(L"StarBGM");
     }
 
-
     //m_string->SetAlpha(0.0f);
     
     AddObject(m_string, OBJECT_GROUP::UI);
@@ -112,7 +111,9 @@ void IntroScene::Update()
 
     if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
     {
+        
         SceneMgr::GetInst()->LoadScene(L"NameScene");
+        ResMgr::GetInst()->Stop(SOUND_CHANNEL::BGM);
         return;
     }
 
