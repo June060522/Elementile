@@ -21,7 +21,8 @@ void IntroScene::Init()
     ResMgr::GetInst()->LoadSound(L"Tile", L"Sound\\Tile.wav", false);
     ResMgr::GetInst()->LoadSound(L"Button", L"Sound\\Button.wav", false);
     ResMgr::GetInst()->LoadSound(L"Move", L"Sound\\Move.wav", false);
-    ResMgr::GetInst()->LoadSound(L"StatBGM", L"Sound\\StartBGM.wav", false);
+    ResMgr::GetInst()->LoadSound(L"StarBGM", L"Sound\\StarBGM.wav", false);
+    ResMgr::GetInst()->LoadSound(L"NameMove", L"Sound\\NameMove.wav", false);
 
     m_string = new UIText(Vec2(600, 310), L"난쟁2");
 

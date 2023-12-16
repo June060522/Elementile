@@ -29,12 +29,15 @@ void NameScene::Init()
     SceneMgr::GetInst()->GetCurScene()->
         AddObject(new Dotween(m_string1, Vec2((float)GET_WINSIZE.x / 2 - 370, (float)GET_WINSIZE.y / 2 - 123), 1.8f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
+    ResMgr::GetInst()->Play(L"NameMove");
     SceneMgr::GetInst()->GetCurScene()->
         AddObject(new Dotween(m_string2, Vec2((float)GET_WINSIZE.x / 2 - 50, (float)GET_WINSIZE.y / 2 - 123), 1.2f, 1.5f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
+    ResMgr::GetInst()->Play(L"NameMove");
     SceneMgr::GetInst()->GetCurScene()->
         AddObject(new Dotween(m_string3, Vec2((float)GET_WINSIZE.x / 2 + 125, (float)GET_WINSIZE.y / 2 - 123), 1.5f, 2.1f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
+    ResMgr::GetInst()->Play(L"NameMove");
 }
 
 void NameScene::Update()
