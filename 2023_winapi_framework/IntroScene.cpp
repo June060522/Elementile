@@ -21,6 +21,8 @@ void IntroScene::Init()
     ResMgr::GetInst()->LoadSound(L"Tile", L"Sound\\Tile.wav", false);
     ResMgr::GetInst()->LoadSound(L"Button", L"Sound\\Button.wav", false);
     ResMgr::GetInst()->LoadSound(L"Move", L"Sound\\Move.wav", false);
+    ResMgr::GetInst()->LoadSound(L"StarBGM", L"Sound\\StarBGM.wav", false);
+    ResMgr::GetInst()->LoadSound(L"NameMove", L"Sound\\NameMove.wav", false);
 
     m_string = new UIText(Vec2(600, 310), L"난쟁2");
 
@@ -54,6 +56,7 @@ void IntroScene::Init()
         }
 
         m_vObj.push_back(new IntroStarTxt(100, Vec2(xPos, yPos), L"★", 150, 2.f, 4.f));
+        ResMgr::GetInst()->Play(L"StarBGM");
     }
 
 
@@ -106,6 +109,11 @@ void IntroScene::Update()
         darknessLevel += 1;
     }
 
+    if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
+    {
+        SceneMgr::GetInst()->LoadScene(L"NameScene");
+        return;
+    }
 
     // 키 입력으로 씬 전환
     HandleSceneChangeInput();
