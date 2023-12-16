@@ -6,6 +6,7 @@
 #include "SceneMgr.h"
 #include "TimeMgr.h"
 #include "GameTitleScene.h"
+#include <Windows.h>
 
 int TitledarknessLevel = 0;
 
@@ -26,12 +27,16 @@ void GameTitleScene::Update()
         AddObject(new Dotween(m_string, Vec2(600, 310), 0.f, DOTWEEN_TYPE::MOVE
         ), OBJECT_GROUP::DOTWEEN);
 
+
+
     Scene::Update();
 
     if (timer >= 2.5f)
     {
         SceneMgr::GetInst()->LoadScene(L"NameScene");
     }
+
+
 }
 
 void GameTitleScene::Render(HDC _dc)

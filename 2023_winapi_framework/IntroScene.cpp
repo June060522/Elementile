@@ -107,6 +107,11 @@ void IntroScene::Update()
         darknessLevel += 1;
     }
 
+    if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
+    {
+        SceneMgr::GetInst()->LoadScene(L"NameScene");
+        return;
+    }
 
     // 키 입력으로 씬 전환
     HandleSceneChangeInput();

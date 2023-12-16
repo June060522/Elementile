@@ -48,6 +48,12 @@ void NameScene::Update()
         NamedarknessLevel -= 1;
     }
 
+    if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
+    {
+        SceneMgr::GetInst()->LoadScene(L"Start_Scene");
+        return;  
+    }
+
     Scene::Update();
 }
 
