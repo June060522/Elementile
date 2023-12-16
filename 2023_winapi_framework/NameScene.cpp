@@ -42,11 +42,6 @@ void NameScene::Init()
 
 void NameScene::Update()
 {
-    if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
-    {
-        SceneMgr::GetInst()->LoadScene(L"StartScene");
-        return;
-    }
 
      // ���� deltaTime�� ��� ���� �̸� ��ü�ϼ���
     deltaTime += TimeMgr::GetInst()->GetDT();

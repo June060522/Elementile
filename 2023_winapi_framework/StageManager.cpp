@@ -187,7 +187,7 @@ const void StageManager::RenderBoard()
 			{
 				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::GRASSLOCK, 5), OBJECT_GROUP::TILE);
 			}
-			else if (m_board[i][j] == 'P')
+			else if (m_board[i][j] == 'P' || m_board[i][j] == 'p')
 			{
 				m_curGameScene->AddObject(MakeTile(i, j, TILE_TYPE::TELEPORT, 1), OBJECT_GROUP::TILE);
 			}

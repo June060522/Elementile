@@ -108,12 +108,12 @@ void IntroScene::Update()
         darknessLevel += 1;
     }
 
-    if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
+    if (KeyMgr::GetInst()->GetKey(KEY_TYPE::H) == KEY_STATE::PRESS)
+    if (KeyMgr::GetInst()->GetKey(KEY_TYPE::J) == KEY_STATE::PRESS)
     {
-        
-        SceneMgr::GetInst()->LoadScene(L"NameScene");
-        ResMgr::GetInst()->Stop(SOUND_CHANNEL::BGM);
-        return;
+        DataManager::GetInst()->SetHighStage(100);
+        DataManager::GetInst()->SetLastStage(100);
+        SceneMgr::GetInst()->LoadScene(L"GameScene");
     }
 
     // 키 입력으로 씬 전환

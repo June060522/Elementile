@@ -27,8 +27,8 @@ void Start_Scene::Init()
 	}
 	m_vObj.clear();
 
-	m_vObj.push_back(new UIText(Vec2(493.f, 100.f), L"No    Blend"));
-	int result = AddFontResource(L"Res\\Font\\Font.ttf");
+	m_vObj.push_back(new UIText(Vec2(493.f, 100.f), L"엘리멘타일"));
+	int result = AddFontResource(L"Res\\Font\\인천교육소통.ttf");
 
 	for (size_t i = 0; i < m_vObj.size(); ++i)
 		AddObject(m_vObj[i], OBJECT_GROUP::UI);
@@ -128,7 +128,7 @@ void Start_Scene::Render(HDC _dc)
 	ObjectRender(_dc);
 	IconRender(_dc);
 	HFONT hFont = CreateFont(50, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"��õ��������");
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
 	SelectObject(_dc, hFont);
 	TextOut(_dc, 700, 500, m_Stage.c_str(), m_Stage.size());
 	if (!ServerManager::GetInst()->GetplayerLogin())
@@ -140,7 +140,7 @@ void Start_Scene::Release()
 {
 	Scene::Release();
 
-	RemoveFontResource(L"Res\\Font\\��õ��������.ttf");
+	RemoveFontResource(L"Res\\Font\\인천교육소통.ttf");
 }
 
 void Start_Scene::StartScreenDoFade()
@@ -183,7 +183,7 @@ void Start_Scene::ObjectRender(HDC _dc)
 
 	// ��Ʈ ���� �� ���� ����
 	HFONT hFont = CreateFont(200, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"��õ��������");
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
 	SelectObject(_dc, hFont);
 
 	StartdarknessLevel = max(StartdarknessLevel, 0);
@@ -306,7 +306,7 @@ void Start_Scene::UserLoginRender(HDC _dc)
 		}
 
 		Rectangle(_dc, 625, 700, 925, 750);
-		//TextOut(_dc, 750, 710, L"로그인", 3);
+		TextOut(_dc, 750, 710, L"로그인", 3);
 		//TextOut(_dc, 750, 710, L"로그인", 3);
 		DeleteObject(hFont);
 	}
