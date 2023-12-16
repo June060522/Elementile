@@ -39,6 +39,12 @@ void NameScene::Init()
 
 void NameScene::Update()
 {
+    if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
+    {
+        SceneMgr::GetInst()->LoadScene(L"StartScene");
+        return;
+    }
+
      // 실제 deltaTime을 얻기 위해 이를 대체하세요
     deltaTime += TimeMgr::GetInst()->GetDT();
     NameelapsedTime += deltaTime;
@@ -48,11 +54,7 @@ void NameScene::Update()
         NamedarknessLevel -= 1;
     }
 
-    if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LBUTTON) == KEY_STATE::DOWN)
-    {
-        SceneMgr::GetInst()->LoadScene(L"Start_Scene");
-        return;  
-    }
+
 
     Scene::Update();
 }
