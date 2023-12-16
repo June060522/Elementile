@@ -235,6 +235,7 @@
     <ClInclude Include="GameInfoPanel.h">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="HowIcon.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework.rc">
@@ -388,6 +389,7 @@
     <ClCompile Include="GameInfoPanel.cpp">
       <Filter>Engine\09. UI\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="HowIcon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

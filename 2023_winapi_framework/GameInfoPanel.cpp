@@ -4,20 +4,27 @@
 #include "KeyMgr.h"
 #include "Texture.h"
 #include "Core.h"
+#include "GameSceneUI.h"
+#include "DataManager.h"
 
-GameInfoPanel::GameInfoPanel(wstring s)
+GameInfoPanel::GameInfoPanel(GameSceneUI* _pGameSceneUI)
 {
-	m_isopen = true;
-	m_wexplain = s;
+	m_pGameSceneUI = _pGameSceneUI;
 	m_pDarkBG = ResMgr::GetInst()->TexLoad(L"DarkBack", L"Texture\\darkBG.bmp");
 	m_pBack = ResMgr::GetInst()->TexLoad(L"BackButton", L"Texture\\back.bmp");
 }
 
 void GameInfoPanel::Render(HDC _dc)
 {
+	BGRender(_dc);
 }
 
 void GameInfoPanel::Update()
+{
+	BGUpdate();
+}
+
+void GameInfoPanel::ExplainRender(HDC _dc)
 {
 }
 
@@ -54,13 +61,6 @@ void GameInfoPanel::BGRender(HDC _dc)
 			width, height, RGB(255, 0, 255));
 	}
 
-	{
-		HFONT hFont = CreateFont(50, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
-		SelectObject(_dc, hFont);
-		TextOut(_dc, 500, 700, m_wexplain.c_str(), m_wexplain.size());
-		DeleteObject(hFont);
-	}
 }
 
 void GameInfoPanel::BGUpdate()
@@ -78,7 +78,7 @@ void GameInfoPanel::BGUpdate()
 			mousePos.y >= leftTop.y && mousePos.y <= rightBottom.y)
 		{
 			ResMgr::GetInst()->Play(L"Button");
-			m_isopen = false;
+			m_pGameSceneUI->SetInfoPenalOpen(false);
 		}
 
 	}

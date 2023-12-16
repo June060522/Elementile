@@ -173,6 +173,7 @@
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="GameInfoPanel.h" />
+    <ClInclude Include="HowIcon.h" />
     <ClInclude Include="RankingPanel.h" />
     <ClInclude Include="ServerManager.h" />
     <ClInclude Include="GameSceneUI.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameInfoPanel.cpp" />
+    <ClCompile Include="HowIcon.cpp" />
     <ClCompile Include="RankingPanel.cpp" />
     <ClCompile Include="ServerManager.cpp" />
     <ClCompile Include="GameSceneUI.cpp" />
