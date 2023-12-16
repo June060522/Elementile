@@ -40,7 +40,6 @@ void Start_Scene::Init()
 	m_pSoundOff = ResMgr::GetInst()->TexLoad(L"SoundOff", L"Texture\\soundoff.bmp");
 	m_pDoorOpen = ResMgr::GetInst()->TexLoad(L"Door Open", L"Texture\\dooropen.bmp");
 	m_pDoorClose = ResMgr::GetInst()->TexLoad(L"Door Close", L"Texture\\doorclose.bmp");
-	m_pHelp = ResMgr::GetInst()->TexLoad(L"Question", L"Texture\\howtoplay.bmp");
 }
 
 void Start_Scene::Update()
@@ -307,8 +306,8 @@ void Start_Scene::UserLoginRender(HDC _dc)
 		}
 
 		Rectangle(_dc, 625, 700, 925, 750);
-		TextOut(_dc, 750, 710, L"로그인", 3);
-
+		//TextOut(_dc, 750, 710, L"로그인", 3);
+		//TextOut(_dc, 750, 710, L"로그인", 3);
 		DeleteObject(hFont);
 	}
 }
