@@ -55,8 +55,8 @@ void BaseWindow::WindowCreate()
     int temp2 = GetSystemMetrics(SM_CYSCREEN);
     int iWinposx = GetSystemMetrics(SM_CXSCREEN) / 2 - m_ptResolution.x / 2;
     int iWinposy = GetSystemMetrics(SM_CYSCREEN) / 2 - m_ptResolution.y / 2;
-    
-    m_hWnd = CreateWindowW(WINDOW_CLASS_NAME, L"엘리멘타일", WS_POPUP | WS_VISIBLE,
+
+    m_hWnd = CreateWindowW(WINDOW_CLASS_NAME, L"Elementile", WS_POPUP | WS_VISIBLE,
         0, 0, m_ptResolution.x, m_ptResolution.y, nullptr, nullptr, m_hInst, nullptr);
     
     RECT rt = { iWinposx, iWinposy, iWinposx + m_ptResolution.x, iWinposy + m_ptResolution.y };

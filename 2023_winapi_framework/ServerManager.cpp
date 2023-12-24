@@ -24,7 +24,7 @@ bool ServerManager::Load() {
 	}
 
 	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr("172.31.2.235");  // ������ IP �ּ� (���� ȣ��Ʈ)
+	serverAddr.sin_addr.s_addr = inet_addr("172.31.2.226");  // ������ IP �ּ� (���� ȣ��Ʈ)
 	serverAddr.sin_port = htons(8000);  // ������ ��Ʈ ��ȣ
 
 	if (connect(clientSocket, reinterpret_cast<sockaddr*>(&serverAddr), sizeof(serverAddr)) == SOCKET_ERROR) {
