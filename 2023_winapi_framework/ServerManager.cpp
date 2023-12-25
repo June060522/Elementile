@@ -6,10 +6,10 @@
 
 struct Player
 {
-	string id;
-	string password;
-	int score;
-	string command;
+	string id = "";
+	string password = "";
+	int score = 0;
+	string command = "";
 };
 
 bool ServerManager::Load() {
@@ -24,8 +24,8 @@ bool ServerManager::Load() {
 	}
 
 	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr("172.31.2.235");  // ������ IP �ּ� (���� ȣ��Ʈ)
-	serverAddr.sin_port = htons(8000);  // ������ ��Ʈ ��ȣ
+	serverAddr.sin_addr.s_addr = inet_addr("172.31.2.226");
+	serverAddr.sin_port = htons(8000);
 
 	if (connect(clientSocket, reinterpret_cast<sockaddr*>(&serverAddr), sizeof(serverAddr)) == SOCKET_ERROR) {
 		closesocket(clientSocket);
@@ -36,22 +36,19 @@ bool ServerManager::Load() {
 	Player* p = new Player();
 	p->id = playerId;
 	p->password = playerPassword;
-	p->score = 0;
+	p->score = 1;
 	p->command = "Load";
 
-	// ���� �����͸� ����
 	{
-		std::lock_guard<std::mutex> lock(sendMutex);  // send�� ���ؽ� ����
+		std::lock_guard<std::mutex> lock(sendMutex);  
 		send(clientSocket, reinterpret_cast<char*>(p), sizeof(Player), 0);
 	}
 
-	// �񵿱�� �������� �α��� ������ ��ٸ�
 	Player* receivedPlayer = new Player();
 	{
-		std::lock_guard<std::mutex> lock(recvMutex);  // recv�� ���ؽ� ����
+		std::lock_guard<std::mutex> lock(recvMutex);
 		recv(clientSocket, reinterpret_cast<char*>(receivedPlayer), sizeof(Player), 0);
 	}
-	// �޾ƿ� �����͸� ó��
 	playerScore = receivedPlayer->score;
 	isLogin = true;
 	DataManager::GetInst()->Init();

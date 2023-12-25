@@ -10,7 +10,7 @@ RankingPanel::RankingPanel(GameSceneUI* _pGameSceneUI)
 {
 	m_pGameSceneUI = _pGameSceneUI;
 
-	m_pDarkBG = ResMgr::GetInst()->TexLoad(L"DarkBack", L"Texture\\darkBG.bmp");
+	m_pDarkBG = ResMgr::GetInst()->TexLoad(L"WhiteBack", L"Texture\\WhiteBG.bmp");
 	m_pBack = ResMgr::GetInst()->TexLoad(L"BackButton", L"Texture\\back.bmp");
 	m_pFirstPlace = ResMgr::GetInst()->TexLoad(L"First Price", L"Texture\\firstplace.bmp");
 	m_pSecondPlace = ResMgr::GetInst()->TexLoad(L"Second Price", L"Texture\\secondplace.bmp");
@@ -49,7 +49,7 @@ void RankingPanel::BGRender(HDC _dc)
 	BLENDFUNCTION blendFunc;
 	blendFunc.BlendOp = AC_SRC_OVER;
 	blendFunc.BlendFlags = 0;
-	blendFunc.SourceConstantAlpha = 230;
+	blendFunc.SourceConstantAlpha = 255;
 	blendFunc.AlphaFormat = AC_SRC_ALPHA;
 
 	float width = m_pDarkBG->GetWidth();
@@ -80,7 +80,7 @@ void RankingPanel::BackIconRender(HDC _dc)
 void RankingPanel::RankingRender(HDC _dc)
 {
 	HFONT hFont = CreateFont(50, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"��õ��������");
+		CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"인천교육소통");
 	SelectObject(_dc, hFont);
 	{
 		Vec2 vPos = {725, 300};
