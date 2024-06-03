@@ -1,7 +1,7 @@
 # Elementile
 
 ![WInAPi](https://img.shields.io/badge/WinApi-32-blue.svg)
-![C++](https://img.shields.io/badge/C++23-7.0-green.svg)
+![C++](https://img.shields.io/badge/C++-7.0-green.svg)
 
 - 장르 : 퍼즐
 
@@ -35,7 +35,7 @@ WinApi로 만든 퍼즐 게임입니다.
 
 ## 설치
 
-- https://drive.google.com/file/d/1Wyhlg9J5s7SXZeC79w4fujcXh1Vt1nVt/view?usp=sharing
+- https://drive.google.com/file/d/1QQfqq6fq8cnwmvSpk30knaX_ppnA9B3K/view?usp=sharing
 다운로드 링크 입니다.
 
 
