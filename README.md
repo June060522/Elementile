@@ -1,7 +1,7 @@
 # Elementile
 
 ![WInAPi](https://img.shields.io/badge/WinApi-32-blue.svg)
-![C++](https://img.shields.io/badge/C%23-7.0-green.svg)
+![C++](https://img.shields.io/badge/C++23-7.0-green.svg)
 
 - 장르 : 퍼즐
 
