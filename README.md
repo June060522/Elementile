@@ -1,6 +1,6 @@
 # Elementile
 
-![WInAPi](https://img.shields.io/badge/WinApi-2022.3-blue.svg)
+![WInAPi](https://img.shields.io/badge/WinApi-32-blue.svg)
 ![C++](https://img.shields.io/badge/C%23-7.0-green.svg)
 
 - 장르 : 퍼즐
@@ -31,7 +31,7 @@ WinApi로 만든 퍼즐 게임입니다.
 
 ## 조작법
 
-- **타일 클릭** -마우스 좌클-
+- **타일 클릭** -마우스 좌클릭-
 
 ## 설치
 
